@@ -5,6 +5,7 @@
   "dependencies": {
     "antd-mobile": "^2.2.14",
     "normalize.css": "^8.0.1",
+    "rc-form-hooks": "0.0.1-alpha.5",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router": "^5.0.1",
