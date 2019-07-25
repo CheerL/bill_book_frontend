@@ -1,7 +1,17 @@
-.userBox {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 90vh;
+.body-box {
     width: 100vw;
+    height: 90vh;
+}
+
+.user-box {
+    height: 20rem;
+}
+
+.user-sub-box {
+    width: 20rem;
+    margin: auto;
+}
+
+.flexFullItem {
+    flex: 0 1 100%;
 }
