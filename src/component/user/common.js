@@ -3,7 +3,7 @@ import { Flex, List } from "antd-mobile";
 import { Link } from "react-router-dom";
 
 export const UserBox = ({ children, links, title }) => (
-  <Flex justify="center" align="center" className="body-box">
+  <Flex justify="center" align="center" className="user-body-box">
     <Flex direction='column' justify='between' className="user-box">
       <h2>{title}</h2>
       <List>{children}</List>
