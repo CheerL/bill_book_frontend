@@ -15,7 +15,7 @@ export const Login = () => {
     { path: "forget", text: "忘记密码" },
     { path: "register", text: "注册账号" }
   ];
-  const title = '登录账号'
+  const title = "登录账号";
 
   return (
     <UserBox links={links} title={title}>
