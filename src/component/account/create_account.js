@@ -1,14 +1,22 @@
 import React from "react";
-import { List, InputItem, Button } from "antd-mobile";
 import useForm from "rc-form-hooks";
+import { List, InputItem, Button } from "antd-mobile";
 import { Bar } from "../../common/navbar";
+import { useRouter } from '../../common/router'
+import Context from '../../store'
 
 export const CreateAccount = () => {
+  const router = useRouter()
+  const { accountList } = Context.useStore()
   const { getFieldDecorator, validateFields } = useForm();
   const handleSubmit = e => {
     e.preventDefault();
     validateFields()
-      .then(console.log)
+      .then(account => {
+        account.id = Math.random().toString().substring(2, 15)
+        accountList.addAccount(account)
+        router.history.goBack()
+      })
       .catch(console.log);
   };
 

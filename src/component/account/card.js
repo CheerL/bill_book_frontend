@@ -1,10 +1,18 @@
 import React from "react";
 import { Icon } from "antd-mobile";
 import { useRouter } from '../../common/router'
+import Context from '../../store'
 
 export const AccountCard = ({ account }) => {
-  return (
-    <div className="account-card">
+  const router = useRouter()
+
+  const handleClick = e => {
+    e.preventDefault()
+    router.history.push(`${router.location.pathname}/detail/${account.id}`)
+  }
+
+  return Context.useConsumer(() => (
+    <div className="account-card" onClick={handleClick}>
       <div className="account-card-title account-card-context">
         <div>{account.name}</div>
         <div className="account-card-remark">{account.remark}</div>
@@ -13,7 +21,7 @@ export const AccountCard = ({ account }) => {
         {account.amount}
       </div>
     </div>
-  );
+  ));
 };
 
 export const AccountNew = () => {
