@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "antd": "^3.22.0",
     "antd-mobile": "^2.2.14",
     "mobx": "^5.13.0",
     "mobx-react-lite": "^1.4.1",

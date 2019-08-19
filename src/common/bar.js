@@ -36,6 +36,9 @@ const Bar = ({ title, rightContent = [] }) => {
     icon={<Icon type='left' />}
     onLeftClick={handleBack}
     rightContent={content}
+    style={{
+      borderBottom: '1px solid #f1f1f1'
+    }}
   >
     {title}
   </NavBar>

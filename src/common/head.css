@@ -1,0 +1,44 @@
+.account-head {
+    background-color: white;
+    /* border-bottom: 1px solid #ddd; */
+}
+
+.account-head-text {
+    font-size: 18px;
+    padding: 1rem;
+}
+
+.account-head-amount {
+    font-size: 24px;
+    font-weight: bold;
+    padding: 0 2rem 1rem 2rem;
+}
+
+.detail-head-box {
+    padding: 15px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.detail-head-text {
+    font-size: 18px;
+    text-align: left;
+    flex: 1 1;
+    display: flex;
+    align-items: center;
+}
+
+.detail-head-icon {
+    font-size: 36px;
+    height: 1em;
+    width: 1em;
+    margin-right: 0.5rem;
+}
+
+.detail-head-amount {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: right;
+    flex: 1 1;
+}

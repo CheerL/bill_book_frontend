@@ -1,18 +1,3 @@
-.account-head {
-    background-color: white;
-    /* border-bottom: 1px solid #ddd; */
-}
-
-.account-head-title {
-    font-size: 18px;
-    padding: 0.5rem;
-}
-
-.account-head-amount {
-    font-size: 24px;
-    font-weight: bold;
-    padding: 1rem;
-}
 
 .account-detail-bill-list {
     padding-bottom: 47px;
@@ -22,18 +7,4 @@
     position: fixed !important;
     width: 100vw;
     bottom: 0;
-}
-
-.select-button {
-    flex: 1 1;
-}
-
-.select-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 1px solid #f1f1f1;
-    margin-left: 15px;
-    padding: 0px 15px 0px 0px;
-    height: 44px;
 }

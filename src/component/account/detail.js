@@ -1,7 +1,6 @@
 import React from 'react'
 import Context from '../../store'
-import { AccountHead } from './head'
-import { Bar, Remarked, Title, useRouter, useLink } from '../../common'
+import { Bar, Remarked, Title, useRouter, useLink, AccountHead, colorSpan } from '../../common'
 import { WingBlank, Button } from 'antd-mobile'
 import { AccountDetailCard } from './card'
 
@@ -27,7 +26,7 @@ export const AccountDetail = ({ match }) => {
       }
     },
     {
-      value: 'delete', context: '删除账户', onSelect: () => {
+      value: 'delete', context: colorSpan('删除账户', 'red'), onSelect: () => {
         account_store.removeAccount(account)
         router.history.goBack()
       }

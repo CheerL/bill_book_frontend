@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button } from 'antd-mobile'
+import './select.css'
 
 const Select = ({ data, value, onChange }) => {
   if (!value) {
