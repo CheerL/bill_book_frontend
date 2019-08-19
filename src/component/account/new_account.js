@@ -1,21 +1,21 @@
 import React from "react";
 import useForm from "rc-form-hooks";
 import { List, InputItem, Button } from "antd-mobile";
-import { Bar } from "../../common/navbar";
-import { useRouter } from '../../common/router'
+import { Bar, useLink } from "../../common";
 import Context from '../../store'
 
-export const CreateAccount = () => {
-  const router = useRouter()
-  const { accountList } = Context.useStore()
+export const NewAccount = () => {
+  const goBack = useLink()
+  const { account_store } = Context.useStore()
   const { getFieldDecorator, validateFields } = useForm();
   const handleSubmit = e => {
     e.preventDefault();
     validateFields()
-      .then(account => {
-        account.id = Math.random().toString().substring(2, 15)
-        accountList.addAccount(account)
-        router.history.goBack()
+      .then(form => {
+        form.id = Math.random().toString().substring(2, 15)
+        form.amount = Number(form.amount)
+        account_store.addAccount(form)
+        goBack()
       })
       .catch(console.log);
   };
@@ -35,7 +35,7 @@ export const CreateAccount = () => {
           </InputItem>
         )}
         {getFieldDecorator("amount")(
-          <InputItem type="money" placeholder="0.0" moneyKeyboardAlign="left">
+          <InputItem type="money" placeholder="0" moneyKeyboardAlign="left">
             余额
           </InputItem>
         )}

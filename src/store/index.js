@@ -1,6 +1,8 @@
 import React from "react";
 import { useLocalStore, useObserver } from "mobx-react-lite";
-import accountList from './account'
+import account_store from './account'
+import bill_store from './bill'
+import current from './current'
 
 const ContextCreater = stores => {
   const Context = React.createContext();
@@ -31,7 +33,16 @@ const ContextCreater = stores => {
 };
 
 const Context = ContextCreater({
-  accountList
+  account_store,
+  bill_store,
+  current,
+
+  get accountsExceptCurrent() {
+    if (this.current.account === undefined) {
+      return []
+    }
+    return this.account_store.accounts.filter(account => account !== this.current.account)
+  }
 })
 
 export default Context;

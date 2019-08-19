@@ -4,21 +4,24 @@ import { Layout } from "../layout";
 import { AccountHead } from './head'
 import { AccountCard, AccountNew } from './card'
 import { Route, Redirect, Switch } from "react-router-dom";
-import { CreateAccount } from './create_account'
+import { NewAccount } from './new_account'
+import { NewTransfer } from './new_transfer'
+import { ChangeAccount } from './change_account'
 import { AccountDetail } from './detail'
+import { TransferDetail } from './transfer_detail'
 import Context from '../../store'
+import { Title } from '../../common'
 import "./index.css";
 
 const AccountIndex = () => {
-  const { accountList } = Context.useStore()
-  window.store = accountList
+  const { account_store } = Context.useStore()
 
   return Context.useConsumer(() => (
     <Layout>
-      <AccountHead />
+      <AccountHead text='总资产' amount={account_store.total_amount} />
       <WingBlank>
-        <p className="account-cards-title">我的账户({accountList.accounts.length})</p>
-        {accountList.accounts.map(account => <AccountCard account={account} key={account.id}/>)}
+        <Title title={`我的账户(${account_store.accounts.length})`} />
+        {account_store.accounts.map(account => <AccountCard account={account} key={account.id} space/>)}
         <AccountNew />
       </WingBlank>
     </Layout>
@@ -28,10 +31,13 @@ const AccountIndex = () => {
 export const Account = ({ match }) => {
   return <Switch>
     <Context.Provider>
-    <Route path={`${match.url}/new`} component={CreateAccount} />
-    <Route path={`${match.url}/detail/:id`} component={AccountDetail} />
-    <Route exact path={`${match.url}`} component={AccountIndex} />
-    <Redirect to={`${match.url}`} />
+    <Route path={'/account/new'} component={NewAccount} />
+    <Route path={'/account/detail/:id'} component={AccountDetail} />
+    <Route path={'/account/change/:id'} component={ChangeAccount} />
+    <Route path={'/account/transfer/new'} component={NewTransfer} />
+    <Route path={'/account/transfer/detail/:id'} component={TransferDetail} />
+    <Route exact path={'/account'} component={AccountIndex} />
+    {/* <Redirect to={'/account'} /> */}
     </Context.Provider>
   </Switch>
 }

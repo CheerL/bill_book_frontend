@@ -1,0 +1,23 @@
+.card {
+    font-size: 18px;
+    padding: 0.5rem 1.5rem;
+    background-color: white;
+    box-sizing: border-box;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 58px;
+}
+
+.card-amount {
+    flex: 1 1;
+    text-align: right;
+    color: gray
+}
+
+.card-center {
+    flex: 1 1;
+    text-align: center;
+    padding: 10px;
+}

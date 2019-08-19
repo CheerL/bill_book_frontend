@@ -1,7 +1,7 @@
 const initAccounts = [
-    { name: "现金", id: "00000000", remark: '现金'},
-    { name: "支付宝", amount: 1, id: "00000001" },
-    { name: "微信", amount: 2, id: "00000002" }
+    { name: "现金", id: "000", remark: '现金'},
+    { name: "支付宝", amount: 1, id: "001" },
+    { name: "微信", amount: 2, id: "002" }
   ]
 
 const accountStoreCreater = ({ id, name, amount= 0, remark = "" }) => {
@@ -33,6 +33,13 @@ const accountListStoreCreater = initValue => {
     },
 
     getAccount(id) {
+      if (id === '') {
+        return {
+          id: '',
+          name: '外部'
+        }
+      }
+
       const account = this.accounts.find(account => account.id === id)
       if (!account) {
         throw new Error(`no account whose id ${id}`)
@@ -40,8 +47,8 @@ const accountListStoreCreater = initValue => {
       return account
     },
     addAccount(account) {
-      const newAccount = accountStoreCreater(account)
-      this.accounts.push(newAccount)
+      const accountStore = accountStoreCreater(account)
+      this.accounts.push(accountStore)
     },
     removeAccount(accountStore) {
       this.accounts.remove(accountStore)

@@ -14,43 +14,26 @@
     padding: 1rem;
 }
 
-.account-card {
-    font-size: 18px;
-    padding: 0.5rem 1.5rem;
-    margin: 0.5rem 0;
-    background-color: white;
-    /* border: 1px solid #ddd; */
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 58px;
+.account-detail-bill-list {
+    padding-bottom: 47px;
 }
 
-.account-cards-title {
-    font-size: 15px;
+.account-detail-add-transfer {
+    position: fixed !important;
+    width: 100vw;
+    bottom: 0;
 }
 
-.account-card-context {
+.select-button {
     flex: 1 1;
 }
 
-.account-card-title {
-    text-align: left;
-}
-
-.account-card-amount {
-    text-align: right;
-    color: gray;
-}
-
-.account-card-remark {
-    font-size: 14px;
-    margin: 2px;
-    color: lightgrey;
-}
-
-.account-card-new {
-    text-align: center;
-    padding: 10px;
+.select-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #f1f1f1;
+    margin-left: 15px;
+    padding: 0px 15px 0px 0px;
+    height: 44px;
 }
