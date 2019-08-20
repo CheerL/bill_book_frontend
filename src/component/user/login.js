@@ -19,6 +19,7 @@ export const Login = () => {
           user_store.loginFunc({
             id: '001',
             nickname: 'Cheer.L',
+            username: form.username,
             avatar: 'default',
             jwt: 'aaa'
           })

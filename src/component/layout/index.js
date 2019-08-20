@@ -17,6 +17,7 @@ export const Layout = ({ children }) => {
     setSelected(key);
     router.history.push(`/${key}`);
   };
+  const [selected, setSelected] = useState(location)
 
   return (<div className='layout-body-box'>
     <TabBar>
