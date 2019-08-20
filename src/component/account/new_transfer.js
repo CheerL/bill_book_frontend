@@ -1,7 +1,7 @@
 import React from "react";
 import useForm from "rc-form-hooks";
-import { List, InputItem, Button, Picker } from "antd-mobile";
-import { Bar, useLink, Select } from "../../common";
+import { List, InputItem, Picker } from "antd-mobile";
+import { Bar, useLink, Select, BottomButton } from "../../common";
 import Context from '../../store'
 import { AccountPopup } from './popup'
 
@@ -42,13 +42,13 @@ export const NewTransfer = () => {
       <AccountPopup />
       <List>
         {getFieldDecorator('direction')(
-        <Select data={[{ value: 'out', label: '转出' }, { value: 'in', label: '转入' }]} />
+          <Select data={[{ value: 'out', label: '转出' }, { value: 'in', label: '转入' }]} />
         )}
         {getFieldDecorator('target')(
           <Picker
             data={store.accountsExceptCurrent.map(
               account => ({ value: account.id, label: account.name })
-              ).concat([{value: '', label: '外部'}])}
+            ).concat([{ value: '', label: '外部' }])}
             cols={1}
           >
             <List.Item arrow="horizontal">账户</List.Item>
@@ -64,10 +64,10 @@ export const NewTransfer = () => {
             金额
           </InputItem>
         )}
-        <Button type="primary" onClick={handleSubmit}>
-          转账
-        </Button>
       </List>
+      <BottomButton type="primary" onClick={handleSubmit}>
+        转账
+      </BottomButton>
     </>
   ));
 };

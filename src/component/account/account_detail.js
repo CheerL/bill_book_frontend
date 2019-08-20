@@ -1,18 +1,8 @@
 import React from 'react'
 import Context from '../../store'
-import { Bar, Remarked, Title, useRouter, useLink, AccountHead, colorSpan } from '../../common'
-import { WingBlank, Button } from 'antd-mobile'
+import { Bar, Remarked, Title, useRouter, AccountHead, colorSpan, BottomButton } from '../../common'
+import { WingBlank } from 'antd-mobile'
 import { AccountDetailCard } from './card'
-
-const AddTransfer = () => {
-  const handleClick = useLink('/account/transfer/new')
-
-  return <Button
-    className='account-detail-add-transfer'
-    type='primary'
-    onClick={handleClick}
-  >发起转账</Button>
-}
 
 export const AccountDetail = ({ match }) => {
   const router = useRouter()
@@ -47,7 +37,9 @@ export const AccountDetail = ({ match }) => {
           bill => <AccountDetailCard bill={bill} key={bill.id} space />
         )}
       </WingBlank>
-      <AddTransfer />
+      <BottomButton onClick={() => router.history.push('/account/transfer/new')} >
+        发起转账
+      </BottomButton>
     </>
   ))
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import { Flex, List } from "antd-mobile";
 import { Link } from "react-router-dom";
+import './index.css'
 
 export const UserBox = ({ children, links, title }) => (
   <Flex justify="center" align="center" className="user-body-box">

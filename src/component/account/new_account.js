@@ -1,7 +1,7 @@
 import React from "react";
 import useForm from "rc-form-hooks";
-import { List, InputItem, Button } from "antd-mobile";
-import { Bar, useLink } from "../../common";
+import { List, InputItem } from "antd-mobile";
+import { Bar, useLink, BottomButton } from "../../common";
 import Context from '../../store'
 
 export const NewAccount = () => {
@@ -13,7 +13,7 @@ export const NewAccount = () => {
     validateFields()
       .then(form => {
         form.id = Math.random().toString().substring(2, 15)
-        form.amount = Number(form.amount)
+        form.amount = form.amount === undefined ? 0 : Number(form.amount)
         account_store.addAccount(form)
         goBack()
       })
@@ -22,7 +22,7 @@ export const NewAccount = () => {
 
   return (
     <>
-      <Bar title='新建账户'/>
+      <Bar title='新建账户' />
       <List>
         {getFieldDecorator("name")(
           <InputItem type="text" placeholder="账户名称">
@@ -39,10 +39,10 @@ export const NewAccount = () => {
             余额
           </InputItem>
         )}
-        <Button type="primary" onClick={handleSubmit}>
-          新建
-        </Button>
       </List>
+      <BottomButton type="primary" onClick={handleSubmit}>
+        新建
+      </BottomButton>
     </>
   );
 };

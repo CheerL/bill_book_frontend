@@ -1,14 +1,16 @@
 import React, { useEffect } from "react";
 import useForm from "rc-form-hooks";
-import { List, InputItem, Button } from "antd-mobile";
-import { Bar, useLink } from "../../common";
+import { List, InputItem } from "antd-mobile";
+import { Bar, useLink, BottomButton } from "../../common";
 import Context from '../../store'
 
 export const ChangeAccount = ({ match }) => {
   const goBack = useLink()
-  const { account_store } = Context.useStore()
+  const { account_store, current } = Context.useStore()
   const id = match.params.id
   const account = account_store.getAccount(id)
+  current.account = account
+
   const { getFieldDecorator, validateFields, setFieldsValue } = useForm();
   const handleSubmit = e => {
     e.preventDefault();
@@ -50,10 +52,10 @@ export const ChangeAccount = ({ match }) => {
             余额
           </InputItem>
         )}
-        <Button type="primary" onClick={handleSubmit}>
-          修改
-        </Button>
       </List>
+      <BottomButton type="primary" onClick={handleSubmit}>
+        修改
+      </BottomButton>
     </>
   );
 };

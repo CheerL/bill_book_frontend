@@ -37,7 +37,7 @@ const Bar = ({ title, rightContent = [] }) => {
     onLeftClick={handleBack}
     rightContent={content}
     style={{
-      borderBottom: '1px solid #f1f1f1'
+      // borderBottom: '1px solid #f1f1f1'
     }}
   >
     {title}

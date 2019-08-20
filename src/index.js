@@ -1,12 +1,13 @@
 import React from 'react';
 import { render } from 'react-dom';
+import Context from './store'
 import * as serviceWorker from './serviceWorker';
 import 'normalize.css'
 
 import App from './App';
 
 render(
-    <App />,
+    <Context.Provider><App /></Context.Provider>,
     document.getElementById('root')
 );
 

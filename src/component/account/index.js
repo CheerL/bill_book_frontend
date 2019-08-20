@@ -6,7 +6,8 @@ import { Route, Redirect, Switch } from "react-router-dom";
 import { NewAccount } from './new_account'
 import { NewTransfer } from './new_transfer'
 import { ChangeAccount } from './change_account'
-import { AccountDetail } from './detail'
+import { ChangeTransfer } from './change_transfer'
+import { AccountDetail } from './account_detail'
 import { TransferDetail } from './transfer_detail'
 import Context from '../../store'
 import { Title, AccountHead} from '../../common'
@@ -34,6 +35,7 @@ export const Account = ({ match }) => {
     <Route path={'/account/change/:id'} component={ChangeAccount} />
     <Route path={'/account/transfer/new'} component={NewTransfer} />
     <Route path={'/account/transfer/detail/:id'} component={TransferDetail} />
+    <Route path={'/account/transfer/change/:id'} component={ChangeTransfer} />
     <Route exact path={'/account'} component={AccountIndex} />
     <Redirect to={'/account'} />
   </Switch>

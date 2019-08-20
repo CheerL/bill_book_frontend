@@ -1,7 +1,7 @@
 import React from "react";
 import { InputItem, Button } from "antd-mobile";
 import useForm from "rc-form-hooks";
-import { UserBox } from "../common";
+import { UserBox } from "./common";
 
 export const Forget = () => {
   const { getFieldDecorator, validateFields } = useForm();
