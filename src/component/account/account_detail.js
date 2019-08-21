@@ -12,12 +12,12 @@ export const AccountDetail = ({ match }) => {
   const account = account_store.getAccount(id)
   const barRightContent = [
     {
-      value: 'change', context: '修改账户', onSelect: () => {
+      value: 'change', content: '修改账户', onSelect: () => {
         router.history.push(`/account/change/${id}`)
       }
     },
     {
-      value: 'delete', context: colorSpan('删除账户', 'red'), onSelect: () => {
+      value: 'delete', content: colorSpan('删除账户', 'red'), onSelect: () => {
         account_store.removeAccount(account)
         router.history.goBack()
       }

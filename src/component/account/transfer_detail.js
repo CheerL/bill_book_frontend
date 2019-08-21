@@ -17,12 +17,12 @@ export const TransferDetail = ({ match }) => {
   const remark = bill.remark ? colorSpan(bill.remark) : '未填写'
   const rightContent = [
     {
-      value: 'change', context: '修改转账', onSelect: () => {
+      value: 'change', content: '修改转账', onSelect: () => {
         router.history.push(`/account/transfer/change/${id}`)
       }
     },
     {
-      value: 'delete', context: colorSpan('删除转账', 'red'), onSelect: () => {
+      value: 'delete', content: colorSpan('删除转账', 'red'), onSelect: () => {
         bill_store.removeBill(bill)
         router.history.goBack()
       }

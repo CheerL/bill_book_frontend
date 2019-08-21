@@ -19,7 +19,7 @@ const Content = ({ content }) => {
         <Popover.Item
           key={key}
           value={item.value}
-        >{item.context}</Popover.Item>
+        >{item.content}</Popover.Item>
     )}
     onVisibleChange={newVisible => visible = newVisible}
     onSelect={opt => handleSelect(opt)}

@@ -37,7 +37,7 @@ export const ChangeAccount = ({ match }) => {
 
   return (
     <>
-      <Bar title={'修改账户'} />
+      <Bar title='修改账户' />
       <List>
         {getFieldDecorator("name")(
           <InputItem type="text" placeholder="账户名称">

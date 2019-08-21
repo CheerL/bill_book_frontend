@@ -1,6 +1,7 @@
 import Remarked from './remarked'
 import Card from './card'
 import Bar from './bar'
+import Iconed from './iconed'
 import Title from './title'
 import Select from './select'
 import colorSpan from './color_span'
@@ -14,6 +15,7 @@ export {
     Card,
     Title,
     Bar,
+    Iconed,
     Select,
     colorSpan,
     AccountHead,
