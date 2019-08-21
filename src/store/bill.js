@@ -130,15 +130,10 @@ const BillStoreCreater = bill => {
       }
       return undefined
     },
-    get transfer_text() {
-      if (this.isOut !== undefined) {
-        return this.isOut ? '转出' : '转入'
-      }
-      return undefined
-    },
+
     get transfer_remark() {
       if (this.isOut !== undefined && this.target !== undefined) {
-        return `${this.isOut ? '向' : '从'}${this.target.name}`
+        return this.isOut ? `向${this.target.name}转出` : `从${this.target.name}转入`
       }
       return undefined
     },

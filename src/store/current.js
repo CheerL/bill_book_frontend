@@ -1,5 +1,4 @@
 const Current = {
-    user: undefined,
     page: undefined,
     account: undefined,
     bill: undefined,

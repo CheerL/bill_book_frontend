@@ -1,0 +1,18 @@
+.mine-avatar {
+    margin-right: 8px;
+}
+
+.user-head {
+    padding: 0;
+    -webkit-transition: background-color 200ms;
+    transition: background-color 200ms;
+    background-color: white;
+}
+
+.user-head::before {
+    height: 0;
+}
+
+.user-head-active {
+    background-color: #ddd;
+}

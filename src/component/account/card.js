@@ -1,6 +1,7 @@
 import React from "react";
 import { Icon } from "antd-mobile";
-import { useLink, Card } from '../../common'
+import { Card } from '../../common'
+import { useLink } from '../../router'
 import Context from '../../store'
 
 export const AccountCard = ({ account, space = false }) => {
@@ -56,7 +57,7 @@ const TransferCard = ({bill, space=false}) => {
   return Context.useConsumer(() => (
     <Card
     handleClick={handleClick}
-    text={bill.transfer_text}
+    text='转账'
     remark={bill.transfer_remark}
     amount={bill.transfer_amount}
     space={space}

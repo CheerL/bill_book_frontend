@@ -3,7 +3,7 @@ import { useLocalStore, useObserver } from "mobx-react-lite";
 import account_store from './account'
 import bill_store from './bill'
 import current from './current'
-import user_store from './user'
+import user from './user'
 
 const ContextCreater = stores => {
   const Context = React.createContext();
@@ -36,7 +36,7 @@ const ContextCreater = stores => {
 const Context = ContextCreater({
   account_store,
   bill_store,
-  user_store,
+  user,
   current,
 
   get accountsExceptCurrent() {

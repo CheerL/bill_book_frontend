@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import useForm from "rc-form-hooks";
 import { List, InputItem } from "antd-mobile";
-import { Bar, useLink, Select, BottomButton, UnmodifiedItem } from "../../common";
+import { Bar, Select, BottomButton, UnmodifiedItem } from "../../common";
+import { useLink } from '../../router'
 import Context from '../../store'
 
 export const ChangeTransfer = ({ match }) => {

@@ -1,7 +1,8 @@
 import React from "react";
 import useForm from "rc-form-hooks";
 import { List, InputItem, Picker } from "antd-mobile";
-import { Bar, useLink, Select, BottomButton } from "../../common";
+import { Bar, Select, BottomButton } from "../../common";
+import { useLink } from '../../router'
 import Context from '../../store'
 import { AccountPopup } from './popup'
 

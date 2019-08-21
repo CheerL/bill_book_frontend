@@ -1,8 +1,8 @@
-.head-box {
+.head-box-wrap {
     background-color: white;
 }
 
-.head-box::before {
+.head-box-wrap::before {
     content: '';
     position: relative;
     background-color: #ddd;
@@ -18,32 +18,24 @@
     transform: scaleY(0.5);
 }
 
-.head-text {
-    font-size: 18px;
-    padding: 1rem;
-}
-
-.head-amount {
-    font-size: 24px;
-    font-weight: bold;
-    padding: 0 2rem 1rem 2rem;
-}
-
-.detail-head-box {
+.head-box {
     padding: 15px;
-    background-color: white;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.detail-head-text {
+.head-title {
     font-size: 18px;
     text-align: left;
     flex: 1 1;
     display: flex;
     align-items: center;
 }
-
+.head-extra {
+    font-size: 16px;
+    text-align: right;
+    flex: 1 1;
+}
 .detail-head-icon {
     font-size: 36px;
     width: 1em;
@@ -51,9 +43,22 @@
     margin-right: 0.5rem;
 }
 
+
+
 .detail-head-amount {
     font-size: 24px;
     font-weight: bold;
-    text-align: right;
-    flex: 1 1;
+}
+.account-box {
+    /* background-color: white; */
+}
+.account-head-text {
+    font-size: 18px;
+    padding: 1rem;
+}
+
+.account-head-amount {
+    font-size: 24px;
+    font-weight: bold;
+    padding: 0 2rem 1rem 2rem;
 }

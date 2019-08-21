@@ -1,6 +1,7 @@
 import React from 'react'
 import Context from '../../store'
-import { Bar, useRouter, colorSpan, DetailHead } from '../../common'
+import { useRouter } from '../../router'
+import { Bar, colorSpan, DetailHead } from '../../common'
 import { List } from 'antd-mobile'
 
 

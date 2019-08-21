@@ -4,26 +4,36 @@ import './head.css'
 
 export const AccountHead = ({ text, amount }) => {
   return (
-    <div className='head-box'>
+    <div className='head-box-wrap'>
       <div>
-        <div className='head-text'>{text}</div>
-        <div className='head-amount'>{amount}</div>
+        <div className='account-head-text'>{text}</div>
+        <div className='account-head-amount'>{amount}</div>
       </div>
     </div>
   );
 };
 
-export const DetailHead = ({ text, amount, icon }) => {
+const BasicHead = ({ title, extra, icon, className, titlaClassName, extraClassName, onClick }) => {
+  const withSpace = text => text ? ` ${text}` : ''
   return (
-    <div className='head-box'>
-      <div className='detail-head-box'>
-        <div className='detail-head-text'>
-          {icon ? <Icon type={icon} className='detail-head-icon' /> : null}
-          {text}
+    <div className={`head-box-wrap${withSpace(className)}`} onClick={onClick} >
+      <div className={`head-box${withSpace(className)}`}>
+        <div className={`head-title${withSpace(titlaClassName)}`}>
+          {icon}
+          {title}
         </div>
-        <div className='detail-head-amount'>
-          {amount}
+        <div className={`head-extra${withSpace(extraClassName)}`}>
+          {extra}
         </div>
       </div>
     </div>)
+}
+
+export const DetailHead = ({ text, amount, icon, onClick }) => {
+  const detialIcon = icon ? <Icon type={icon} className='detail-head-icon' /> : null
+  return BasicHead({ title: text, icon: detialIcon, extra: amount, extraClassName: 'detail-head-amount', onClick })
+}
+
+export const AvatarHead = ({ title, avatar, extra, className, extraClassName, onClick }) => {
+  return BasicHead({ title, icon: avatar, extra, className, extraClassName, onClick })
 }

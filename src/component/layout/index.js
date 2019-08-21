@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TabBar } from "antd-mobile";
 import { Icon } from 'antd'
-import { useRouter } from "../../common/router";
+import { useRouter } from "../../router";
 import "./index.css";
 
 export const Layout = ({ children }) => {

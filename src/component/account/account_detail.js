@@ -1,6 +1,7 @@
 import React from 'react'
 import Context from '../../store'
-import { Bar, Remarked, Title, useRouter, AccountHead, colorSpan, BottomButton } from '../../common'
+import {useRouter} from '../../router'
+import { Bar, Remarked, Title, AccountHead, colorSpan, BottomButton } from '../../common'
 import { WingBlank } from 'antd-mobile'
 import { AccountDetailCard } from './card'
 

@@ -1,7 +1,8 @@
 import React from "react";
 import useForm from "rc-form-hooks";
 import { List, InputItem } from "antd-mobile";
-import { Bar, useLink, BottomButton } from "../../common";
+import { Bar, BottomButton } from "../../common";
+import { useLink } from '../../router'
 import Context from '../../store'
 
 export const NewAccount = () => {

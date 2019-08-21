@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Context from '../../store'
-import { useLink } from '../../common'
+import { useLink } from '../../router'
 import Cascader from 'rmc-cascader'
 import Popup from 'rmc-cascader/lib/Popup'
 import 'antd-mobile/lib/picker/style/css'

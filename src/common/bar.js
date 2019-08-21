@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLink } from '.'
+import { useLink } from '../router'
 import { NavBar, Icon, Popover } from 'antd-mobile'
 
 const Content = ({ content }) => {
