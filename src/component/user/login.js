@@ -1,14 +1,12 @@
 import React from "react";
 import { InputItem, Button } from "antd-mobile";
 import useForm from "rc-form-hooks";
-import { UserBox } from "./common";
-import { useLink } from '../../router'
+import { UserBox } from "./box";
 import Context from '../../store'
 
 export const Login = () => {
-  const handleLogin = useLink('/bill')
   const { getFieldDecorator, validateFields } = useForm();
-  const { use } = Context.useStore()
+  const { user } = Context.useStore()
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -16,14 +14,13 @@ export const Login = () => {
       .then(form => {
         console.log(form)
         if (form.username === 'cheer' && form.password === 'lcr0717') {
-          use.loginFunc({
+          user.loginFunc({
             id: '001',
             nickname: 'Cheer.L',
             username: form.username,
             avatar: 'default',
             jwt: 'aaa'
           })
-          handleLogin()
         }
       })
       .catch(console.log);

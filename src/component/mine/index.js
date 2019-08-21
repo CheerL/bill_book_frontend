@@ -28,7 +28,7 @@ const MineUserHead = () => {
       onTouchEnd={switchActive}
       onClick={handleClick}
     >
-      <AvatarHead title={title} avatar={avatar} className={active ? 'user-head user-head-active' : 'user-head'} />
+      <AvatarHead title={title} avatar={avatar} className={active ? 'mine-user-head mine-user-head-active' : 'mine-user-head'} />
     </List.Item>
   )
 }

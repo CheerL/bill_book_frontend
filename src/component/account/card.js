@@ -35,7 +35,7 @@ export const AccountNew = () => {
 };
 
 const BillCard = ({ bill, space = false }) => {
-  const handleClick = useLink(`/bill/detail/${bill.id}`)
+  const handleClick = useLink(`/billbook/bill/detail/${bill.id}`)
 
   return Context.useConsumer(() => (
     <Card

@@ -4,7 +4,7 @@ import Context from './store'
 
 import { User } from "./component/user";
 import { Account } from './component/account'
-import { Bill } from './component/bill'
+import { Billbook } from './component/billbook'
 import { Mine } from './component/mine'
 
 const App = () => {
@@ -14,9 +14,9 @@ const App = () => {
       {user.login ?
         SwitchRoute([
           { path: "/account", component: Account },
-          { path: "/bill", component: Bill },
+          { path: "/billbook", component: Billbook },
           { path: "/mine", component: Mine },
-          { path: '/bill' }
+          { path: '/billbook' }
         ])() :
         SwitchRoute([
           { path: "/user", component: User },

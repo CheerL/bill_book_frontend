@@ -9,7 +9,7 @@ export const Layout = ({ children }) => {
   const location = router.location.pathname.split('/')[1]
   const tabs = [
     { title: "账户", key: "account", icon: "wallet"},
-    { title: "账本", key: "bill", icon: "account-book" },
+    { title: "账本", key: "billbook", icon: "account-book" },
     { title: "我的", key: "mine", icon: "user" }
   ];
 
