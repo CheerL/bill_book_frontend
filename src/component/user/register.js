@@ -7,7 +7,9 @@ export const Register = () => {
   const { getFieldDecorator, validateFields } = useForm();
   const handleSubmit = e => {
     e.preventDefault();
-    validateFields().then(console.log);
+    validateFields()
+      .then(console.log)
+      .catch(console.log);
   };
   const links = [{ path: "login", text: "返回登录" }];
   const title = '注册账号'

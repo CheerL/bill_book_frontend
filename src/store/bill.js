@@ -1,8 +1,10 @@
+import date from 'date-and-time'
+
 const initBills = [
   {
     id: '000',
-    bill_book: '000',
-    time: null,
+    billbook: '000',
+    time: 1566377107000,
     amount: 5,
     remark: '同事聚餐',
     account: '000',
@@ -15,8 +17,8 @@ const initBills = [
   },
   {
     id: '001',
-    bill_book: '000',
-    time: null,
+    billbook: '000',
+    time: 1566377107000,
     amount: 25,
     remark: '',
     account: '000',
@@ -29,8 +31,8 @@ const initBills = [
   },
   {
     id: '002',
-    bill_book: '000',
-    time: null,
+    billbook: '000',
+    time: 1566377107000,
     amount: 100,
     remark: '',
     account: '001',
@@ -43,8 +45,8 @@ const initBills = [
   },
   {
     id: '003',
-    bill_book: '001',
-    time: null,
+    billbook: '001',
+    time: 1566377107000,
     amount: 35,
     remark: '旅行',
     account: '000',
@@ -57,8 +59,8 @@ const initBills = [
   },
   {
     id: '004',
-    bill_book: 'transfer',
-    time: null,
+    billbook: 'transfer',
+    time: 1566377107000,
     amount: 100,
     remark: '',
     account: '',
@@ -71,8 +73,8 @@ const initBills = [
   },
   {
     id: '005',
-    bill_book: 'transfer',
-    time: null,
+    billbook: 'transfer',
+    time: 1566377107000,
     amount: 20,
     remark: '',
     account: '',
@@ -85,8 +87,8 @@ const initBills = [
   },
   {
     id: '006',
-    bill_book: 'transfer',
-    time: null,
+    billbook: 'transfer',
+    time: 1566377107000,
     amount: 20,
     remark: '',
     account: '',
@@ -100,7 +102,7 @@ const initBills = [
 ]
 
 const BillStoreCreater = bill => {
-  if (bill.bill_book === 'transfer') {
+  if (bill.billbook === 'transfer') {
     bill.account = ''
     bill.cat_0 = ''
     bill.cat_1 = ''
@@ -109,7 +111,7 @@ const BillStoreCreater = bill => {
 
   const store = {
     id: bill.id,
-    bill_book: bill.bill_book,
+    billbook: bill.billbook,
     time: bill.time,
     amount: bill.amount,
     remark: bill.remark,
@@ -121,8 +123,15 @@ const BillStoreCreater = bill => {
     cat_1: bill.cat_1,
     cat_2: bill.cat_2,
 
+    get time_date() {
+      return this.time ? new Date(this.time) : null
+    },
+    get time_str() {
+      return this.time ? date.format(new Date(this.time), 'YYYY-MM-DD') : ''
+    },
+
     get isTransfer() {
-      return this.bill_book === 'transfer'
+      return this.billbook === 'transfer'
     },
     get isOut() {
       if (this.isTransfer && this.now_account !== undefined) {
@@ -184,8 +193,8 @@ const BillListStoreCreater = initValue => {
         bill.consumer === account
       ))
     },
-    filterByBillBook(bill_book) {
-      return this.bills.filter(bill => bill.bill_book === bill_book)
+    filterByBillBook(billbook) {
+      return this.bills.filter(bill => bill.billbook === billbook)
     }
   }
   return store

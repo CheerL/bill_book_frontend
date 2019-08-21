@@ -28,3 +28,7 @@
   font-size: 12px;
   margin-top: 2px;
 }
+
+input {
+  text-align: end;
+}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useForm from "rc-form-hooks";
-import { List, InputItem } from "antd-mobile";
+import { List, InputItem, DatePicker } from "antd-mobile";
 import { Bar, Select, BottomButton, UnmodifiedItem } from "../../common";
 import { useLink } from '../../router'
 import Context from '../../store'
@@ -27,6 +27,7 @@ export const ChangeTransfer = ({ match }) => {
 
         bill.remark = form.remark
         bill.amount = form.amount ? Number(form.amount) : 0
+        bill.time = Date.parse(form.time)
         goBack()
       })
       .catch(console.log);
@@ -35,7 +36,8 @@ export const ChangeTransfer = ({ match }) => {
   useEffect(() => {
     setFieldsValue({
       remark: bill.remark,
-      amount: bill.amount
+      amount: bill.amount,
+      time: bill.time_date
     })
     // eslint-disable-next-line
   }, [])
@@ -54,14 +56,20 @@ export const ChangeTransfer = ({ match }) => {
         ]} />
         <UnmodifiedItem extra={changed ? consumer.name : payer.name} text='转出账户' />
         <UnmodifiedItem extra={changed ? payer.name : consumer.name} text='转入账户' />
+        
+        {getFieldDecorator("amount")(
+          <InputItem type="money" placeholder="0" moneyKeyboardAlign="right">
+            金额
+          </InputItem>
+        )}
+        {getFieldDecorator('time')(
+          <DatePicker mode='date' title='选择转账日期' >
+            <List.Item arrow="horizontal">时间</List.Item>
+          </DatePicker>
+        )}
         {getFieldDecorator("remark")(
           <InputItem type="text" placeholder="备注" defaultValue=''>
             备注
-          </InputItem>
-        )}
-        {getFieldDecorator("amount")(
-          <InputItem type="money" placeholder="0" moneyKeyboardAlign="left">
-            金额
           </InputItem>
         )}
       </List>

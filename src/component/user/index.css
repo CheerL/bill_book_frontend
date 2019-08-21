@@ -1,11 +1,13 @@
 .user-body-box {
   width: 100vw;
   height: 75vh;
+  /* max-height: 75vh; */
 }
 
 .user-box {
-  height: 24rem;
-  flex-basis: 20rem;
+  height: 100%;
+  max-height: 24rem;
+  width: 20rem;
 }
 
 .user-link-box {

@@ -13,6 +13,7 @@ export const TransferDetail = ({ match }) => {
 
   const payer = colorSpan(account_store.getAccount(bill.payer).name)
   const consumer = colorSpan(account_store.getAccount(bill.consumer).name)
+  const time = bill.time ? colorSpan(bill.time_str) : '未填写'
   const remark = bill.remark ? colorSpan(bill.remark) : '未填写'
   const rightContent = [
     {
@@ -34,6 +35,7 @@ export const TransferDetail = ({ match }) => {
       <List>
         <List.Item extra={payer}>转出账户</List.Item>
         <List.Item extra={consumer}>转入账户</List.Item>
+        <List.Item extra={time}>时间</List.Item>
         <List.Item extra={remark}>备注</List.Item>
       </List>
     </>

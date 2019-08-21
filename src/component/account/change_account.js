@@ -17,9 +17,10 @@ export const ChangeAccount = ({ match }) => {
     e.preventDefault();
     validateFields()
       .then(form => {
-        // form.amount = Number(form.amount)
-        account.name = form.name
-        account.remark = form.remark
+        if (form.name) {
+          account.name = form.name
+          account.remark = form.remark
+        }
         goBack()
       })
       .catch(console.log);
@@ -49,7 +50,7 @@ export const ChangeAccount = ({ match }) => {
           </InputItem>
         )}
         {getFieldDecorator("amount")(
-          <InputItem type="money" placeholder="0" moneyKeyboardAlign="left" disabled>
+          <InputItem type="money" placeholder="0" moneyKeyboardAlign="right" disabled>
             余额
           </InputItem>
         )}

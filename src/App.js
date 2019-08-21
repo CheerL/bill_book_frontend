@@ -8,10 +8,11 @@ import { Billbook } from './component/billbook'
 import { Mine } from './component/mine'
 
 const App = () => {
-  const { user } = Context.useStore()
+  const store = Context.useStore()
+  window.store = store
   return Context.useConsumer(() => (
     <Router>
-      {user.login ?
+      {store.user.login ?
         SwitchRoute([
           { path: "/account", component: Account },
           { path: "/billbook", component: Billbook },

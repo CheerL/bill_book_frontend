@@ -17,7 +17,7 @@ export const NewTransfer = () => {
     validateFields()
       .then(form => {
         form.id = Math.random().toString().substring(3, 6)
-        form.bill_book = 'transfer'
+        form.billbook = 'transfer'
 
         if (form.direction === 'in') {
           form.consumer = store.current.account.id
@@ -30,7 +30,7 @@ export const NewTransfer = () => {
         if (form.remark === undefined) {
           form.remark = ''
         }
-        console.log(form)
+        form.time = Date.now()
         store.bill_store.addBill(form)
         goBack()
       })
@@ -61,7 +61,7 @@ export const NewTransfer = () => {
           </InputItem>
         )}
         {getFieldDecorator("amount")(
-          <InputItem type="money" placeholder="0" moneyKeyboardAlign="left">
+          <InputItem type="money" placeholder="0" moneyKeyboardAlign="right">
             金额
           </InputItem>
         )}

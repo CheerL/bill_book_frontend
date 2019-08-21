@@ -1,0 +1,24 @@
+.billbook-switch-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 26px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    min-width: 130px;
+    height: 40px;
+    background-color: #ffffff;
+    transition: background-color 200ms;
+}
+
+.billbook-switch-title.active {
+    background-color: #e7e7e7;
+}
+
+.billbook-switch-downicon {
+    margin-right: 8px;
+}
+
+span.am-popover-item-content {
+    margin: auto;
+}

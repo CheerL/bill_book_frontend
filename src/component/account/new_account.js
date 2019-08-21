@@ -36,7 +36,7 @@ export const NewAccount = () => {
           </InputItem>
         )}
         {getFieldDecorator("amount")(
-          <InputItem type="money" placeholder="0" moneyKeyboardAlign="left">
+          <InputItem type="money" placeholder="0" moneyKeyboardAlign="right">
             余额
           </InputItem>
         )}

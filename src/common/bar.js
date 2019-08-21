@@ -1,6 +1,7 @@
 import React from 'react'
 import { useLink } from '../router'
 import { NavBar, Icon, Popover } from 'antd-mobile'
+import './bar.css'
 
 const Content = ({ content }) => {
   let onSelect
@@ -25,7 +26,7 @@ const Content = ({ content }) => {
   ><Icon type='ellipsis' /></Popover>
 }
 
-const Bar = ({ title, rightContent = [] }) => {
+const Bar = ({ title, rightContent = [], left = true }) => {
   const handleBack = useLink()
   const content = (rightContent && Array.isArray(rightContent) && rightContent.length > 0) ?
     <Content content={rightContent} /> :
@@ -33,12 +34,10 @@ const Bar = ({ title, rightContent = [] }) => {
 
   return <NavBar
     mode='light'
-    icon={<Icon type='left' />}
-    onLeftClick={handleBack}
+    icon={left ? <Icon type='left' /> : null}
+    onLeftClick={left ? handleBack: null}
     rightContent={content}
-    style={{
-      // borderBottom: '1px solid #f1f1f1'
-    }}
+    className='bar-box'
   >
     {title}
   </NavBar>

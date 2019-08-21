@@ -2,7 +2,7 @@ const Current = {
     page: undefined,
     account: undefined,
     bill: undefined,
-    bill_book: undefined
+    billbook: undefined
 }
 
 export default Current

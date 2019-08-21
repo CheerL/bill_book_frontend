@@ -2,6 +2,7 @@ import React from "react";
 import { useLocalStore, useObserver } from "mobx-react-lite";
 import account_store from './account'
 import bill_store from './bill'
+import billbook_store from './billbook'
 import current from './current'
 import user from './user'
 
@@ -36,6 +37,7 @@ const ContextCreater = stores => {
 const Context = ContextCreater({
   account_store,
   bill_store,
+  billbook_store,
   user,
   current,
 
@@ -44,6 +46,12 @@ const Context = ContextCreater({
       return []
     }
     return this.account_store.accounts.filter(account => account !== this.current.account)
+  },
+  get billbooksExceptCurrent() {
+    if (this.current.billbook === undefined) {
+      return []
+    }
+    return this.billbook_store.billbooks.filter(billbook => billbook !== this.current.billbook)
   }
 })
 

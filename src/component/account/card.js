@@ -1,5 +1,6 @@
 import React from "react";
 import { Icon } from "antd-mobile";
+// import { Icon } from "antd";
 import { Card } from '../../common'
 import { useLink } from '../../router'
 import Context from '../../store'
@@ -25,8 +26,8 @@ export const AccountNew = () => {
     <Card
       handleClick={handleClick}
       context={<>
-        <Icon type="plus" size="xxs" />
-        新建账本
+        <Icon type="plus" size="xxs"/>
+        新建账户
       </>}
       position='center'
       space
@@ -36,12 +37,14 @@ export const AccountNew = () => {
 
 const BillCard = ({ bill, space = false }) => {
   const handleClick = useLink(`/billbook/bill/detail/${bill.id}`)
+  const { billbook_store } = Context.useStore()
+  const billbook = billbook_store.getBillbook(bill.billbook)
 
   return Context.useConsumer(() => (
     <Card
       handleClick={handleClick}
       text={bill.cat_0}
-      remark={bill.remark}
+      remark={billbook.name}
       amount={bill.amount}
       space={space}
     />

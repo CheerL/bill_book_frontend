@@ -12,7 +12,6 @@ export const Login = () => {
     e.preventDefault();
     validateFields()
       .then(form => {
-        console.log(form)
         if (form.username === 'cheer' && form.password === 'lcr0717') {
           user.loginFunc({
             id: '001',

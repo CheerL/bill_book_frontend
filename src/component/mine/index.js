@@ -14,7 +14,6 @@ const MineUserHead = () => {
   const avatar = <UserAvatar user={user} className='mine-avatar' />
   const title = <Remarked text={user.nickname} remark={`账号: ${user.username}`} />
   const switchActive = () => {
-    console.log(active)
     setActive(!active)
   }
   const handleClick = useLink('/mine/user')

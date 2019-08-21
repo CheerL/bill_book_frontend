@@ -16,7 +16,7 @@ const Select = ({ data, value, onChange }) => {
         <Button
           inline
           size='small'
-          style={{flex: '1 1'}}
+          style={{flex: '1 1', maxWidth: '120px', margin: 'auto'}}
           key={index}
           type={item.value === value ? 'primary' : 'ghost'}
           onClick={e => {
