@@ -1,7 +1,5 @@
 import React from "react";
-import { Icon } from "antd-mobile";
-// import { Icon } from "antd";
-import { Card } from '../../common'
+import { Card, Iconed } from '../../common'
 import { useLink } from '../../router'
 import Context from '../../store'
 
@@ -25,10 +23,7 @@ export const AccountNew = () => {
   return (
     <Card
       handleClick={handleClick}
-      context={<>
-        <Icon type="plus" size="xxs"/>
-        新建账户
-      </>}
+      context={<Iconed text='新建账本' icon='plus' />}
       position='center'
       space
     />

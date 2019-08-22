@@ -18,6 +18,7 @@ export const NewTransfer = () => {
       .then(form => {
         form.id = Math.random().toString().substring(3, 6)
         form.billbook = 'transfer'
+        form.creater = store.user.nickname
 
         if (form.direction === 'in') {
           form.consumer = store.current.account.id
@@ -41,7 +42,7 @@ export const NewTransfer = () => {
     <>
       <Bar title='发起转账' />
       <AccountPopup />
-      <List>
+      <List className='padding-bottom'>
         {getFieldDecorator('direction')(
           <Select data={[{ value: 'out', label: '转出' }, { value: 'in', label: '转入' }]} />
         )}

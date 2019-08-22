@@ -37,7 +37,7 @@ export const ChangeTransfer = ({ match }) => {
     setFieldsValue({
       remark: bill.remark,
       amount: bill.amount,
-      time: bill.time_date
+      time: bill.time_date,
     })
     // eslint-disable-next-line
   }, [])
@@ -50,23 +50,23 @@ export const ChangeTransfer = ({ match }) => {
   return Context.useConsumer(() => (
     <>
       <Bar title='修改转账' />
-      <List>
+      <List className='padding-bottom'>
         <Select data={[
           { value: 'change', label: '转换流向', onClick: changeClick }
         ]} />
-        <UnmodifiedItem extra={changed ? consumer.name : payer.name} text='转出账户' />
-        <UnmodifiedItem extra={changed ? payer.name : consumer.name} text='转入账户' />
-        
+        <UnmodifiedItem extra={changed ? consumer.name : payer.name} text='转出账户' arrow='horizontal' />
+        <UnmodifiedItem extra={changed ? payer.name : consumer.name} text='转入账户' arrow='horizontal' />
+        {getFieldDecorator('time')(
+          <DatePicker mode='date' title='选择日期' >
+            <List.Item arrow="horizontal">时间</List.Item>
+          </DatePicker>
+        )}
         {getFieldDecorator("amount")(
           <InputItem type="money" placeholder="0" moneyKeyboardAlign="right">
             金额
           </InputItem>
         )}
-        {getFieldDecorator('time')(
-          <DatePicker mode='date' title='选择转账日期' >
-            <List.Item arrow="horizontal">时间</List.Item>
-          </DatePicker>
-        )}
+        
         {getFieldDecorator("remark")(
           <InputItem type="text" placeholder="备注" defaultValue=''>
             备注

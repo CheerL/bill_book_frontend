@@ -32,7 +32,7 @@ export const AccountDetail = ({ match }) => {
         rightContent={barRightContent}
       />
       <AccountHead text='账户余额' amount={account.amount} />
-      <WingBlank className='account-detail-bill-list'>
+      <WingBlank className='padding-bottom'>
         <Title title='账单列表' />
         {bill_store.filterByAccount(id).map(
           bill => <AccountDetailCard bill={bill} key={bill.id} space />

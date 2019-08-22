@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react'
 import useForm from "rc-form-hooks";
-import { Bar, BottomButton } from '../../common'
+import { Bar, BottomButton, colorSpan, unModifiedColor } from '../../common'
 import { List, InputItem, Picker, Switch } from 'antd-mobile'
 import { useLink } from '../../router'
 import Context from '../../store'
-import { setCurrentBillbook } from './common'
-import bill from '../../store/bill';
+import { useSetCurrentBillbook } from './common'
 
 export const ChangeBillbook = ({ match }) => {
-  setCurrentBillbook(match.params)
+  useSetCurrentBillbook(match.params)
   const goBack = useLink()
   const { billbook_store, current } = Context.useStore()
   const { getFieldDecorator, validateFields, setFieldsValue } = useForm();
@@ -41,17 +40,13 @@ export const ChangeBillbook = ({ match }) => {
   return (
     <>
       <Bar title={billbook.name} />
-      <List>
+      <List className='padding-bottom'>
         {getFieldDecorator('name')(
           <InputItem type='text' placeholder='账本名称'>
             账本名称
                 </InputItem>
         )}
-        {getFieldDecorator('remark')(
-          <InputItem type='text' placeholder='备注'>
-            备注
-                </InputItem>
-        )}
+
         {getFieldDecorator('status')(
           <Picker cols={1} data={[
             { value: 0, label: '自由' },
@@ -61,15 +56,18 @@ export const ChangeBillbook = ({ match }) => {
             <List.Item>账本状态</List.Item>
           </Picker>
         )}
-        <List.Item extra={getFieldDecorator('default', {
-          valuePropName: 'checked'
-        })(
+        <List.Item extra={getFieldDecorator('default', { valuePropName: 'checked' })(
           <Switch disabled={billbook.default} />
         )}>
-          默认账本
-              </List.Item>
+          {colorSpan('默认账本', billbook.default ? unModifiedColor : 'black')}
+        </List.Item>
+        {getFieldDecorator('remark')(
+          <InputItem type='text' placeholder='备注'>
+            备注
+          </InputItem>
+        )}
       </List>
-      <BottomButton onClick={handleSubmit}>修改账本</BottomButton>
+      <BottomButton onClick={handleSubmit}>修改</BottomButton>
     </>
   )
 }

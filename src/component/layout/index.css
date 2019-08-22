@@ -8,6 +8,10 @@
   width: 1em;
 }
 
+.padding-bottom {
+  padding-bottom: 50px;
+}
+
 .layout-icon-selected {
   color: #108ee9
 }
@@ -27,6 +31,10 @@
 .am-tab-bar-bar .am-tab-bar-tab-title {
   font-size: 12px;
   margin-top: 2px;
+}
+
+.am-list-extra {
+  color: black !important;
 }
 
 input {

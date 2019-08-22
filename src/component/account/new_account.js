@@ -13,7 +13,7 @@ export const NewAccount = () => {
     e.preventDefault();
     validateFields()
       .then(form => {
-        form.id = Math.random().toString().substring(2, 15)
+        form.id = Math.random().toString().substring(3, 6)
         form.amount = form.amount === undefined ? 0 : Number(form.amount)
         account_store.addAccount(form)
         goBack()
@@ -24,7 +24,7 @@ export const NewAccount = () => {
   return (
     <>
       <Bar title='新建账户' />
-      <List>
+      <List className='padding-bottom'>
         {getFieldDecorator("name")(
           <InputItem type="text" placeholder="账户名称">
             账户名称

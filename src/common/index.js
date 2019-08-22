@@ -4,9 +4,8 @@ import Bar from './bar'
 import Iconed from './iconed'
 import Title from './title'
 import Select from './select'
-import colorSpan from './color_span'
+import { colorSpan, unSetText, unModifiedColor, UnmodifiedItem } from './color'
 import BottomButton from './bottom_button'
-import UnmodifiedItem from './unmodified_item'
 import UserAvatar from './user_avatar'
 import { AccountHead, DetailHead, AvatarHead } from './head';
 
@@ -18,6 +17,8 @@ export {
     Iconed,
     Select,
     colorSpan,
+    unSetText,
+    unModifiedColor,
     AccountHead,
     AvatarHead,
     DetailHead,
