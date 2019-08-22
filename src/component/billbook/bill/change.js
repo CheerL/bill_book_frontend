@@ -22,6 +22,7 @@ const ChangeBill = ({ match }) => {
     validateFields()
       .then(form => {
         bill.time = date.date2num(form.time)
+        bill.amount = form.amount ? Number(form.amount) : 0
         bill.cat_0 = form.cat_0
         bill.cat_1 = form.cat_1
         bill.payer = form.payer

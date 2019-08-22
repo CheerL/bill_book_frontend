@@ -22,6 +22,7 @@ const NewBill = () => {
     e.preventDefault();
     validateFields()
       .then(form => {
+        form.id = Math.random().toString().substring(3, 6)
         form.time = date.date2num(form.time)
         form.amount = form.amount ? Number(form.amount) : 0
         form.creater = username

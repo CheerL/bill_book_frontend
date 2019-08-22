@@ -21,6 +21,7 @@ const NewTransfer = () => {
         form.id = Math.random().toString().substring(3, 6)
         form.billbook = 'transfer'
         form.creater = store.user.nickname
+        form.amount = form.amount ? Number(form.amount) : 0
 
         if (form.direction === 'in') {
           form.consumer = store.current.account.id

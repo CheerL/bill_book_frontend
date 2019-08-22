@@ -15,7 +15,7 @@ const NewAccount = () => {
     validateFields()
       .then(form => {
         form.id = Math.random().toString().substring(3, 6)
-        form.amount = form.amount === undefined ? 0 : Number(form.amount)
+        form.amount = form.amount ? Number(form.amount) : 0
         account_store.addAccount(form)
         goBack()
       })
