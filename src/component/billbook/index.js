@@ -33,6 +33,7 @@ const BillbookDetail = ({ match }) => {
 
   if (match.params.id === undefined || match.params.id !== current.billbook.id) {
     router.history.push(`/billbook/detail/${current.billbook.id}`)
+    return <></>
   }
 
   const rightContent = [{

@@ -1,7 +1,7 @@
 import React from 'react'
 import Context from '../../store'
 import {useRouter} from '../../router'
-import { Bar, Remarked, Title, AccountHead, colorSpan, BottomButton } from '../../common'
+import { Bar, Remarked, Title, AccountHead, colorSpan, BottomButton, Iconed } from '../../common'
 import { WingBlank } from 'antd-mobile'
 import { AccountDetailCard } from './card'
 
@@ -10,26 +10,45 @@ export const AccountDetail = ({ match }) => {
   const id = match.params.id
   const { account_store, bill_store, current } = Context.useStore()
   const account = account_store.getAccount(id)
-  const barRightContent = [
-    {
+
+  if (account === undefined) {
+    current.account = account_store.defaultAccount
+    router.history.push(`/account/detail/${current.account.id}`)
+    return <></>
+  } else {
+    current.account = account
+  }
+  const rightContent = [{
       value: 'change', content: '修改账户', onSelect: () => {
         router.history.push(`/account/change/${id}`)
       }
-    },
-    {
-      value: 'delete', content: colorSpan('删除账户', 'red'), onSelect: () => {
-        account_store.removeAccount(account)
-        router.history.goBack()
+    }]
+  const undefaultContent = [{
+    value: 'default', content: '设为默认',
+    onSelect: () => {
+      if (!current.isDefaultAccount) {
+        account_store.defaultAccount.default = false
+        current.account.default = true
       }
-    },
-  ]
-  current.account = account
+    }
+  }, {
+    value: 'delete', content: colorSpan('删除账户', 'red'),
+    onSelect: () => {
+      if (!current.isDefaultAccount) {
+        account_store.removeAccount(current.account)
+        current.account = account_store.defaultAccount
+        router.history.push(`/billbook/detail/${current.account.id}`)
+      }
+    }
+  }]
 
   return Context.useConsumer(() => (
     <>
       <Bar
-        title={<Remarked text={account.name} remark={account.remark} position='center' />}
-        rightContent={barRightContent}
+        title={<Remarked text={
+          account.default ? <Iconed icon='star' theme='filled' text={account.name} /> : account.name
+        } remark={account.remark} position='center' />}
+        rightContent={rightContent.concat(account.default ? [] : undefaultContent)}
       />
       <AccountHead text='账户余额' amount={account.amount} />
       <WingBlank className='padding-bottom'>

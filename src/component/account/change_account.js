@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import useForm from "rc-form-hooks";
-import { List, InputItem } from "antd-mobile";
-import { Bar, BottomButton, UnmodifiedItem } from "../../common";
+import { List, InputItem,Switch } from "antd-mobile";
+import { Bar, BottomButton, UnmodifiedItem, unModifiedColor, colorSpan } from "../../common";
 import { useLink } from '../../router'
 import Context from '../../store'
 
@@ -17,9 +17,11 @@ export const ChangeAccount = ({ match }) => {
     e.preventDefault();
     validateFields()
       .then(form => {
-        if (form.name) {
-          account.name = form.name
-          account.remark = form.remark
+        account.name = form.name
+        account.remark = form.remark
+        if (!account.default && form.default) {
+          account_store.defaultAccount.default = false
+          account.default = true
         }
         goBack()
       })
@@ -30,7 +32,8 @@ export const ChangeAccount = ({ match }) => {
     setFieldsValue({
       name: account.name,
       remark: account.remark,
-      amount: String(account.amount)
+      amount: String(account.amount),
+      default: account.default
     })
     // eslint-disable-next-line
   }, [])
@@ -45,12 +48,17 @@ export const ChangeAccount = ({ match }) => {
           </InputItem>
         )}
         <UnmodifiedItem extra={account.amount} text='账户余额' />
+        <List.Item extra={getFieldDecorator('default', { valuePropName: 'checked' })(
+          <Switch disabled={account.default} />
+        )}>
+          {colorSpan('默认账户', account.default ? unModifiedColor : 'black')}
+        </List.Item>
         {getFieldDecorator("remark")(
           <InputItem type="text" placeholder="备注">
             备注
           </InputItem>
         )}
-        
+
       </List>
       <BottomButton type="primary" onClick={handleSubmit}>
         修改

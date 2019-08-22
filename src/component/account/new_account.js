@@ -30,16 +30,17 @@ export const NewAccount = () => {
             账户名称
           </InputItem>
         )}
-        {getFieldDecorator("remark")(
-          <InputItem type="text" placeholder="备注">
-            备注
-          </InputItem>
-        )}
         {getFieldDecorator("amount")(
           <InputItem type="money" placeholder="0" moneyKeyboardAlign="right">
             余额
           </InputItem>
         )}
+        {getFieldDecorator("remark")(
+          <InputItem type="text" placeholder="备注">
+            备注
+          </InputItem>
+        )}
+        
       </List>
       <BottomButton type="primary" onClick={handleSubmit}>
         新建

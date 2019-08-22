@@ -9,6 +9,12 @@ const Current = {
       return true
     }
     return false
+  },
+  get isDefaultAccount() {
+    if (this.account !== undefined && this.account.default) {
+      return true
+    }
+    return false
   }
 }
 

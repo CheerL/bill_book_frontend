@@ -19,7 +19,7 @@ export const ChangeBillbook = ({ match }) => {
         billbook.status = form.status[0]
         billbook.name = form.name
         billbook.remark = form.remark
-        if (!billbook.default) {
+        if (!billbook.default && form.default) {
           billbook_store.defaultBillbook.default = false
           billbook.default = true
         }

@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import useForm from "rc-form-hooks";
 import { List, InputItem, Picker, DatePicker } from "antd-mobile";
 import { Bar, Select, BottomButton, date } from "../../common";
@@ -9,7 +9,7 @@ import { AccountPopup } from './popup'
 export const NewTransfer = () => {
   const goBack = useLink()
   const store = Context.useStore()
-  const { getFieldDecorator, validateFields, setFieldsValue } = useForm();
+  const { getFieldDecorator, validateFields, setFieldsValue, getFieldValue } = useForm();
   window.store = store
 
   const handleSubmit = e => {
@@ -48,9 +48,12 @@ export const NewTransfer = () => {
 
   return Context.useConsumer(() => (
     <>
-      <Bar title='发起转账' />
+      <Bar title={store.current.account !== undefined ? `发起转账（${store.current.account.name})` : '发起转账'} />
       <AccountPopup />
       <List className='padding-bottom'>
+        {getFieldDecorator('direction')(
+          <Select data={[{ value: 'out', label: '转出' }, { value: 'in', label: '转入' }]} />
+        )}
         {getFieldDecorator('time')(
           <DatePicker mode='date' title='选择日期' >
             <List.Item arrow="horizontal">时间</List.Item>
@@ -61,9 +64,6 @@ export const NewTransfer = () => {
             金额
           </InputItem>
         )}
-        {getFieldDecorator('direction')(
-          <Select data={[{ value: 'out', label: '转出' }, { value: 'in', label: '转入' }]} />
-        )}
         {getFieldDecorator('target')(
           <Picker
             data={store.accountsExceptCurrent.map(
@@ -71,7 +71,7 @@ export const NewTransfer = () => {
             ).concat([{ value: '', label: '外部' }])}
             cols={1}
           >
-            <List.Item arrow="horizontal">目标账户</List.Item>
+            <List.Item arrow="horizontal">{getFieldValue('direction') === 'out' ? '收款账户' : '付款账户'}</List.Item>
           </Picker>
         )}
         {getFieldDecorator("remark")(
@@ -79,7 +79,7 @@ export const NewTransfer = () => {
             备注
           </InputItem>
         )}
-        
+
       </List>
       <BottomButton type="primary" onClick={handleSubmit}>
         转账

@@ -9,7 +9,7 @@ export const AccountCard = ({ account, space = false }) => {
   return Context.useConsumer(() => (
     <Card
       handleClick={handleClick}
-      text={account.name}
+      text={account.default ? <Iconed icon='star' text={account.name} position='left' /> : account.name}
       remark={account.remark}
       amount={account.amount}
       space={space}

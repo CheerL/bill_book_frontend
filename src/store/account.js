@@ -23,7 +23,7 @@ const accountListStoreCreater = initValue => {
       return this.accounts.reduce((amount, account) => amount + Number(account.amount), 0)
     },
     get defaultAccount() {
-      return this.accounts.find(account => account.default = true)
+      return this.accounts.find(account => account.default)
     },
 
     getAccount(id) {
@@ -33,12 +33,7 @@ const accountListStoreCreater = initValue => {
           name: '外部'
         }
       }
-
-      const account = this.accounts.find(account => account.id === id)
-      if (!account) {
-        throw new Error(`no account whose id ${id}`)
-      }
-      return account
+      return this.accounts.find(account => account.id === id)
     },
     addAccount(account) {
       const accountStore = accountStoreCreater(account)
