@@ -2,14 +2,29 @@ import React from 'react'
 import { Layout } from '../layout'
 import { Bar, colorSpan } from '../../common'
 import Context from '../../store'
+import { useLink } from '../../router'
+import { Icon } from 'antd'
 import { BillbookSwitch } from './switch'
 import { SwitchRoute, useRouter } from '../../router'
 import { NewBillbook } from './new_billbook'
 import { ChangeBill } from './change_bill'
+import { NewBill } from './new_bill'
 import { ChangeBillbook } from './change_billbook'
 import { BillDetail } from './bill_detail'
 import { useSetCurrentBillbook } from './common'
 import './index.css'
+
+const AddBillButton = () => {
+  const handleClick = useLink('/billbook/bill/new')
+  return (
+    <div className='billbook-add-button' onClick={e => {
+      e.preventDefault()
+      handleClick()
+    }}>
+      <Icon type='plus' className='billbook-add-button-icon' />
+    </div>
+  )
+}
 
 const BillbookDetail = ({ match }) => {
   const router = useRouter()
@@ -52,6 +67,7 @@ const BillbookDetail = ({ match }) => {
       <Bar title={<BillbookSwitch />} left={false} rightContent={
         rightContent.concat(current.isDefaultBillbook ? [] : undefaultContent)
       } />
+      <AddBillButton />
     </Layout>
   ))
 }
@@ -63,5 +79,6 @@ export const Billbook = SwitchRoute([
   { path: '/billbook/new', component: NewBillbook },
   { path: '/billbook/bill/detail/:id', component: BillDetail },
   { path: '/billbook/bill/change/:id', component: ChangeBill },
+  { path: '/billbook/bill/new', component: NewBill },
   { path: '/billbook' }
 ]) 

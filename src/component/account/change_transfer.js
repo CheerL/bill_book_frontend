@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useForm from "rc-form-hooks";
 import { List, InputItem, DatePicker } from "antd-mobile";
-import { Bar, Select, BottomButton, UnmodifiedItem } from "../../common";
+import { Bar, Select, BottomButton, UnmodifiedItem, date } from "../../common";
 import { useLink } from '../../router'
 import Context from '../../store'
 
@@ -27,7 +27,7 @@ export const ChangeTransfer = ({ match }) => {
 
         bill.remark = form.remark
         bill.amount = form.amount ? Number(form.amount) : 0
-        bill.time = Date.parse(form.time)
+        bill.time = date.date2num(form.time)
         goBack()
       })
       .catch(console.log);

@@ -1,4 +1,4 @@
-import date from 'date-and-time'
+import { date } from '../common'
 
 const initBills = [
   {
@@ -124,10 +124,10 @@ const BillStoreCreater = bill => {
     cat_2: bill.cat_2,
 
     get time_date() {
-      return this.time ? new Date(this.time) : null
+      return this.time ? date.num2date(this.time) : null
     },
     get time_str() {
-      return this.time ? date.format(new Date(this.time), 'YYYY-MM-DD') : ''
+      return this.time ? date.num2str(this.time) : ''
     },
 
     get isTransfer() {

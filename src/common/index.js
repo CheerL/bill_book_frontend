@@ -8,8 +8,10 @@ import { colorSpan, unSetText, unModifiedColor, UnmodifiedItem } from './color'
 import BottomButton from './bottom_button'
 import UserAvatar from './user_avatar'
 import { AccountHead, DetailHead, AvatarHead } from './head';
+import date from './date'
 
 export {
+    date,
     Remarked,
     Card,
     Title,

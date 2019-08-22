@@ -5,29 +5,28 @@ import { Bar, BottomButton, date } from "../../common";
 import { useLink } from '../../router'
 import Context from '../../store'
 
-export const ChangeBill = ({ match }) => {
+export const NewBill = () => {
   const goBack = useLink()
-  const { account_store, bill_store, current, billbook_store } = Context.useStore()
-  const id = match.params.id
-  const bill = bill_store.getBill(id)
-  current.bill = bill
-  const account = account_store.getAccount(bill.account)
-  const billbook = billbook_store.getBillbook(bill.billbook)
+  const { account_store, bill_store, current, billbook_store, user } = Context.useStore()
+  if (current.billbook === undefined) {
+      current.billbook = billbook_store.defaultBillbook
+  }
 
+  const billbook = current.billbook
+  const account = account_store.defaultAccount
+  const username = user.nickname
   const { getFieldDecorator, validateFields, setFieldsValue } = useForm();
 
   const handleSubmit = e => {
     e.preventDefault();
     validateFields()
       .then(form => {
-        bill.time = date.date2num(form.time)
-        bill.cat_0 = form.cat_0
-        bill.cat_1 = form.cat_1
-        bill.payer = form.payer
-        bill.consumer = form.consumer
-        bill.billbook = form.billbook[0]
-        bill.account = form.account[0]
-        bill.remark = form.remark
+        form.time = date.date2num(form.time)
+        form.amount = form.amount ? Number(form.amount) : 0
+        form.creater = username
+        form.billbook = form.billbook[0]
+        form.account = form.account[0]
+        bill_store.addBill(form)
         goBack()
       })
       .catch(console.log);
@@ -37,20 +36,16 @@ export const ChangeBill = ({ match }) => {
     setFieldsValue({
       account: [account.id],
       billbook: [billbook.id],
-      cat_0: bill.cat_0,
-      cat_1: bill.cat_1,
-      payer: bill.payer,
-      consumer: bill.consumer,
-      remark: bill.remark,
-      amount: bill.amount,
-      time: bill.time_date,
+      payer: username,
+      consumer: username,
+      time: date.now_date(),
     })
     // eslint-disable-next-line
   }, [])
 
   return Context.useConsumer(() => (
     <>
-      <Bar title='修改账单' />
+      <Bar title='新建账单' />
       <List className='padding-bottom'>
         {getFieldDecorator('time')(
           <DatePicker mode='date' title='选择日期' >
@@ -103,7 +98,7 @@ export const ChangeBill = ({ match }) => {
         )}
         {getFieldDecorator("remark")(
           <InputItem type="text" placeholder="备注">
-            备注
+            新建
           </InputItem>
         )}
       </List>
