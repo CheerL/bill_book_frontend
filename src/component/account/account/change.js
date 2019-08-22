@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import useForm from "rc-form-hooks";
 import { List, InputItem,Switch } from "antd-mobile";
-import { Bar, BottomButton, UnmodifiedItem, unModifiedColor, colorSpan } from "../../common";
-import { useLink } from '../../router'
-import Context from '../../store'
 
-export const ChangeAccount = ({ match }) => {
+import Context from '../../../store'
+import { useLink } from '../../../router'
+import { Bar, BottomButton, UnmodifiedItem, unModifiedColor, colorSpan } from "../../../common";
+
+const ChangeAccount = ({ match }) => {
   const goBack = useLink()
   const { account_store, current } = Context.useStore()
   const id = match.params.id
@@ -66,3 +67,5 @@ export const ChangeAccount = ({ match }) => {
     </>
   );
 };
+
+export default ChangeAccount

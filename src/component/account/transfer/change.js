@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import useForm from "rc-form-hooks";
 import { List, InputItem, DatePicker } from "antd-mobile";
-import { Bar, Select, BottomButton, UnmodifiedItem, date } from "../../common";
-import { useLink } from '../../router'
-import Context from '../../store'
 
-export const ChangeTransfer = ({ match }) => {
+import Context from '../../../store'
+import { useLink } from '../../../router'
+import { Bar, Select, BottomButton, UnmodifiedItem, date } from "../../../common";
+
+const ChangeTransfer = ({ match }) => {
   const goBack = useLink()
   const { account_store, bill_store, current } = Context.useStore()
   const id = match.params.id
@@ -66,7 +67,7 @@ export const ChangeTransfer = ({ match }) => {
             金额
           </InputItem>
         )}
-        
+
         {getFieldDecorator("remark")(
           <InputItem type="text" placeholder="备注" defaultValue=''>
             备注
@@ -79,3 +80,5 @@ export const ChangeTransfer = ({ match }) => {
     </>
   ));
 };
+
+export default ChangeTransfer

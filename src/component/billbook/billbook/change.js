@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react'
 import useForm from "rc-form-hooks";
-import { Bar, BottomButton, colorSpan, unModifiedColor } from '../../common'
 import { List, InputItem, Picker, Switch } from 'antd-mobile'
-import { useLink } from '../../router'
-import Context from '../../store'
+
+import Context from '../../../store'
+import { useLink } from '../../../router'
+import { Bar, BottomButton, colorSpan, unModifiedColor } from '../../../common'
+
 import { useSetCurrentBillbook } from './common'
 
-export const ChangeBillbook = ({ match }) => {
+const ChangeBillbook = ({ match }) => {
   useSetCurrentBillbook(match.params)
   const goBack = useLink()
   const { billbook_store, current } = Context.useStore()
@@ -71,3 +73,5 @@ export const ChangeBillbook = ({ match }) => {
     </>
   )
 }
+
+export default ChangeBillbook

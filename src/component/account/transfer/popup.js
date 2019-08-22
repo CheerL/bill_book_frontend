@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
-import Context from '../../store'
-import { useLink } from '../../router'
 import Cascader from 'rmc-cascader'
 import Popup from 'rmc-cascader/lib/Popup'
+
+import Context from '../../../store'
+import { useLink } from '../../../router'
+
 import 'antd-mobile/lib/picker/style/css'
 
-export const AccountPopup = () => {
+const AccountPopup = () => {
     const { account_store, current } = Context.useStore()
     const goBack = useLink()
     const data = account_store.accounts.map(
@@ -33,3 +35,5 @@ export const AccountPopup = () => {
         onDismiss={goBack}
     />
 }
+
+export default AccountPopup

@@ -1,11 +1,12 @@
 import React from "react";
 import useForm from "rc-form-hooks";
 import { List, InputItem } from "antd-mobile";
-import { Bar, BottomButton } from "../../common";
-import { useLink } from '../../router'
-import Context from '../../store'
 
-export const NewAccount = () => {
+import Context from '../../../store'
+import { useLink } from '../../../router'
+import { Bar, BottomButton } from "../../../common";
+
+const NewAccount = () => {
   const goBack = useLink()
   const { account_store } = Context.useStore()
   const { getFieldDecorator, validateFields } = useForm();
@@ -40,7 +41,7 @@ export const NewAccount = () => {
             备注
           </InputItem>
         )}
-        
+
       </List>
       <BottomButton type="primary" onClick={handleSubmit}>
         新建
@@ -48,3 +49,5 @@ export const NewAccount = () => {
     </>
   );
 };
+
+export default NewAccount

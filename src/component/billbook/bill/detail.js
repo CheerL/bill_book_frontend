@@ -1,11 +1,12 @@
 import React from 'react'
-import Context from '../../store'
-import { useRouter } from '../../router'
-import { Bar, colorSpan, DetailHead, unSetText } from '../../common'
 import { List } from 'antd-mobile'
 
+import Context from '../../../store'
+import { useRouter } from '../../../router'
+import { Bar, colorSpan, DetailHead, unSetText } from '../../../common'
 
-export const BillDetail = ({ match }) => {
+
+const BillDetail = ({ match }) => {
   const router = useRouter()
   const id = match.params.id
   const { bill_store, account_store, billbook_store, current } = Context.useStore()
@@ -50,3 +51,5 @@ export const BillDetail = ({ match }) => {
     </>
   )
 }
+
+export default BillDetail

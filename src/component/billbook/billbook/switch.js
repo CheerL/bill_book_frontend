@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import { Icon } from 'antd'
 import { Popover } from 'antd-mobile'
-import { Remarked, Iconed } from '../../common'
-import Context from '../../store'
-import { useRouter } from '../../router'
 
-export const BillbookSwitch = () => {
+import Context from '../../../store'
+import { useRouter } from '../../../router'
+import { Remarked, Iconed } from '../../../common'
+
+import './switch.css'
+
+const BillbookSwitch = () => {
   const router = useRouter()
   const [visible, setVisible] = useState(false)
   const store = Context.useStore()
@@ -63,3 +66,5 @@ export const BillbookSwitch = () => {
   ))
 
 }
+
+export default BillbookSwitch

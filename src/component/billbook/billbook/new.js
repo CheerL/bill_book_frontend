@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
 import useForm from "rc-form-hooks";
-import { Bar, BottomButton } from '../../common'
 import { List, InputItem, Picker } from 'antd-mobile'
-import { useRouter } from '../../router'
-import Context from '../../store'
 
-export const NewBillbook = () => {
+import Context from '../../../store'
+import { useRouter } from '../../../router'
+import { Bar, BottomButton } from '../../../common'
+
+const NewBillbook = () => {
   const router = useRouter()
   const { billbook_store } = Context.useStore()
   const { getFieldDecorator, validateFields, setFieldsValue } = useForm();
@@ -56,3 +57,5 @@ export const NewBillbook = () => {
     </>
   )
 }
+
+export default NewBillbook

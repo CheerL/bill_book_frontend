@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import useForm from "rc-form-hooks";
 import { List, InputItem, Picker, DatePicker } from "antd-mobile";
-import { Bar, Select, BottomButton, date } from "../../common";
-import { useLink } from '../../router'
-import Context from '../../store'
-import { AccountPopup } from './popup'
 
-export const NewTransfer = () => {
+import Context from '../../../store'
+import { useLink } from '../../../router'
+import { Bar, Select, BottomButton, date } from "../../../common";
+
+import AccountPopup from './popup'
+
+const NewTransfer = () => {
   const goBack = useLink()
   const store = Context.useStore()
   const { getFieldDecorator, validateFields, setFieldsValue, getFieldValue } = useForm();
@@ -87,3 +89,5 @@ export const NewTransfer = () => {
     </>
   ));
 };
+
+export default NewTransfer
