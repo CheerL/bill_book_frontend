@@ -28,7 +28,7 @@ const GroupBillCardList = ({ bills, groupTitle }) => {
 }
 
 export const DayBillCardList = ({bills, day}) => {
-  return <GroupBillCardList bills={bills} groupTitle={date.num2str(Number(day))} />
+  return <GroupBillCardList bills={bills} groupTitle={date.num2str(day)} />
 }
 
 export const MonthBillCardList = ({bills, month}) => {

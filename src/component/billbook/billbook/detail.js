@@ -65,8 +65,8 @@ const BillbookDetail = ({ match }) => {
         rightContent.concat(current.isDefaultBillbook ? [] : undefaultContent)
       } />
       <WingBlank>
-        {Object.keys(store.billsGroupbyDay).sort().map(
-          day => <DayBillCardList bills={store.billsGroupbyDay[day]} day={day} key={day} />
+        {Object.keys(store.billsGroupbyDay).map(Number).sort((a, b) => b - a).map(
+          day => <DayBillCardList bills={store.billsGroupbyDay[String(day)]} day={day} key={day} />
         )}
       </WingBlank>
       <AddBillButton />
