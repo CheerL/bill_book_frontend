@@ -5,6 +5,7 @@ import bill_store from './bill'
 import billbook_store from './billbook'
 import current from './current'
 import user from './user'
+import { groupby } from './common'
 
 const ContextCreater = stores => {
   const Context = React.createContext();
@@ -52,6 +53,20 @@ const Context = ContextCreater({
       return []
     }
     return this.billbook_store.billbooks.filter(billbook => billbook !== this.current.billbook)
+  },
+  get billsGroupbyDay() {
+    const billbook = this.current.billbook
+    if (billbook === undefined) {
+      return []
+    }
+    return groupby(this.bill_store.filterByBillbook(billbook.id), 'time')
+  },
+  get billsGroupbyMonth() {
+    const billbook = this.current.billbook
+    if (billbook === undefined) {
+      return []
+    }
+    return groupby(this.bill_store.filterByBillbook(billbook.id), 'time_month')
   }
 })
 

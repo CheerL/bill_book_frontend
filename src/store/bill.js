@@ -4,7 +4,7 @@ const initBills = [
   {
     id: '000',
     billbook: '000',
-    time: 1566377107000,
+    time: 1566316800000,
     amount: 5,
     remark: '同事聚餐',
     account: '000',
@@ -18,7 +18,7 @@ const initBills = [
   {
     id: '001',
     billbook: '000',
-    time: 1566377107000,
+    time: 1566316800000,
     amount: 25,
     remark: '',
     account: '000',
@@ -32,7 +32,7 @@ const initBills = [
   {
     id: '002',
     billbook: '000',
-    time: 1566377107000,
+    time: 1563638400000,
     amount: 100,
     remark: '',
     account: '001',
@@ -46,7 +46,7 @@ const initBills = [
   {
     id: '003',
     billbook: '001',
-    time: 1566377107000,
+    time: 1566316800000,
     amount: 35,
     remark: '旅行',
     account: '000',
@@ -60,7 +60,7 @@ const initBills = [
   {
     id: '004',
     billbook: 'transfer',
-    time: 1566377107000,
+    time: 1566316800000,
     amount: 100,
     remark: '',
     account: '',
@@ -74,7 +74,7 @@ const initBills = [
   {
     id: '005',
     billbook: 'transfer',
-    time: 1566377107000,
+    time: 1566316800000,
     amount: 20,
     remark: '',
     account: '',
@@ -88,7 +88,7 @@ const initBills = [
   {
     id: '006',
     billbook: 'transfer',
-    time: 1566377107000,
+    time: 1566316800000,
     amount: 20,
     remark: '',
     account: '',
@@ -122,6 +122,10 @@ const BillStoreCreater = bill => {
     cat_0: bill.cat_0,
     cat_1: bill.cat_1,
     cat_2: bill.cat_2,
+
+    get time_month() {
+      return this.time_str.slice(0, 7)
+    },
 
     get time_date() {
       return this.time ? date.num2date(this.time) : null
@@ -193,7 +197,7 @@ const BillListStoreCreater = initValue => {
         bill.consumer === account
       ))
     },
-    filterByBillBook(billbook) {
+    filterByBillbook(billbook) {
       return this.bills.filter(bill => bill.billbook === billbook)
     }
   }

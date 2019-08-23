@@ -1,5 +1,6 @@
 import React from 'react'
 import { Icon } from 'antd'
+import { WingBlank } from 'antd-mobile'
 
 import Context from '../../../store'
 import { useRouter, useLink } from '../../../router'
@@ -8,6 +9,7 @@ import { Layout } from '../../layout'
 
 import BillbookSwitch from './switch'
 import { useSetCurrentBillbook } from './common'
+import { DayBillCardList } from './card'
 
 const AddBillButton = () => {
   const handleClick = useLink('/billbook/bill/new')
@@ -23,7 +25,8 @@ const AddBillButton = () => {
 
 const BillbookDetail = ({ match }) => {
   const router = useRouter()
-  const { billbook_store, current } = Context.useStore()
+  const store = Context.useStore()
+  const { billbook_store, current } = store
   useSetCurrentBillbook(match.params, true)
 
   if (match.params.id === undefined || match.params.id !== current.billbook.id) {
@@ -61,6 +64,11 @@ const BillbookDetail = ({ match }) => {
       <Bar title={<BillbookSwitch />} left={false} rightContent={
         rightContent.concat(current.isDefaultBillbook ? [] : undefaultContent)
       } />
+      <WingBlank>
+        {Object.keys(store.billsGroupbyDay).sort().map(
+          day => <DayBillCardList bills={store.billsGroupbyDay[day]} day={day} key={day} />
+        )}
+      </WingBlank>
       <AddBillButton />
     </Layout>
   ))
