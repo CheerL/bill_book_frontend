@@ -10,5 +10,17 @@ export default {
         username: username,
         password: password,
         remember: remember
+    }),
+    login_jwt: () => Axios.post(prefixed_url('/jwt')),
+    delete: () => Axios.post(prefixed_url('/remove')),
+    register: (username, password, nickname, remember = true) => Axios.post(prefixed_url('/register'), {
+        username: username,
+        password: password,
+        remember: remember,
+        nickname: nickname
+    }),
+    forget: (username, password) => Axios.post(prefixed_url('/forget'), {
+        username: username,
+        password: password
     })
 }

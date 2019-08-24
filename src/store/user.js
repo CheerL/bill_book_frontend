@@ -21,6 +21,14 @@ const UserStoreCreater = initValue => {
       this.avatar = user.avatar
       this.login = true
     },
+    logoutFunc() {
+      this.id = ''
+      this.nickname = ''
+      this.username = ''
+      this.avatar = ''
+      this.login = false
+      localStorage.removeItem('jwt')
+    }
   }
   return store
 }

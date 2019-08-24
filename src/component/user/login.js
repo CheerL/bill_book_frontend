@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { InputItem, Button } from "antd-mobile";
 import useForm from "rc-form-hooks";
 import { UserBox } from "./box";
@@ -8,6 +8,7 @@ import api from '../../action/api'
 export const Login = () => {
   const { getFieldDecorator, validateFields } = useForm();
   const { user } = Context.useStore()
+  const [isRender, setIsRender] = useState(false)
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -27,15 +28,14 @@ export const Login = () => {
   ];
   const title = "登录账号";
 
-  // useEffect(() => {
-  //   api.user.login()
-  //   .then(res => {
-  //     res.username = 
-  //   })
-  //   // eslint-disable-next-line
-  // }, [])
+  useEffect(() => {
+    api.user.login_jwt()
+    .then(res => user.loginFunc(res))
+    .catch(() => setIsRender(true))
+    // eslint-disable-next-line
+  }, [])
 
-  return (
+  return isRender ?
     <UserBox links={links} title={title}>
       {getFieldDecorator("username")(<InputItem type="text">账号</InputItem>)}
       {getFieldDecorator("password")(
@@ -44,6 +44,6 @@ export const Login = () => {
       <Button type="primary" onClick={handleSubmit}>
         登录
       </Button>
-    </UserBox>
-  );
+    </UserBox>:
+    <></>
 };
