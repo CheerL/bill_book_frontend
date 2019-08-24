@@ -22,7 +22,7 @@ const GroupBillCardList = ({ bills, groupTitle }) => {
   return (
     <>
       <Title title={groupTitle} />
-      {bills.map(bill => <BillCard bill={bill} key={bill.id} space />)}
+      {bills.map((bill, index) => <BillCard bill={bill} key={bill.id} space={index !== bills.length - 1} />)}
     </>
   )
 }

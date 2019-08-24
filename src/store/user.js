@@ -4,7 +4,7 @@ const initUser = {
   nickname: 'Cheer.L',
   avatar: 'default',
   jwt: 'aaa',
-  login: true
+  login: false
 }
 
 const UserStoreCreater = initValue => {

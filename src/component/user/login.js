@@ -3,6 +3,7 @@ import { InputItem, Button } from "antd-mobile";
 import useForm from "rc-form-hooks";
 import { UserBox } from "./box";
 import Context from '../../store'
+import api from '../../action/api'
 
 export const Login = () => {
   const { getFieldDecorator, validateFields } = useForm();
@@ -12,15 +13,17 @@ export const Login = () => {
     e.preventDefault();
     validateFields()
       .then(form => {
-        if (form.username === 'cheer' && form.password === 'lcr0717') {
-          user.loginFunc({
-            id: '001',
-            nickname: 'Cheer.L',
-            username: form.username,
-            avatar: 'default',
-            jwt: 'aaa'
+        api.user.login(form.username, form.password)
+          .then(res => {
+            user.loginFunc({
+              id: '001',
+              nickname: 'Cheer.L',
+              username: form.username,
+              avatar: 'default',
+              jwt: 'aaa'
+            })
           })
-        }
+          .catch(console.log)
       })
       .catch(console.log);
   };
