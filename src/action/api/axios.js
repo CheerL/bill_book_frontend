@@ -1,5 +1,5 @@
 import axios from 'axios'
-import Qs from 'qs'
+// import Qs from 'qs'
 import baseurl from './base'
 // import Context from '../store'
 
@@ -48,7 +48,12 @@ Axios.interceptors.request.use(
 Axios.interceptors.response.use(
   res => {
     if (res.status >= 200 && res.status < 300) {
-      return Promise.resolve(res.data)
+      const data = res.data
+      console.log(data)
+      if (data.jwt) {
+        localStorage.setItem('jwt', data.jwt)
+      }
+      return Promise.resolve(data)
     }
     return Promise.reject(res)
   },

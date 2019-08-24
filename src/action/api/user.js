@@ -1,5 +1,5 @@
 import Axios from './axios'
-import Qs from 'qs'
+// import Qs from 'qs'
 
 const url_prefix = '/users'
 

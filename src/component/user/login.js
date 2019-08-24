@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { InputItem, Button } from "antd-mobile";
 import useForm from "rc-form-hooks";
 import { UserBox } from "./box";
@@ -15,13 +15,7 @@ export const Login = () => {
       .then(form => {
         api.user.login(form.username, form.password)
           .then(res => {
-            user.loginFunc({
-              id: '001',
-              nickname: 'Cheer.L',
-              username: form.username,
-              avatar: 'default',
-              jwt: 'aaa'
-            })
+            user.loginFunc(res)
           })
           .catch(console.log)
       })
@@ -32,6 +26,14 @@ export const Login = () => {
     { path: "register", text: "注册账号" }
   ];
   const title = "登录账号";
+
+  // useEffect(() => {
+  //   api.user.login()
+  //   .then(res => {
+  //     res.username = 
+  //   })
+  //   // eslint-disable-next-line
+  // }, [])
 
   return (
     <UserBox links={links} title={title}>
