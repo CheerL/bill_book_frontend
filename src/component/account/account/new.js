@@ -2,23 +2,16 @@ import React from "react";
 import useForm from "rc-form-hooks";
 import { List, InputItem } from "antd-mobile";
 
-import Context from '../../../store'
-import { useLink } from '../../../router'
 import { Bar, BottomButton } from "../../../common";
+import { useAccountAction } from '../../../action'
 
 const NewAccount = () => {
-  const goBack = useLink()
-  const { account_store } = Context.useStore()
   const { getFieldDecorator, validateFields } = useForm();
+  const { add } = useAccountAction()
   const handleSubmit = e => {
     e.preventDefault();
     validateFields()
-      .then(form => {
-        form.id = Math.random().toString().substring(3, 6)
-        form.amount = form.amount ? Number(form.amount) : 0
-        account_store.addAccount(form)
-        goBack()
-      })
+      .then(add)
       .catch(console.log);
   };
 

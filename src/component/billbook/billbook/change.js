@@ -3,12 +3,10 @@ import useForm from "rc-form-hooks";
 import { List, InputItem, Picker, Switch } from 'antd-mobile'
 
 import Context from '../../../store'
-import { useLink } from '../../../router'
 import { Bar, BottomButton, colorSpan, unModifiedColor } from '../../../common'
 import { useBillbookAction } from '../../../action'
 
 const ChangeBillbook = ({ match }) => {
-  const goBack = useLink()
   const { billbook_store, current } = Context.useStore()
   const { getFieldDecorator, validateFields, setFieldsValue } = useForm();
   const { change } = useBillbookAction()
@@ -36,7 +34,7 @@ const ChangeBillbook = ({ match }) => {
         {getFieldDecorator('name')(
           <InputItem type='text' placeholder='账本名称'>
             账本名称
-                </InputItem>
+          </InputItem>
         )}
 
         {getFieldDecorator('status')(

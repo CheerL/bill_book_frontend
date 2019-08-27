@@ -49,7 +49,7 @@ Axios.interceptors.response.use(
   res => {
     if (res.status >= 200 && res.status < 300) {
       const data = res.data
-      if (data.jwt) {
+      if (data && data.jwt) {
         localStorage.setItem('jwt', data.jwt)
       }
       return Promise.resolve(data)

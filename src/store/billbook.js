@@ -1,28 +1,34 @@
+import { update, list2obj, object_find } from '../common/object'
+
 const initBillbooks = [
-  // {
-  //     id: '000',
-  //     name: '日常哈哈哈',
-  //     remark: '日常账本啦啦啦',
-  //     status: 1,
-  //     cover: 'default',
-  //     default: true
-  // },
-  // {
-  //     id: '001',
-  //     name: '旅行',
-  //     remark: '',
-  //     status: 1,
-  //     cover: 'default',
-  //     default: false
-  // },
-  // {
-  //     id: '002',
-  //     name: '香港',
-  //     remark: '港币账本',
-  //     status: 1,
-  //     cover: 'default',
-  //     default: false
-  // }
+  {
+      _id: '000',
+      name: '日常哈哈哈',
+      remark: '日常账本啦啦啦',
+      status: 1,
+      cover: 'default',
+      default: true,
+      _updated: 1000000
+      
+  },
+  {
+      _id: '001',
+      name: '旅行',
+      remark: '',
+      status: 1,
+      cover: 'default',
+      default: false,
+      _updated: 1000000
+  },
+  {
+      _id: '002',
+      name: '香港',
+      remark: '港币账本',
+      status: 1,
+      cover: 'default',
+      default: false,
+      _updated: 1000000
+  }
 ]
 
 const BillbookStoreCreater = billbook => {
@@ -33,15 +39,11 @@ const BillbookStoreCreater = billbook => {
     status: billbook.status,
     cover: billbook.cover ? billbook.cover : 'default',
     default: billbook.default,
-    _updated: billbook._updated,
+    _updated: Date.parse(billbook._updated),
 
     update(billbook) {
-      this.name = billbook.name
-      this.remark = billbook.remark
-      this.status = billbook.status
-      this.cover = billbook.cover
-      this.default = billbook.default
-      this._updated = billbook._updated
+      const keys = ['name', 'remark', 'status', 'cover', 'default', '_updated']
+      update(this, billbook, keys)
     }
   }
   return store
@@ -49,9 +51,10 @@ const BillbookStoreCreater = billbook => {
 
 const BillbookListStoreCreater = initValue => {
   const store = {
-    billbooks: initValue.map(billbook => BillbookStoreCreater(billbook)),
+    billbooks: list2obj(initValue, BillbookStoreCreater),
+
     get defaultBillbook() {
-      return this.billbooks.find(billbook => billbook.default)
+      return object_find(this.billbooks, billbook => billbook.default)
     },
     update(billbooks) {
       billbooks.forEach(billbook => {
@@ -64,14 +67,18 @@ const BillbookListStoreCreater = initValue => {
       })
     },
     addBillbook(billbook) {
-      const billbookStore = BillbookStoreCreater(billbook)
-      this.billbooks.push(billbookStore)
+      const localBillbook = this.getBillbook(billbook._id)
+      if (!localBillbook) {
+        this.billbooks[billbook._id] = BillbookStoreCreater(billbook)
+      } else {
+        localBillbook.update(billbook)
+      }
     },
     removeBillbook(billbookStore) {
-      this.billbooks.remove(billbookStore)
+      delete this.billbooks[billbookStore.id]
     },
     getBillbook(id) {
-      return this.billbooks.find(billbook => billbook.id === id)
+      return this.billbooks[id]
     }
   }
   return store

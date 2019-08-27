@@ -1,29 +1,42 @@
+import { list2obj, update, object_find } from '../common/object'
+
 const initAccounts = [
-  { name: "现金", id: "000", remark: '现金', default: true },
-  { name: "支付宝", amount: 1, id: "001", default: false },
-  { name: "微信", amount: 2, id: "002", default: false }
+  { name: "现金", _id: "000", remark: '现金', default: false, _updated: 15000000 },
+  { name: "支付宝", amount: 1, _id: "001", default: false, _updated: 15000000 },
+  { name: "微信", amount: 2, _id: "002", default: false, _updated: 15000000 }
 ]
 
 const accountStoreCreater = (account) => {
   const store = {
-    id: account.id,
+    id: account._id,
     name: account.name,
-    amount: account.amount ? Number(account.amount): 0,
-    remark: account.remark ? account.remark: '',
-    default: account.default !== undefined ? account.default : false
+    amount: account.amount ? Number(account.amount) : 0,
+    remark: account.remark ? account.remark : '',
+    default: account.default !== undefined ? account.default : false,
+    _updated: Date.parse(account._updated),
+
+    update(account) {
+      const keys = ['name', 'amount', 'remark', 'default', '_updated']
+      update(this, account, keys)
+    }
   }
   return store
 }
 
 const accountListStoreCreater = initValue => {
   const store = {
-    accounts: initValue.map(account => accountStoreCreater(account)),
+    accounts: list2obj(initValue, accountStoreCreater),
 
+    get accountNum() {
+      return Object.keys(this.accounts).length
+    },
     get total_amount() {
-      return this.accounts.reduce((amount, account) => amount + Number(account.amount), 0)
+      return Object.keys(this.accounts).reduce(
+        (amount, id) => amount + Number(this.accounts[id].amount), 0
+      )
     },
     get defaultAccount() {
-      return this.accounts.find(account => account.default)
+      return object_find(this.accounts, account => account.default)
     },
 
     getAccount(id) {
@@ -33,14 +46,28 @@ const accountListStoreCreater = initValue => {
           name: '外部'
         }
       }
-      return this.accounts.find(account => account.id === id)
+      return object_find(this.accounts, account => account.id === id)
     },
     addAccount(account) {
-      const accountStore = accountStoreCreater(account)
-      this.accounts.push(accountStore)
+      const localAccount = this.getAccount(account._id)
+      if (!localAccount) {
+        this.accounts[account._id] = accountStoreCreater(account)
+      } else {
+        localAccount.update(account)
+      }
     },
     removeAccount(accountStore) {
-      this.accounts.remove(accountStore)
+      delete this.accounts[accountStore.id]
+    },
+    update(accounts) {
+      accounts.forEach(account => {
+        const localAccount = this.getAccount(account._id)
+        if (localAccount) {
+          localAccount.update(account)
+        } else {
+          this.addAccount(account)
+        }
+      })
     }
   }
   return store

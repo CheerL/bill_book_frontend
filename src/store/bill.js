@@ -1,9 +1,9 @@
 import { date } from '../common'
-import { list2obj, obj2list, object_filter } from './common'
+import { list2obj, obj2list, object_filter, update } from '../common/object'
 
 const initBills = [
   {
-    id: '000',
+    _id: '000',
     billbook: '000',
     time: 1566316800000,
     amount: 5,
@@ -17,7 +17,7 @@ const initBills = [
     cat_2: ''
   },
   {
-    id: '001',
+    _id: '001',
     billbook: '000',
     time: 1566316800000,
     amount: 25,
@@ -31,7 +31,7 @@ const initBills = [
     cat_2: ''
   },
   {
-    id: '002',
+    _id: '002',
     billbook: '000',
     time: 1563638400000,
     amount: 100,
@@ -45,7 +45,7 @@ const initBills = [
     cat_2: ''
   },
   {
-    id: '003',
+    _id: '003',
     billbook: '001',
     time: 1566316800000,
     amount: 35,
@@ -59,7 +59,7 @@ const initBills = [
     cat_2: ''
   },
   {
-    id: '004',
+    _id: '004',
     billbook: 'transfer',
     time: 1566316800000,
     amount: 100,
@@ -73,7 +73,7 @@ const initBills = [
     cat_2: ''
   },
   {
-    id: '005',
+    _id: '005',
     billbook: 'transfer',
     time: 1566316800000,
     amount: 20,
@@ -87,7 +87,7 @@ const initBills = [
     cat_2: ''
   },
   {
-    id: '006',
+    _id: '006',
     billbook: 'transfer',
     time: 1566316800000,
     amount: 20,
@@ -103,14 +103,8 @@ const initBills = [
 ]
 
 const BillStoreCreater = bill => {
-  if (bill.billbook === 'transfer') {
-    bill.account = ''
-    bill.cat_0 = ''
-    bill.cat_1 = ''
-  }
-
   const store = {
-    id: bill.id,
+    id: bill._id,
     billbook: bill.billbook,
     time: bill.time,
     amount: bill.amount,
@@ -121,6 +115,7 @@ const BillStoreCreater = bill => {
     creater: bill.creater,
     cat_0: bill.cat_0,
     cat_1: bill.cat_1,
+    _updated: Date.parse(bill._updated),
 
     get time_month() {
       return this.time_str.slice(0, 7)
@@ -171,16 +166,13 @@ const BillStoreCreater = bill => {
       }
     },
     update(bill) {
-      this.billbook = bill.billbook
-      this.time = bill.time
-      this.amount = bill.amount
-      this.remark = bill.remark
-      this.account = bill.account
-      this.consumer = bill.consumer
-      this.payer = bill.payer
-      this.creater = bill.creater
-      this.cat_0 = bill.cat_0
-      this.cat_1 = bill.cat_1
+      const keys = [
+        'billbook', 'time', 'amount',
+        'remark', 'account', 'consumer',
+        'payer', 'creater', 'cat_0',
+        'cat_1', '_updated'
+      ]
+      update(this, bill, keys)
     }
   }
   return store
@@ -194,10 +186,10 @@ const BillListStoreCreater = initValue => {
       return this.bills[id]
     },
     addBill(bill) {
-      if (!this.bills[bill.id]) {
-        this.bills[bill.id] = BillStoreCreater(bill)
+      if (!this.bills[bill._id]) {
+        this.bills[bill._id] = BillStoreCreater(bill)
       } else {
-        this.bills[bill.id].update(bill)
+        this.bills[bill._id].update(bill)
       }
     },
     removeBill(billStore) {
@@ -211,6 +203,16 @@ const BillListStoreCreater = initValue => {
     filterByBillbook(billbook, list = false) {
       const result = object_filter(this.bills, bill => bill.billbook === billbook)
       return list ? obj2list(result) : result
+    },
+    update(bills) {
+      bills.forEach(bill => {
+        const localBill = this.getBill(bill._id)
+        if (localBill) {
+          localBill.update(bill)
+        } else {
+          this.addBill(bill)
+        }
+      });
     }
   }
   return store

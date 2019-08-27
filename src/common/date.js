@@ -1,5 +1,5 @@
 import date from 'date-and-time'
-
+window.dat = date
 const formatStr = 'YYYY-MM-DD'
 
 const get_time = time => {

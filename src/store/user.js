@@ -13,6 +13,7 @@ const UserStoreCreater = initValue => {
     nickname: initValue.nickname,
     avatar: initValue.avatar,
     login: initValue.login,
+    transfer: undefined,
 
     loginFunc(user) {
       this.id = user.id
@@ -27,6 +28,7 @@ const UserStoreCreater = initValue => {
       this.username = ''
       this.avatar = ''
       this.login = false
+      this.transfer = undefined
       localStorage.removeItem('jwt')
     }
   }

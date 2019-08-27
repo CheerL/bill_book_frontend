@@ -5,6 +5,8 @@ import { List, InputItem, Picker, DatePicker } from "antd-mobile";
 import Context from '../../../store'
 import { useLink } from '../../../router'
 import { Bar, Select, BottomButton, date } from "../../../common";
+import { object_map } from '../../../common/object'
+import { useTransferAction } from '../../../action'
 
 import AccountPopup from './popup'
 
@@ -12,32 +14,12 @@ const NewTransfer = () => {
   const goBack = useLink()
   const store = Context.useStore()
   const { getFieldDecorator, validateFields, setFieldsValue, getFieldValue } = useForm();
-  window.store = store
+  const { add } = useTransferAction()
 
   const handleSubmit = e => {
     e.preventDefault();
     validateFields()
-      .then(form => {
-        form.id = Math.random().toString().substring(3, 6)
-        form.billbook = 'transfer'
-        form.creater = store.user.nickname
-        form.amount = form.amount ? Number(form.amount) : 0
-
-        if (form.direction === 'in') {
-          form.consumer = store.current.account.id
-          form.payer = form.target[0]
-        } else if (form.direction === 'out') {
-          form.payer = store.current.account.id
-          form.consumer = form.target[0]
-        }
-
-        if (form.remark === undefined) {
-          form.remark = ''
-        }
-        form.time = date.date2num(form.time)
-        store.bill_store.addBill(form)
-        goBack()
-      })
+      .then(add)
       .catch(console.log);
   };
 
@@ -69,7 +51,7 @@ const NewTransfer = () => {
         )}
         {getFieldDecorator('target')(
           <Picker
-            data={store.accountsExceptCurrent.map(
+            data={object_map(store.accountsExceptCurrent,
               account => ({ value: account.id, label: account.name })
             ).concat([{ value: '', label: '外部' }])}
             cols={1}

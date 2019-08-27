@@ -3,14 +3,16 @@ import React, {useEffect} from 'react'
 import { SwitchRoute } from '../../router'
 import { BillbookDetail, NewBillbook, ChangeBillbook } from './billbook'
 import { BillDetail, NewBill, ChangeBill } from './bill'
-import { useBillbookAction } from '../../action'
+import { useBillbookAction, useBillAction } from '../../action'
 
 import './index.css'
 
 export const Billbook = () => {
-  const { getAll } = useBillbookAction()
+  const { getBillbooks } = useBillbookAction()
+  const { getBills } = useBillAction()
   useEffect(() => {
-    getAll()
+    getBillbooks()
+    getBills()
     // eslint-disable-next-line
   }, [])
 

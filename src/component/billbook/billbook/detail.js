@@ -6,6 +6,7 @@ import { Redirect } from 'react-router-dom'
 import Context from '../../../store'
 import { useRouter, useLink } from '../../../router'
 import { Bar, colorSpan } from '../../../common'
+import { useBillbookAction } from '../../../action'
 import { Layout } from '../../layout'
 
 import BillbookSwitch from './switch'
@@ -46,19 +47,24 @@ const BillbookDetail = ({ match }) => {
     }
   }
 
-  return Context.useConsumer(() => <BillbookDetailView billbook={
-    billbook_store.billbooks.length > 0 ?
-      id !== emptyBillbook.id ?
-        billbook_store.getBillbook(id) :
-        billbook_store.defaultBillbook :
-      emptyBillbook
-  } />)
+  return Context.useConsumer(() => (
+    <Layout>
+      <BillbookDetailView billbook={
+        billbook_store.defaultBillbook ?
+          id !== emptyBillbook.id ?
+            billbook_store.getBillbook(id) :
+            billbook_store.defaultBillbook :
+          emptyBillbook
+      } />
+    </Layout>)
+  )
 }
 
 const BillbookDetailView = ({ billbook }) => {
-  const store = Context.useStore()
-  const { billbook_store, current } = store
+  const { current } = Context.useStore()
+  const { changeDefault, remove } = useBillbookAction()
   const router = useRouter()
+  current.billbook = billbook
 
   const rightContent = billbook.id === 'default' ?
     null :
@@ -71,34 +77,34 @@ const BillbookDetailView = ({ billbook }) => {
       [] :
       [{
         value: 'default', content: '设为默认',
-        onSelect: () => {
-          if (!billbook.default) {
-            billbook_store.defaultBillbook.default = false
-            billbook.default = true
-          }
-        }
+        onSelect: () => { changeDefault(billbook.id) }
       }, {
         value: 'delete', content: colorSpan('删除账本', 'red'),
-        onSelect: () => {
-          if (!billbook.default) {
-            billbook_store.removeBillbook(billbook)
-            router.history.push(`/billbook/detail/${billbook_store.defaultBillbook.id}`)
-          }
-        }
+        onSelect: () => { remove(billbook.id) }
       }])
-  current.billbook = billbook
 
-  return Context.useConsumer(() => (
-    <Layout>
+  return (
+    <>
       <Bar title={<BillbookSwitch />} left={false} rightContent={rightContent} />
       <WingBlank>
-        {Object.keys(store.billsGroupbyDay).map(Number).sort((a, b) => b - a).map(
-          day => <DayBillCardList bills={store.billsGroupbyDay[String(day)]} day={day} key={day} />
-        )}
+        <BillList />
       </WingBlank>
       {billbook.id !== 'empty' ? <AddBillButton /> : <></>}
-    </Layout>
-  ))
+    </>
+  )
 }
 
+const BillList = () => {
+  const store = Context.useStore()
+  return Context.useConsumer(() => (
+    Object.keys(store.billsGroupbyDay)
+      .map(Number)
+      .sort((a, b) => b - a)
+      .map(day => (
+        <DayBillCardList
+          bills={store.billsGroupbyDay[String(day)]}
+          day={day} key={day}
+        />
+      ))))
+}
 export default BillbookDetail

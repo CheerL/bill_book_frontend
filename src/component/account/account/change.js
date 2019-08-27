@@ -3,12 +3,12 @@ import useForm from "rc-form-hooks";
 import { List, InputItem,Switch } from "antd-mobile";
 
 import Context from '../../../store'
-import { useLink } from '../../../router'
 import { Bar, BottomButton, UnmodifiedItem, unModifiedColor, colorSpan } from "../../../common";
+import { useAccountAction } from '../../../action'
 
 const ChangeAccount = ({ match }) => {
-  const goBack = useLink()
   const { account_store, current } = Context.useStore()
+  const { change } = useAccountAction()
   const id = match.params.id
   const account = account_store.getAccount(id)
   current.account = account
@@ -17,15 +17,7 @@ const ChangeAccount = ({ match }) => {
   const handleSubmit = e => {
     e.preventDefault();
     validateFields()
-      .then(form => {
-        account.name = form.name
-        account.remark = form.remark
-        if (!account.default && form.default) {
-          account_store.defaultAccount.default = false
-          account.default = true
-        }
-        goBack()
-      })
+      .then(change)
       .catch(console.log);
   };
 

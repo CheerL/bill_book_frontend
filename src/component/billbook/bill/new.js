@@ -3,16 +3,16 @@ import useForm from "rc-form-hooks";
 import { List, InputItem, DatePicker, Picker } from "antd-mobile";
 
 import Context from '../../../store'
-import { useLink } from '../../../router'
 import { Bar, BottomButton, date } from "../../../common";
+import { object_map } from '../../../common/object'
+import { useBillAction } from '../../../action'
 
 const NewBill = () => {
-  const goBack = useLink()
-  const { account_store, bill_store, current, billbook_store, user } = Context.useStore()
+  const { account_store, current, billbook_store, user } = Context.useStore()
   if (current.billbook === undefined) {
       current.billbook = billbook_store.defaultBillbook
   }
-
+  const { add } = useBillAction()
   const billbook = current.billbook
   const account = account_store.defaultAccount
   const username = user.nickname
@@ -21,16 +21,7 @@ const NewBill = () => {
   const handleSubmit = e => {
     e.preventDefault();
     validateFields()
-      .then(form => {
-        form.id = Math.random().toString().substring(3, 6)
-        form.time = date.date2num(form.time)
-        form.amount = form.amount ? Number(form.amount) : 0
-        form.creater = username
-        form.billbook = form.billbook[0]
-        form.account = form.account[0]
-        bill_store.addBill(form)
-        goBack()
-      })
+      .then(add)
       .catch(console.log);
   };
 
@@ -83,7 +74,8 @@ const NewBill = () => {
         {getFieldDecorator('billbook')(
           <Picker
             cols={1}
-            data={billbook_store.billbooks.map(
+            data={object_map(
+              billbook_store.billbooks,
               billbook => ({ value: billbook.id, label: billbook.name })
             )}>
             <List.Item arrow="horizontal">所属账本</List.Item>

@@ -5,6 +5,7 @@ import { Popover } from 'antd-mobile'
 import Context from '../../../store'
 import { useRouter } from '../../../router'
 import { Remarked, Iconed } from '../../../common'
+import { object_map } from '../../../common/object'
 
 import './switch.css'
 
@@ -26,7 +27,7 @@ const BillbookSwitch = () => {
   return Context.useConsumer(() => (
     <Popover
       visible={visible}
-      overlay={billbooks.map(
+      overlay={object_map(billbooks,
         billbook =>
           <Popover.Item
             key={billbook.id}

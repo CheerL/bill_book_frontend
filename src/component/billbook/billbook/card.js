@@ -14,6 +14,7 @@ const BillCard = ({ bill, space = false }) => {
       remark={bill.remark}
       amount={bill.amount}
       space={space}
+      key={bill.id}
     />
   ))
 }
@@ -22,15 +23,20 @@ const GroupBillCardList = ({ bills, groupTitle }) => {
   return (
     <>
       <Title title={groupTitle} />
-      {bills.map((bill, index) => <BillCard bill={bill} key={bill.id} space={index !== bills.length - 1} />)}
+      {bills.map((bill, index) => (
+        <BillCard
+          bill={bill} key={bill.id}
+          space={index !== bills.length - 1}
+        />
+      ))}
     </>
   )
 }
 
-export const DayBillCardList = ({bills, day}) => {
+export const DayBillCardList = ({ bills, day }) => {
   return <GroupBillCardList bills={bills} groupTitle={date.num2str(day)} />
 }
 
-export const MonthBillCardList = ({bills, month}) => {
+export const MonthBillCardList = ({ bills, month }) => {
   return <GroupBillCardList bills={bills} groupTitle={month} />
 }
