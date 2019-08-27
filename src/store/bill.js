@@ -1,4 +1,5 @@
 import { date } from '../common'
+import { list2obj, obj2list, object_filter } from './common'
 
 const initBills = [
   {
@@ -106,7 +107,6 @@ const BillStoreCreater = bill => {
     bill.account = ''
     bill.cat_0 = ''
     bill.cat_1 = ''
-    bill.cat_2 = ''
   }
 
   const store = {
@@ -121,7 +121,6 @@ const BillStoreCreater = bill => {
     creater: bill.creater,
     cat_0: bill.cat_0,
     cat_1: bill.cat_1,
-    cat_2: bill.cat_2,
 
     get time_month() {
       return this.time_str.slice(0, 7)
@@ -163,13 +162,25 @@ const BillStoreCreater = bill => {
     },
     setTarget(account_store) {
       if (this.isTransfer && this.now_account !== undefined) {
-        const targetId = this.isOut ? this.consumer: this.payer
+        const targetId = this.isOut ? this.consumer : this.payer
         if (targetId) {
           this.target = account_store.getAccount(targetId)
         } else {
           this.target = { name: '外部' }
         }
       }
+    },
+    update(bill) {
+      this.billbook = bill.billbook
+      this.time = bill.time
+      this.amount = bill.amount
+      this.remark = bill.remark
+      this.account = bill.account
+      this.consumer = bill.consumer
+      this.payer = bill.payer
+      this.creater = bill.creater
+      this.cat_0 = bill.cat_0
+      this.cat_1 = bill.cat_1
     }
   }
   return store
@@ -177,28 +188,29 @@ const BillStoreCreater = bill => {
 
 const BillListStoreCreater = initValue => {
   const store = {
-    bills: initValue.map(bill => BillStoreCreater(bill)),
+    bills: list2obj(initValue, BillStoreCreater),
 
     getBill(id) {
-      return this.bills.find(bill => bill.id === id)
+      return this.bills[id]
     },
     addBill(bill) {
-      const billStore = BillStoreCreater(bill)
-      this.bills.push(billStore)
+      if (!this.bills[bill.id]) {
+        this.bills[bill.id] = BillStoreCreater(bill)
+      } else {
+        this.bills[bill.id].update(bill)
+      }
     },
     removeBill(billStore) {
-      this.bills.remove(billStore)
+      delete this.bills[billStore.id]
     },
 
-    filterByAccount(account) {
-      return this.bills.filter(bill => (
-        bill.account === account ||
-        bill.payer === account ||
-        bill.consumer === account
-      ))
+    filterByAccount(account, list = false) {
+      const result = object_filter(this.bills, bill => bill.account === account)
+      return list ? obj2list(result) : result
     },
-    filterByBillbook(billbook) {
-      return this.bills.filter(bill => bill.billbook === billbook)
+    filterByBillbook(billbook, list = false) {
+      const result = object_filter(this.bills, bill => bill.billbook === billbook)
+      return list ? obj2list(result) : result
     }
   }
   return store

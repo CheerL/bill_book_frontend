@@ -45,8 +45,8 @@ const MineIndex = () => {
   ))
 }
 
-export const Mine = SwitchRoute([
+export const Mine = () => <SwitchRoute router_map={[
   { path: '/mine', component: MineIndex, exact: true },
   { path: '/mine/user', component: UserDetail },
   { path: '/mine' }
-])
+]} />

@@ -5,28 +5,18 @@ import { List, InputItem, Picker, Switch } from 'antd-mobile'
 import Context from '../../../store'
 import { useLink } from '../../../router'
 import { Bar, BottomButton, colorSpan, unModifiedColor } from '../../../common'
-
-import { useSetCurrentBillbook } from './common'
+import { useBillbookAction } from '../../../action'
 
 const ChangeBillbook = ({ match }) => {
-  useSetCurrentBillbook(match.params)
   const goBack = useLink()
   const { billbook_store, current } = Context.useStore()
   const { getFieldDecorator, validateFields, setFieldsValue } = useForm();
-  const billbook = current.billbook
+  const { change } = useBillbookAction()
+  const billbook = current.billbook = billbook_store.getBillbook(match.params.id)
   const handleSubmit = e => {
     e.preventDefault()
     validateFields()
-      .then(form => {
-        billbook.status = form.status[0]
-        billbook.name = form.name
-        billbook.remark = form.remark
-        if (!billbook.default && form.default) {
-          billbook_store.defaultBillbook.default = false
-          billbook.default = true
-        }
-        goBack()
-      })
+      .then(change)
       .catch(console.log)
   }
   useEffect(() => {

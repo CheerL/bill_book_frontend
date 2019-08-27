@@ -1,25 +1,18 @@
-import { Button, InputItem } from "antd-mobile";
 import React from "react";
 import useForm from "rc-form-hooks";
+import { Button, InputItem } from "antd-mobile";
+
+import { useUserAction } from '../../action'
+
 import { UserBox } from "./box";
-import api from '../../action/api'
-import { useLink } from '../../router'
 
 export const Register = () => {
-  const goBack = useLink()
   const { getFieldDecorator, validateFields } = useForm();
+  const { register } = useUserAction()
   const handleSubmit = e => {
     e.preventDefault();
     validateFields()
-      .then(form => {
-        if (form.password === form.check_password) {
-          api.user.register(form.username, form.password, form.nickname)
-          .then(() => {
-            goBack()
-          })
-          .catch(console.log)
-        }
-      })
+      .then(register)
       .catch(console.log);
   };
   const links = [{ path: "login", text: "返回登录" }];

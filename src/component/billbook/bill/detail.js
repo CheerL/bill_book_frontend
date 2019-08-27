@@ -34,6 +34,7 @@ const BillDetail = ({ match }) => {
       }
     }
   ]
+
   return (
     <>
       <Bar title={bill.cat_0} rightContent={rightContent} />

@@ -55,7 +55,7 @@ const AccountDetail = ({ match }) => {
       <AccountHead text='账户余额' amount={account.amount} />
       <WingBlank className='padding-bottom'>
         <Title title='账单列表' />
-        {bill_store.filterByAccount(id).map(
+        {bill_store.filterByAccount(id, true).sort((a, b) => b.time - a.time).map(
           bill => <AccountDetailCard bill={bill} key={bill.id} space />
         )}
       </WingBlank>

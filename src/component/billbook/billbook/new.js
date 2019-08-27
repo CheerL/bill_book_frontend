@@ -2,25 +2,20 @@ import React, { useEffect } from 'react'
 import useForm from "rc-form-hooks";
 import { List, InputItem, Picker } from 'antd-mobile'
 
-import Context from '../../../store'
-import { useRouter } from '../../../router'
+// import Context from '../../../store'
+// import { useRouter } from '../../../router'
 import { Bar, BottomButton } from '../../../common'
+import { useBillbookAction } from '../../../action'
 
 const NewBillbook = () => {
-  const router = useRouter()
-  const { billbook_store } = Context.useStore()
+  // const router = useRouter()
+  // const { billbook_store } = Context.useStore()
   const { getFieldDecorator, validateFields, setFieldsValue } = useForm();
+  const { add } = useBillbookAction()
   const handleSubmit = e => {
     e.preventDefault()
     validateFields()
-      .then(form => {
-        form.id = Math.random().toString().substring(3, 6)
-        form.remark = form.remark ? form.remark : ''
-        form.status = form.status[0]
-        form.default = false
-        billbook_store.addBillbook(form)
-        router.history.push(`/billbook/detail/${form.id}`)
-      })
+      .then(add)
       .catch(console.log)
   }
   useEffect(() => {

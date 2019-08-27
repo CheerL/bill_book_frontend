@@ -1,25 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { InputItem, Button } from "antd-mobile";
+import React from "react";
 import useForm from "rc-form-hooks";
+import { InputItem, Button } from "antd-mobile";
+
+import { useUserAction } from '../../action'
+
 import { UserBox } from "./box";
-import Context from '../../store'
-import api from '../../action/api'
 
 export const Login = () => {
   const { getFieldDecorator, validateFields } = useForm();
-  const { user } = Context.useStore()
-  const [isRender, setIsRender] = useState(false)
+  const { login } = useUserAction()
 
   const handleSubmit = e => {
     e.preventDefault();
     validateFields()
-      .then(form => {
-        api.user.login(form.username, form.password)
-          .then(res => {
-            user.loginFunc(res)
-          })
-          .catch(console.log)
-      })
+      .then(login)
       .catch(console.log);
   };
   const links = [
@@ -28,15 +22,8 @@ export const Login = () => {
   ];
   const title = "登录账号";
 
-  useEffect(() => {
-    api.user.login_jwt()
-    .then(res => user.loginFunc(res))
-    .catch(() => setIsRender(true))
-    // eslint-disable-next-line
-  }, [])
-
-  return isRender ?
-    <UserBox links={links} title={title}>
+  return (
+  <UserBox links={links} title={title}>
       {getFieldDecorator("username")(<InputItem type="text">账号</InputItem>)}
       {getFieldDecorator("password")(
         <InputItem type="password">密码</InputItem>
@@ -44,6 +31,6 @@ export const Login = () => {
       <Button type="primary" onClick={handleSubmit}>
         登录
       </Button>
-    </UserBox>:
-    <></>
+    </UserBox>
+  )
 };

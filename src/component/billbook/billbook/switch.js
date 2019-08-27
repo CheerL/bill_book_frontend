@@ -54,9 +54,9 @@ const BillbookSwitch = () => {
             store.current.billbook.name
           }
           remark={
-            store.current.billbook.remark.length < 7 ?
-              store.current.billbook.remark :
-              store.current.billbook.remark.slice(0, 6) + '...'
+            (store.current.billbook.remark && store.current.billbook.remark.length >= 7) ?
+              store.current.billbook.remark.slice(0, 6) + '...' :
+              store.current.billbook.remark
           }
           position='center'
         />

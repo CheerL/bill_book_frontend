@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 
 const RouterContext = React.createContext()
 
-export const SwitchRoute = router_map => () => {
+export const SwitchRoute = ({router_map}) => {
   return <Switch>
     {router_map.map((route, index) => route.component ?
       <Route key={index} path={route.path} component={route.component} exact={route.exact} /> :
