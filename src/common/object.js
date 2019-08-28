@@ -74,10 +74,10 @@ export const list2obj = (list, initFunc = init => init) => {
 
 export const update = (store, newStore, keys) => {
   if (newStore._updated) {
-    newStore._updated = Date.parse(newStore._updated)
-    if (!store._updated || newStore._updated > store._updated) {
+    const tempStore = { ...newStore, _updated: Date.parse(newStore._updated) }
+    if (!store._updated || tempStore._updated > store._updated) {
       keys.forEach(key => {
-        store[key] = newStore[key] === undefined ? store[key] : newStore[key]
+        store[key] = tempStore[key] === undefined ? store[key] : tempStore[key]
       })
     }
   }

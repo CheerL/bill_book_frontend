@@ -3,7 +3,6 @@ import useForm from "rc-form-hooks";
 import { List, InputItem, Picker, DatePicker } from "antd-mobile";
 
 import Context from '../../../store'
-import { useLink } from '../../../router'
 import { Bar, Select, BottomButton, date } from "../../../common";
 import { object_map } from '../../../common/object'
 import { useTransferAction } from '../../../action'
@@ -11,7 +10,6 @@ import { useTransferAction } from '../../../action'
 import AccountPopup from './popup'
 
 const NewTransfer = () => {
-  const goBack = useLink()
   const store = Context.useStore()
   const { getFieldDecorator, validateFields, setFieldsValue, getFieldValue } = useForm();
   const { add } = useTransferAction()

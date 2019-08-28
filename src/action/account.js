@@ -14,6 +14,18 @@ const useAccountAction = () => {
       })
       .catch(console.log)
   }
+  const getAccount = id => {
+    const account = account_store.getAccount(id)
+    api.account.get(id)
+    .then(res => {
+      if (account) {
+        account.update(res)
+      } else {
+        account_store.addAccount(res)
+      }
+    })
+    .catch(console.log)
+  }
   const add = form => {
     form.remark = form.remark ? form.remark : ''
     form.amount = form.amount ? Number(form.amount) : 0
@@ -83,6 +95,7 @@ const useAccountAction = () => {
   }
   return {
     getAccounts,
+    getAccount,
     add,
     change,
     changeDefault,

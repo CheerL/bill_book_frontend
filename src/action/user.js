@@ -2,16 +2,44 @@ import api from './api'
 import Context from '../store'
 import { useRouter } from '../router'
 
+import useAccountAction from './account'
+import useBillAction from './bill'
+import useBillbookAction from './billbook'
+import useTransferAction from './transfer'
+
 const useUserAction = () => {
   const { user } = Context.useStore()
   const router = useRouter()
+  const { getAccounts } = useAccountAction()
+  const { getBills } = useBillAction()
+  const { getBillbooks } = useBillbookAction()
+  const { getTransfer } = useTransferAction()
+
+  const afterLogin = res => {
+    user.loginFunc(res)
+    getTransfer()
+    getAccounts()
+    getBillbooks()
+    getBills()
+  }
 
   const login = ({ username, password }) => {
     api.user.login(username, password)
       .then(res => {
-        user.loginFunc(res)
+        afterLogin(res)
       })
       .catch(console.log)
+  }
+
+  const login_jwt = func => {
+    api.user.login_jwt()
+      .then(res => {
+        afterLogin(res)
+        func()
+      })
+      .catch(() => {
+        func()
+      })
   }
 
   const register = ({ username, password, nickname, check_password }) => {
@@ -33,11 +61,20 @@ const useUserAction = () => {
         .catch(console.log)
     }
   }
+  const remove = () => {
+    api.user.delete()
+    .then(() => {
+      user.logoutFunc()
+    })
+    .catch(console.log)
+  }
 
   return {
     login,
+    login_jwt,
     register,
-    forget
+    forget,
+    remove
   }
 }
 

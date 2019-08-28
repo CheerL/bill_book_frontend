@@ -1,34 +1,34 @@
 import { update, list2obj, object_find } from '../common/object'
 
 const initBillbooks = [
-  {
-      _id: '000',
-      name: '日常哈哈哈',
-      remark: '日常账本啦啦啦',
-      status: 1,
-      cover: 'default',
-      default: true,
-      _updated: 1000000
+  // {
+  //     _id: '000',
+  //     name: '日常哈哈哈',
+  //     remark: '日常账本啦啦啦',
+  //     status: 1,
+  //     cover: 'default',
+  //     default: true,
+  //     _updated: 1000000
       
-  },
-  {
-      _id: '001',
-      name: '旅行',
-      remark: '',
-      status: 1,
-      cover: 'default',
-      default: false,
-      _updated: 1000000
-  },
-  {
-      _id: '002',
-      name: '香港',
-      remark: '港币账本',
-      status: 1,
-      cover: 'default',
-      default: false,
-      _updated: 1000000
-  }
+  // },
+  // {
+  //     _id: '001',
+  //     name: '旅行',
+  //     remark: '',
+  //     status: 1,
+  //     cover: 'default',
+  //     default: false,
+  //     _updated: 1000000
+  // },
+  // {
+  //     _id: '002',
+  //     name: '香港',
+  //     remark: '港币账本',
+  //     status: 1,
+  //     cover: 'default',
+  //     default: false,
+  //     _updated: 1000000
+  // }
 ]
 
 const BillbookStoreCreater = billbook => {

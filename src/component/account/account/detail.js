@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { WingBlank } from 'antd-mobile'
 import { Redirect } from 'react-router-dom'
 
@@ -13,14 +13,20 @@ const AccountDetail = ({ match }) => {
   const id = match.params.id
   const { account_store, bill_store, current } = Context.useStore()
   const account = account_store.getAccount(id)
-  const { changeDefault, remove } = useAccountAction()
-
+  const { changeDefault, remove, getAccount } = useAccountAction()
+  useEffect(() => {
+    if (id) {
+      getAccount(id)
+    }
+    // eslint-disable-next-line
+  }, [])
   if (account === undefined) {
-    current.account = account_store.defaultAccount
     return <Redirect to={`/account/detail/${current.account.id}`} push />
   } else {
     current.account = account
   }
+
+
   const rightContent = [{
     value: 'change', content: '修改账户', onSelect: () => {
       router.history.push(`/account/change/${id}`)
@@ -28,10 +34,10 @@ const AccountDetail = ({ match }) => {
   }]
   const undefaultContent = [{
     value: 'default', content: '设为默认',
-    onSelect: () => {changeDefault(id)}
+    onSelect: () => { changeDefault(id) }
   }, {
     value: 'delete', content: colorSpan('删除账户', 'red'),
-    onSelect: () => {remove(id)}
+    onSelect: () => { remove(id) }
   }]
 
   return Context.useConsumer(() => (

@@ -63,8 +63,9 @@ const TransferCard = ({bill, space=false}) => {
   ))
 }
 
-export const AccountDetailCard = ({bill, space=false}) => (
-  bill.isTransfer ?
+export const AccountDetailCard = ({bill, space=false}) => {
+  const { user } = Context.useStore()
+  return bill.billbook === 'transfer' ?
   <TransferCard bill={bill} space={space} /> :
   <BillCard bill={bill} space={space} />
-)
+}
