@@ -1,9 +1,9 @@
 import { list2obj, update, object_find } from '../common/object'
 
 const initAccounts = [
-  { name: "现金", _id: "000", remark: '现金', default: false, _updated: 15000000 },
-  { name: "支付宝", amount: 1, _id: "001", default: false, _updated: 15000000 },
-  { name: "微信", amount: 2, _id: "002", default: false, _updated: 15000000 }
+  // { name: "现金", _id: "000", remark: '现金', default: false, _updated: 15000000 },
+  // { name: "支付宝", amount: 1, _id: "001", default: false, _updated: 15000000 },
+  // { name: "微信", amount: 2, _id: "002", default: false, _updated: 15000000 }
 ]
 
 const accountStoreCreater = (account) => {

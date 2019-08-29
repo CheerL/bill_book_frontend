@@ -3,7 +3,7 @@ import useForm from "rc-form-hooks";
 import { List, InputItem, DatePicker, Picker } from "antd-mobile";
 
 import Context from '../../../store'
-import { Bar, BottomButton, date } from "../../../common";
+import { Bar, BottomButton, date, Select } from "../../../common";
 import { object_map } from '../../../common/object'
 import { useBillAction } from '../../../action'
 
@@ -40,6 +40,9 @@ const NewBill = () => {
     <>
       <Bar title='新建账单' />
       <List className='padding-bottom'>
+         {getFieldDecorator('direction')(
+          <Select data={[{ value: 'out', label: '支出' }, { value: 'in', label: '收入' }]} />
+        )}
         {getFieldDecorator('time')(
           <DatePicker mode='date' title='选择日期' >
             <List.Item arrow="horizontal">时间</List.Item>
@@ -84,7 +87,7 @@ const NewBill = () => {
         {getFieldDecorator('account')(
           <Picker
             cols={1}
-            data={account_store.accounts.map(
+            data={object_map(account_store.accounts,
               account => ({ value: account.id, label: account.name })
             )}>
             <List.Item arrow="horizontal">所属账户</List.Item>

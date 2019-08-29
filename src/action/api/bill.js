@@ -14,5 +14,11 @@ export default {
     },
     add: form => {
         return Axios.post(prefixed_url(''), form)
+    },
+    change: (form, id) => {
+        return Axios.patch(prefixed_url(`/${id}`), form)
+    },
+    remove: id => {
+        return Axios.delete(prefixed_url(`/${id}`))
     }
 }

@@ -3,40 +3,31 @@ import useForm from "rc-form-hooks";
 import { List, InputItem, DatePicker, Picker } from "antd-mobile";
 
 import Context from '../../../store'
-import { useLink } from '../../../router'
-import { Bar, BottomButton, date } from "../../../common";
+import { useBillAction } from '../../../action'
+import { Bar, BottomButton, Select } from "../../../common";
+import { object_map } from '../../../common/object'
 
 const ChangeBill = ({ match }) => {
-  const goBack = useLink()
+  const { getFieldDecorator, validateFields, setFieldsValue } = useForm();
   const { account_store, bill_store, current, billbook_store } = Context.useStore()
+  const { change } = useBillAction()
   const id = match.params.id
   const bill = bill_store.getBill(id)
-  current.bill = bill
   const account = account_store.getAccount(bill.account)
   const billbook = billbook_store.getBillbook(bill.billbook)
 
-  const { getFieldDecorator, validateFields, setFieldsValue } = useForm();
+  current.bill = bill
 
   const handleSubmit = e => {
     e.preventDefault();
     validateFields()
-      .then(form => {
-        bill.time = date.date2num(form.time)
-        bill.amount = form.amount ? Number(form.amount) : 0
-        bill.cat_0 = form.cat_0
-        bill.cat_1 = form.cat_1
-        bill.payer = form.payer
-        bill.consumer = form.consumer
-        bill.billbook = form.billbook[0]
-        bill.account = form.account[0]
-        bill.remark = form.remark
-        goBack()
-      })
+      .then(change)
       .catch(console.log);
   };
 
   useEffect(() => {
     setFieldsValue({
+      direction: bill.amount > 0 ? 'in' : 'out',
       account: [account.id],
       billbook: [billbook.id],
       cat_0: bill.cat_0,
@@ -44,7 +35,7 @@ const ChangeBill = ({ match }) => {
       payer: bill.payer,
       consumer: bill.consumer,
       remark: bill.remark,
-      amount: bill.amount,
+      amount: Math.abs(bill.amount),
       time: bill.time_date,
     })
     // eslint-disable-next-line
@@ -54,6 +45,9 @@ const ChangeBill = ({ match }) => {
     <>
       <Bar title='修改账单' />
       <List className='padding-bottom'>
+        {getFieldDecorator('direction')(
+          <Select data={[{ value: 'out', label: '支出' }, { value: 'in', label: '收入' }]} />
+        )}
         {getFieldDecorator('time')(
           <DatePicker mode='date' title='选择日期' >
             <List.Item arrow="horizontal">时间</List.Item>
@@ -88,7 +82,7 @@ const ChangeBill = ({ match }) => {
         {getFieldDecorator('billbook')(
           <Picker
             cols={1}
-            data={billbook_store.billbooks.map(
+            data={object_map(billbook_store.billbooks,
               billbook => ({ value: billbook.id, label: billbook.name })
             )}>
             <List.Item arrow="horizontal">所属账本</List.Item>
@@ -97,7 +91,7 @@ const ChangeBill = ({ match }) => {
         {getFieldDecorator('account')(
           <Picker
             cols={1}
-            data={account_store.accounts.map(
+            data={object_map(account_store.accounts,
               account => ({ value: account.id, label: account.name })
             )}>
             <List.Item arrow="horizontal">所属账户</List.Item>

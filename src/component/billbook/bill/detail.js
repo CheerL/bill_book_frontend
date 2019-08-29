@@ -3,13 +3,15 @@ import { List } from 'antd-mobile'
 
 import Context from '../../../store'
 import { useRouter } from '../../../router'
+import { useBillAction } from '../../../action'
 import { Bar, colorSpan, DetailHead, unSetText } from '../../../common'
 
 
 const BillDetail = ({ match }) => {
+  const { bill_store, account_store, billbook_store, current } = Context.useStore()
+  const { remove } = useBillAction()
   const router = useRouter()
   const id = match.params.id
-  const { bill_store, account_store, billbook_store, current } = Context.useStore()
   const bill = bill_store.getBill(id)
   current.bill = bill
   const billbook = billbook_store.getBillbook(bill.billbook).name
@@ -29,8 +31,7 @@ const BillDetail = ({ match }) => {
     },
     {
       value: 'delete', content: colorSpan('删除账单', 'red'), onSelect: () => {
-        bill_store.removeBill(bill)
-        router.history.goBack()
+        remove(id)
       }
     }
   ]

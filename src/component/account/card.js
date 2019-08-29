@@ -63,8 +63,8 @@ const TransferCard = ({bill, space=false}) => {
   ))
 }
 
-export const AccountDetailCard = ({bill, space=false}) => (
-  bill.isTransfer ?
+export const AccountDetailCard = ({bill, space=false}) => {
+  return bill.billbook === 'transfer' ?
   <TransferCard bill={bill} space={space} /> :
   <BillCard bill={bill} space={space} />
-)
+}

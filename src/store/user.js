@@ -1,8 +1,8 @@
 const initUser = {
-  id: '001',
-  username: 'cheer',
-  nickname: 'Cheer.L',
-  avatar: 'default',
+  id: '',
+  username: '',
+  nickname: '',
+  avatar: '',
   login: false
 }
 
