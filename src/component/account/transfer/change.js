@@ -3,11 +3,11 @@ import useForm from "rc-form-hooks";
 import { List, InputItem, DatePicker } from "antd-mobile";
 
 import Context from '../../../store'
-import { useLink } from '../../../router'
-import { Bar, Select, BottomButton, UnmodifiedItem, date } from "../../../common";
+import { Bar, Select, BottomButton, UnmodifiedItem } from "../../../common";
+import { useTransferAction } from '../../../action'
 
 const ChangeTransfer = ({ match }) => {
-  const goBack = useLink()
+  const { change } =  useTransferAction()
   const { account_store, bill_store, current } = Context.useStore()
   const id = match.params.id
   const bill = bill_store.getBill(id)
@@ -22,14 +22,10 @@ const ChangeTransfer = ({ match }) => {
     validateFields()
       .then(form => {
         if (changed) {
-          bill.payer = consumer.id
-          bill.consumer = payer.id
+          form.payer = consumer.id
+          form.consumer = payer.id
         }
-
-        bill.remark = form.remark
-        bill.amount = form.amount ? Number(form.amount) : 0
-        bill.time = date.date2num(form.time)
-        goBack()
+        change(form)
       })
       .catch(console.log);
   };

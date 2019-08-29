@@ -3,12 +3,14 @@ import { List } from 'antd-mobile'
 
 import Context from '../../../store'
 import { useRouter } from '../../../router'
+import { useTransferAction } from '../../../action'
 import { Bar, colorSpan, DetailHead, unSetText } from '../../../common'
 
 const TransferDetail = ({ match }) => {
   const router = useRouter()
-  const id = match.params.id
   const { bill_store, account_store, current } = Context.useStore()
+  const { remove } = useTransferAction()
+  const id = match.params.id
   const bill = bill_store.getBill(id)
   current.bill = bill
 
@@ -25,8 +27,7 @@ const TransferDetail = ({ match }) => {
     },
     {
       value: 'delete', content: colorSpan('删除转账', 'red'), onSelect: () => {
-        bill_store.removeBill(bill)
-        router.history.goBack()
+        remove(id)
       }
     }
   ]

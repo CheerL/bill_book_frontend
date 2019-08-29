@@ -30,6 +30,7 @@ const useTransferAction = () => {
       form.payer = form.target[0]
     } else if (form.direction === 'out') {
       form.payer = account.id
+      form.amount = -form.amount
       form.consumer = form.target[0]
     }
 
@@ -46,10 +47,33 @@ const useTransferAction = () => {
       })
       .catch(console.log)
   }
+  const change = form => {
+    const transfer = current.bill
+        form.remark = form.remark ? form.remark : ''
+        form.amount = form.amount ? Number(form.amount) : 0
+        form.time = date.date2num(form.time)
+        api.bill.change(form, transfer.id)
+        .then(res => {
+          form._updated = res._updated
+          transfer.update(form)
+          router.history.goBack()
+        })
+        .catch(console.log)
+  }
+  const remove = id => {
+    const transfer = bill_store.getBill(id)
+    api.bill.remove(id)
+    .then(()=> {
+      bill_store.removeBill(transfer)
+      router.history.goBack()
+    })
+    .catch(console.log)
+  }
   return {
     getTransfer,
-    // getBills,
-    add
+    add,
+    change,
+    remove
   }
 }
 

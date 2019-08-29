@@ -1,10 +1,3 @@
-// const initUser = {
-//   id: '001',
-//   username: 'cheer',
-//   nickname: 'Cheer.L',
-//   avatar: 'default',
-//   login: false
-// }
 const initUser = {
   id: '',
   username: '',

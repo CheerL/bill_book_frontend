@@ -89,7 +89,7 @@ const BillbookDetailView = ({ billbook }) => {
       <WingBlank>
         <BillList />
       </WingBlank>
-      {billbook.id !== 'empty' ? <AddBillButton /> : <></>}
+      {billbook.id !== 'default' ? <AddBillButton /> : <></>}
     </>
   )
 }
