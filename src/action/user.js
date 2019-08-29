@@ -38,6 +38,7 @@ const useUserAction = () => {
         func()
       })
       .catch(() => {
+        localStorage.removeItem('jwt')
         func()
       })
   }
