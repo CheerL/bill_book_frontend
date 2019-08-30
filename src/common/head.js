@@ -1,5 +1,5 @@
 import React from "react";
-import { Icon } from 'antd'
+import { MyIcon as Icon } from '.'
 import './head.css'
 
 export const AccountHead = ({ text, amount }) => {

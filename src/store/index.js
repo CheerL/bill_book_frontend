@@ -5,6 +5,7 @@ import bill_store from './bill'
 import billbook_store from './billbook'
 import current from './current'
 import user from './user'
+import icon from './icon'
 import { obj_groupby, object_filter } from '../common/object'
 
 const ContextCreater = stores => {
@@ -41,6 +42,7 @@ const Context = ContextCreater({
   billbook_store,
   user,
   current,
+  icon,
 
   get accountsExceptCurrent() {
     if (this.current.account === undefined) {

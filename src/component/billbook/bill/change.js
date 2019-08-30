@@ -27,7 +27,7 @@ const ChangeBill = ({ match }) => {
 
   useEffect(() => {
     setFieldsValue({
-      direction: bill.amount > 0 ? 'in' : 'out',
+      direction: bill.amount > 0 ? true : false,
       account: [account.id],
       billbook: [billbook.id],
       cat_0: bill.cat_0,
@@ -35,7 +35,7 @@ const ChangeBill = ({ match }) => {
       payer: bill.payer,
       consumer: bill.consumer,
       remark: bill.remark,
-      amount: Math.abs(bill.amount),
+      amount: String(Math.abs(bill.amount)),
       time: bill.time_date,
     })
     // eslint-disable-next-line
@@ -46,7 +46,7 @@ const ChangeBill = ({ match }) => {
       <Bar title='修改账单' />
       <List className='padding-bottom'>
         {getFieldDecorator('direction')(
-          <Select data={[{ value: 'out', label: '支出' }, { value: 'in', label: '收入' }]} />
+          <Select data={[{ value: false, label: '支出' }, { value: true, label: '收入' }]} />
         )}
         {getFieldDecorator('time')(
           <DatePicker mode='date' title='选择日期' >

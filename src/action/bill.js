@@ -21,7 +21,7 @@ const useBillAction = () => {
     form.creater = user.id
     form.billbook = form.billbook[0]
     form.account = form.account[0]
-    if (form.direction === 'out') {
+    if (!form.direction) {
       form.amount = -form.amount
     }
 
@@ -46,7 +46,7 @@ const useBillAction = () => {
     form.billbook = form.billbook[0]
     form.account = form.account[0]
 
-    if (form.direction === 'out') {
+    if (!form.direction) {
       form.amount = -form.amount
     }
 

@@ -1,0 +1,11 @@
+.slider-list {
+    height: auto !important;
+}
+
+.slider-slide {
+    position: static !important;
+}
+
+i.anticon+div.am-grid-text {
+    margin-top: 4px !important;
+}

@@ -7,7 +7,7 @@ const Select = ({ data, value, onChange }) => {
       value = newValue
     }
   }
-  if (!value) {
+  if (value === undefined || value === null) {
     onChange(data[0].value)
   }
   return <div className='am-list-item am-list-item-middle'>

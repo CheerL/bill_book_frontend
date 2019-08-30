@@ -4,6 +4,7 @@ import Bar from './bar'
 import Iconed from './iconed'
 import Title from './title'
 import Select from './select'
+import MyIcon from './icon'
 import { colorSpan, unSetText, unModifiedColor, UnmodifiedItem } from './color'
 import BottomButton from './bottom_button'
 import UserAvatar from './user_avatar'
@@ -16,6 +17,7 @@ export {
     Card,
     Title,
     Bar,
+    MyIcon,
     Iconed,
     Select,
     colorSpan,

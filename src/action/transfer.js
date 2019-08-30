@@ -25,10 +25,10 @@ const useTransferAction = () => {
     form.remark = form.remark ? form.remark : ''
     form.billbook = user.transfer
 
-    if (form.direction === 'in') {
+    if (form.direction) {
       form.consumer = account.id
       form.payer = form.target[0]
-    } else if (form.direction === 'out') {
+    } else {
       form.payer = account.id
       form.amount = -form.amount
       form.consumer = form.target[0]

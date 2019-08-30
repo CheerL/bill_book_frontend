@@ -3,20 +3,22 @@ import useForm from "rc-form-hooks";
 import { List, InputItem, DatePicker, Picker } from "antd-mobile";
 
 import Context from '../../../store'
-import { Bar, BottomButton, date, Select } from "../../../common";
+import { Bar, BottomButton, date, Select, DetailHead } from "../../../common";
 import { object_map } from '../../../common/object'
 import { useBillAction } from '../../../action'
 
+import CatSelect from './cat_select'
+
 const NewBill = () => {
-  const { account_store, current, billbook_store, user } = Context.useStore()
+  const { account_store, current, billbook_store, user, icon } = Context.useStore()
   if (current.billbook === undefined) {
-      current.billbook = billbook_store.defaultBillbook
+    current.billbook = billbook_store.defaultBillbook
   }
   const { add } = useBillAction()
   const billbook = current.billbook
   const account = account_store.defaultAccount
   const username = user.nickname
-  const { getFieldDecorator, validateFields, setFieldsValue } = useForm();
+  const { getFieldDecorator, validateFields, setFieldsValue, getFieldValue } = useForm();
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -27,6 +29,7 @@ const NewBill = () => {
 
   useEffect(() => {
     setFieldsValue({
+      amount: '0',
       account: [account.id],
       billbook: [billbook.id],
       payer: username,
@@ -39,9 +42,17 @@ const NewBill = () => {
   return Context.useConsumer(() => (
     <>
       <Bar title='新建账单' />
+      {icon.getIcon(getFieldValue('cat_0')) ?
+        <DetailHead
+          text={icon.getIcon(getFieldValue('cat_0')).text}
+          icon={icon.getIcon(getFieldValue('cat_0')).icon}
+          amount={`${!getFieldValue('direction') && getFieldValue('amount') !== '0' ? '-' : ''}${getFieldValue('amount')}`}
+        /> :
+        null
+      }
       <List className='padding-bottom'>
-         {getFieldDecorator('direction')(
-          <Select data={[{ value: 'out', label: '支出' }, { value: 'in', label: '收入' }]} />
+        {getFieldDecorator('direction')(
+          <Select data={[{ value: false, label: '支出' }, { value: true, label: '收入' }]} />
         )}
         {getFieldDecorator('time')(
           <DatePicker mode='date' title='选择日期' >
@@ -54,9 +65,7 @@ const NewBill = () => {
           </InputItem>
         )}
         {getFieldDecorator("cat_0")(
-          <InputItem type="text" placeholder="类别">
-            类别
-          </InputItem>
+          <CatSelect isCarousel>类别</CatSelect>
         )}
         {getFieldDecorator("cat_1")(
           <InputItem type="text" placeholder="子类别">

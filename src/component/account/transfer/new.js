@@ -35,7 +35,7 @@ const NewTransfer = () => {
       <AccountPopup />
       <List className='padding-bottom'>
         {getFieldDecorator('direction')(
-          <Select data={[{ value: 'out', label: '转出' }, { value: 'in', label: '转入' }]} />
+          <Select data={[{ value: false, label: '转出' }, { value: true, label: '转入' }]} />
         )}
         {getFieldDecorator('time')(
           <DatePicker mode='date' title='选择日期' >
@@ -54,7 +54,7 @@ const NewTransfer = () => {
             ).concat([{ value: '', label: '外部' }])}
             cols={1}
           >
-            <List.Item arrow="horizontal">{getFieldValue('direction') === 'out' ? '收款账户' : '付款账户'}</List.Item>
+            <List.Item arrow="horizontal">{getFieldValue('direction') ? '付款账户' : '收款账户'}</List.Item>
           </Picker>
         )}
         {getFieldDecorator("remark")(
