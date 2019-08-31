@@ -21,7 +21,6 @@ const useTransferAction = () => {
     form.account = account.id
     form.time = date.date2num(form.time)
     form.amount = form.amount ? Number(form.amount) : 0
-    form.creater = user.id
     form.remark = form.remark ? form.remark : ''
     form.billbook = user.transfer
 
@@ -42,6 +41,7 @@ const useTransferAction = () => {
         form._id = res._id
         form._updated = res._updated
         form.billbook = 'transfer'
+        form.creater_name = user.nickname
         bill_store.addBill(form)
         router.history.goBack()
       })

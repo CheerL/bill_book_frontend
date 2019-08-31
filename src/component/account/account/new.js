@@ -2,7 +2,7 @@ import React from "react";
 import useForm from "rc-form-hooks";
 import { List, InputItem } from "antd-mobile";
 
-import { Bar, BottomButton } from "../../../common";
+import { Bar, BottomButton, MoneyInput } from "../../../common";
 import { useAccountAction } from '../../../action'
 
 const NewAccount = () => {
@@ -25,9 +25,9 @@ const NewAccount = () => {
           </InputItem>
         )}
         {getFieldDecorator("amount")(
-          <InputItem type="money" placeholder="0" moneyKeyboardAlign="right">
+          <MoneyInput>
             余额
-          </InputItem>
+          </MoneyInput>
         )}
         {getFieldDecorator("remark")(
           <InputItem type="text" placeholder="备注">

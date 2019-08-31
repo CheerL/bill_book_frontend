@@ -5,6 +5,7 @@ import Iconed from './iconed'
 import Title from './title'
 import Select from './select'
 import MyIcon from './icon'
+import MoneyInput from './money_input'
 import { colorSpan, unSetText, unModifiedColor, UnmodifiedItem } from './color'
 import BottomButton from './bottom_button'
 import UserAvatar from './user_avatar'
@@ -18,6 +19,7 @@ export {
     Title,
     Bar,
     MyIcon,
+    MoneyInput,
     Iconed,
     Select,
     colorSpan,

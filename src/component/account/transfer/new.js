@@ -3,7 +3,7 @@ import useForm from "rc-form-hooks";
 import { List, InputItem, Picker, DatePicker } from "antd-mobile";
 
 import Context from '../../../store'
-import { Bar, Select, BottomButton, date } from "../../../common";
+import { Bar, Select, BottomButton, date, MoneyInput } from "../../../common";
 import { object_map } from '../../../common/object'
 import { useTransferAction } from '../../../action'
 
@@ -43,9 +43,9 @@ const NewTransfer = () => {
           </DatePicker>
         )}
         {getFieldDecorator("amount")(
-          <InputItem type="money" placeholder="0" moneyKeyboardAlign="right">
+          <MoneyInput>
             金额
-          </InputItem>
+          </MoneyInput>
         )}
         {getFieldDecorator('target')(
           <Picker

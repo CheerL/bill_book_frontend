@@ -3,9 +3,9 @@ import { useLocalStore, useObserver } from "mobx-react-lite";
 import account_store from './account'
 import bill_store from './bill'
 import billbook_store from './billbook'
+import cat_store from './cat'
 import current from './current'
 import user from './user'
-import icon from './icon'
 import { obj_groupby, object_filter } from '../common/object'
 
 const ContextCreater = stores => {
@@ -40,9 +40,9 @@ const Context = ContextCreater({
   account_store,
   bill_store,
   billbook_store,
+  cat_store,
   user,
   current,
-  icon,
 
   get accountsExceptCurrent() {
     if (this.current.account === undefined) {

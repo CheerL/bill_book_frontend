@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 
 import { SwitchRoute } from '../../router'
 import { BillbookDetail, NewBillbook, ChangeBillbook } from './billbook'
-import { BillDetail, NewBill, ChangeBill } from './bill'
+import { BillDetail, NewBill, ChangeBill,NewCat } from './bill'
 import { useBillbookAction, useBillAction } from '../../action'
 
 import './index.css'
@@ -24,6 +24,7 @@ export const Billbook = () => {
     { path: '/billbook/bill/detail/:id', component: BillDetail },
     { path: '/billbook/bill/change/:id', component: ChangeBill },
     { path: '/billbook/bill/new', component: NewBill },
+    { path: '/billbook/bill/cat/new', component: NewCat },
     { path: '/billbook/detail/default' }
   ]} />
 }

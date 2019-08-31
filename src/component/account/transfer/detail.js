@@ -16,7 +16,6 @@ const TransferDetail = ({ match }) => {
 
   const payer = account_store.getAccount(bill.payer).name
   const consumer = account_store.getAccount(bill.consumer).name
-  const creater = bill.creater
   const time = bill.time ? bill.time_str : unSetText
   const remark = bill.remark ? bill.remark : unSetText
   const rightContent = [
@@ -34,12 +33,12 @@ const TransferDetail = ({ match }) => {
   return (
     <>
       <Bar title='转账' rightContent={rightContent} />
-      <DetailHead text='转账' icon='transaction' amount={bill.amount} />
+      <DetailHead text='转账' icon='transfer' amount={bill.amount} />
       <List>
         <List.Item extra={time}>时间</List.Item>
         <List.Item extra={payer}>转出账户</List.Item>
         <List.Item extra={consumer}>转入账户</List.Item>
-        <List.Item extra={creater}>创建者</List.Item>
+        <List.Item extra={bill.creater_name}>创建者</List.Item>
         <List.Item extra={remark}>备注</List.Item>
       </List>
     </>

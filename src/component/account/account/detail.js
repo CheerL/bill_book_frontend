@@ -21,7 +21,7 @@ const AccountDetail = ({ match }) => {
     // eslint-disable-next-line
   }, [])
   if (account === undefined) {
-    return <Redirect to={`/account/detail/${current.account.id}`} push />
+    return <Redirect to={`/account/detail/${current.account.id}`} />
   } else {
     current.account = account
   }

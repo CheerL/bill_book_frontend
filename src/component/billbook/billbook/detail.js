@@ -37,13 +37,13 @@ const BillbookDetail = ({ match }) => {
   let id = match.params.id
   if (id !== undefined) {
     if (id !== emptyBillbook.id && billbook_store.getBillbook(id) === undefined) {
-      return <Redirect to='/billbook/detail/default' push />
+      return <Redirect to='/billbook/detail/default' />
     }
   } else {
     if (billbook_store.defaultBillbook === undefined) {
-      return <Redirect to='/billbook/detail/default' push />
+      return <Redirect to='/billbook/detail/default' />
     } else {
-      return <Redirect to={`/billbook/detail/${billbook_store.defaultBillbook.id}`} push />
+      return <Redirect to={`/billbook/detail/${billbook_store.defaultBillbook.id}`} />
     }
   }
 

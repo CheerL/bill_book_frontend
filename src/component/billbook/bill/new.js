@@ -3,14 +3,14 @@ import useForm from "rc-form-hooks";
 import { List, InputItem, DatePicker, Picker } from "antd-mobile";
 
 import Context from '../../../store'
-import { Bar, BottomButton, date, Select, DetailHead } from "../../../common";
+import { Bar, BottomButton, date, Select, DetailHead, MoneyInput } from "../../../common";
 import { object_map } from '../../../common/object'
 import { useBillAction } from '../../../action'
 
 import CatSelect from './cat_select'
 
 const NewBill = () => {
-  const { account_store, current, billbook_store, user, icon } = Context.useStore()
+  const { account_store, current, billbook_store, user, cat_store } = Context.useStore()
   if (current.billbook === undefined) {
     current.billbook = billbook_store.defaultBillbook
   }
@@ -42,10 +42,10 @@ const NewBill = () => {
   return Context.useConsumer(() => (
     <>
       <Bar title='新建账单' />
-      {icon.getIcon(getFieldValue('cat_0')) ?
+      {cat_store.getCat(getFieldValue('cat_0')) ?
         <DetailHead
-          text={icon.getIcon(getFieldValue('cat_0')).text}
-          icon={icon.getIcon(getFieldValue('cat_0')).icon}
+          text={cat_store.getCat(getFieldValue('cat_0')).text}
+          icon={cat_store.getCat(getFieldValue('cat_0')).icon}
           amount={`${!getFieldValue('direction') && getFieldValue('amount') !== '0' ? '-' : ''}${getFieldValue('amount')}`}
         /> :
         null
@@ -60,9 +60,7 @@ const NewBill = () => {
           </DatePicker>
         )}
         {getFieldDecorator("amount")(
-          <InputItem type="money" placeholder="0" moneyKeyboardAlign="right">
-            金额
-          </InputItem>
+          <MoneyInput>金额</MoneyInput>
         )}
         {getFieldDecorator("cat_0")(
           <CatSelect isCarousel>类别</CatSelect>

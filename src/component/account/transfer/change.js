@@ -3,7 +3,7 @@ import useForm from "rc-form-hooks";
 import { List, InputItem, DatePicker } from "antd-mobile";
 
 import Context from '../../../store'
-import { Bar, Select, BottomButton, UnmodifiedItem } from "../../../common";
+import { Bar, Select, BottomButton, UnmodifiedItem, MoneyInput } from "../../../common";
 import { useTransferAction } from '../../../action'
 
 const ChangeTransfer = ({ match }) => {
@@ -59,9 +59,9 @@ const ChangeTransfer = ({ match }) => {
           </DatePicker>
         )}
         {getFieldDecorator("amount")(
-          <InputItem type="money" placeholder="0" moneyKeyboardAlign="right">
+          <MoneyInput>
             金额
-          </InputItem>
+          </MoneyInput>
         )}
 
         {getFieldDecorator("remark")(

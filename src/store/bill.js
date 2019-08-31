@@ -13,7 +13,7 @@ const BillStoreCreater = bill => {
     account: bill.account,
     consumer: bill.consumer,
     payer: bill.payer,
-    creater: bill.creater,
+    creater_name: bill.creater_name,
     cat_0: bill.cat_0,
     cat_1: bill.cat_1,
     _updated: Date.parse(bill._updated),
@@ -64,7 +64,7 @@ const BillStoreCreater = bill => {
       const keys = [
         'billbook', 'time', 'amount',
         'remark', 'account', 'consumer',
-        'payer', 'creater', 'cat_0',
+        'payer', 'creater_name', 'cat_0',
         'cat_1', '_updated'
       ]
       update(this, bill, keys)

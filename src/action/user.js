@@ -69,13 +69,22 @@ const useUserAction = () => {
     })
     .catch(console.log)
   }
+  const change = form => {
+    api.user.change(form, user.id)
+    .then(() => {
+      user.nickname = form.nickname
+      router.history.goBack()
+    })
+    .catch(console.log)
+  }
 
   return {
     login,
     login_jwt,
     register,
     forget,
-    remove
+    remove,
+    change
   }
 }
 

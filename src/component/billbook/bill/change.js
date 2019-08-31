@@ -4,12 +4,14 @@ import { List, InputItem, DatePicker, Picker } from "antd-mobile";
 
 import Context from '../../../store'
 import { useBillAction } from '../../../action'
-import { Bar, BottomButton, Select } from "../../../common";
+import { Bar, BottomButton, Select, MoneyInput, DetailHead } from "../../../common";
 import { object_map } from '../../../common/object'
 
+import CatSelect from './cat_select'
+
 const ChangeBill = ({ match }) => {
-  const { getFieldDecorator, validateFields, setFieldsValue } = useForm();
-  const { account_store, bill_store, current, billbook_store } = Context.useStore()
+  const { getFieldDecorator, validateFields, setFieldsValue, getFieldValue } = useForm();
+  const { account_store, bill_store, current, billbook_store, cat_store } = Context.useStore()
   const { change } = useBillAction()
   const id = match.params.id
   const bill = bill_store.getBill(id)
@@ -44,6 +46,14 @@ const ChangeBill = ({ match }) => {
   return Context.useConsumer(() => (
     <>
       <Bar title='修改账单' />
+      {cat_store.getCat(getFieldValue('cat_0')) ?
+        <DetailHead
+          text={cat_store.getCat(getFieldValue('cat_0')).text}
+          icon={cat_store.getCat(getFieldValue('cat_0')).icon}
+          amount={`${!getFieldValue('direction') && getFieldValue('amount') !== '0' ? '-' : ''}${getFieldValue('amount')}`}
+        /> :
+        null
+      }
       <List className='padding-bottom'>
         {getFieldDecorator('direction')(
           <Select data={[{ value: false, label: '支出' }, { value: true, label: '收入' }]} />
@@ -54,14 +64,12 @@ const ChangeBill = ({ match }) => {
           </DatePicker>
         )}
         {getFieldDecorator("amount")(
-          <InputItem type="money" placeholder="0" moneyKeyboardAlign="right">
+          <MoneyInput>
             金额
-          </InputItem>
+          </MoneyInput>
         )}
         {getFieldDecorator("cat_0")(
-          <InputItem type="text" placeholder="类别">
-            类别
-          </InputItem>
+          <CatSelect isCarousel>类别</CatSelect>
         )}
         {getFieldDecorator("cat_1")(
           <InputItem type="text" placeholder="子类别">

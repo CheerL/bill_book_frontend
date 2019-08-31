@@ -18,7 +18,6 @@ const useBillAction = () => {
   const add = form => {
     form.time = date.date2num(form.time)
     form.amount = form.amount ? Number(form.amount) : 0
-    form.creater = user.id
     form.billbook = form.billbook[0]
     form.account = form.account[0]
     if (!form.direction) {
@@ -31,6 +30,7 @@ const useBillAction = () => {
       .then(res => {
         form._id = res._id
         form._updated = res._updated
+        form.create_name = user.nickname
         bill_store.addBill(form)
         router.history.push(`/billbook/detail/${form.billbook}`)
       })
