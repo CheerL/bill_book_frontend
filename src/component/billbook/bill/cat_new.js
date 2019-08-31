@@ -3,16 +3,15 @@ import useForm from "rc-form-hooks";
 import { List, InputItem } from "antd-mobile";
 
 import Context from '../../../store'
-import { useLink } from '../../../router'
 import { Bar, BottomButton, DetailHead } from "../../../common";
+import { useCatAction } from '../../../action'
 import iconDict from '../../../common/icon/type'
 
 import CatSelect from './cat_select'
 
 const NewCat = () => {
-  const goBack = useLink()
-  const { cat_store } = Context.useStore()
   const { getFieldDecorator, validateFields, getFieldValue } = useForm();
+  const { add } = useCatAction()
   const data = Object.keys(iconDict).map(icon => ({
     icon: icon,
     text: icon
@@ -20,10 +19,7 @@ const NewCat = () => {
   const handleSubmit = e => {
     e.preventDefault();
     validateFields()
-      .then(form => {
-        cat_store.addCat(form)
-        goBack()
-      })
+      .then(add)
       .catch(console.log);
   };
 
@@ -33,10 +29,10 @@ const NewCat = () => {
       <DetailHead
         text=''
         icon={getFieldValue('icon')}
-        amount={getFieldValue('text')}
+        amount={getFieldValue('name')}
       />
       <List className='padding-bottom'>
-        {getFieldDecorator("text")(<InputItem type="text" placeholder="分类名称">分类名称</InputItem>)}
+        {getFieldDecorator("name")(<InputItem type="text" placeholder="分类名称">分类名称</InputItem>)}
         {getFieldDecorator("icon")(<CatSelect data={data} isCarousel carouselMaxRow={4} noAdd>分类图标</CatSelect>)}
       </List>
       <BottomButton type="primary" onClick={handleSubmit}>

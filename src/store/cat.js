@@ -30,19 +30,19 @@ const CatStoreCreater = initValue => {
       });
       this.cats.push({ icon, text, billbook, labels })
     },
-    removeCat({ icon, text }) {
+    removeCat({ billbook, text }) {
       this.cats.forEach(cat => {
-        if (cat.text === text && cat.icon === icon) {
+        if (cat.text === text && cat.billbook === billbook) {
           this.cats.remove({ cat })
           return
         }
       })
     },
-    getCat(text) {
+    getCat(text, billbook = undefined) {
       return this.cats.find(cat => cat.text === text)
     },
-    addCatLabel(text, label) {
-      const cat = this.getCat(text)
+    addCatLabel(text, billbook, label) {
+      const cat = this.getCat(text, billbook)
       if (!cat) {
         return
       }
@@ -50,8 +50,8 @@ const CatStoreCreater = initValue => {
         cat.labels.push(label)
       }
     },
-    removeCatLabel(text, label) {
-      const cat = this.getCat(text)
+    removeCatLabel(text, billbook, label) {
+      const cat = this.getCat(text, billbook)
       if (!cat) {
         return
       }

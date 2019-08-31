@@ -33,7 +33,6 @@ const CatSelect = ({ value, onChange, children, data, noAdd = false, columnNum =
     }
   })
 
-
   return Context.useConsumer(() => (
     <>
       <InputItem
@@ -41,7 +40,7 @@ const CatSelect = ({ value, onChange, children, data, noAdd = false, columnNum =
         arrow='horizontal'
         onFocus={() => setVisible(true)}
         onBlur={() => {
-          window.catSelectBlurTimeout = setTimeout(() => setVisible(false), 0)
+          window.catSelectBlurTimeout = setTimeout(() => setVisible(false), 100)
         }}
         editable={false}
         extra={<div className="am-list-arrow am-list-arrow-horizontal" aria-hidden="true" />}
