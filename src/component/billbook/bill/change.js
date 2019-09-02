@@ -7,7 +7,7 @@ import { useBillAction } from '../../../action'
 import { Bar, BottomButton, Select, MoneyInput, DetailHead } from "../../../common";
 import { object_map } from '../../../common/object'
 
-import CatSelect from './cat_select'
+import CatSelect from '../cat/select'
 
 const ChangeBill = ({ match }) => {
   const { getFieldDecorator, validateFields, setFieldsValue, getFieldValue } = useForm();
@@ -19,6 +19,7 @@ const ChangeBill = ({ match }) => {
   const billbook = billbook_store.getBillbook(bill.billbook)
 
   current.bill = bill
+  current.billbook = billbook
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -46,10 +47,10 @@ const ChangeBill = ({ match }) => {
   return Context.useConsumer(() => (
     <>
       <Bar title='修改账单' />
-      {cat_store.getCat(getFieldValue('cat_0')) ?
+      {cat_store.getCat(getFieldValue('cat_0'), billbook.id) ?
         <DetailHead
-          text={cat_store.getCat(getFieldValue('cat_0')).text}
-          icon={cat_store.getCat(getFieldValue('cat_0')).icon}
+          text={cat_store.getCat(getFieldValue('cat_0'), billbook.id).text}
+          icon={cat_store.getCat(getFieldValue('cat_0'), billbook.id).icon}
           amount={`${!getFieldValue('direction') && getFieldValue('amount') !== '0' ? '-' : ''}${getFieldValue('amount')}`}
         /> :
         null
@@ -69,7 +70,7 @@ const ChangeBill = ({ match }) => {
           </MoneyInput>
         )}
         {getFieldDecorator("cat_0")(
-          <CatSelect isCarousel>类别</CatSelect>
+          <CatSelect isCarousel data={cat_store.filterByBillbook(billbook.id)}>类别</CatSelect>
         )}
         {getFieldDecorator("cat_1")(
           <InputItem type="text" placeholder="子类别">

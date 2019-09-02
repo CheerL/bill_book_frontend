@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { SwitchRoute } from "./router";
 import Context from './store'
 import { useUserAction } from './action'
@@ -10,16 +10,15 @@ import { Mine } from './component/mine'
 
 const App = () => {
   const store = Context.useStore()
-  const [isRender, setIsRender] = useState(false)
   const { login_jwt } = useUserAction()
   window.store = store
 
   useEffect(() => {
-    login_jwt(() => setIsRender(true))
+    login_jwt()
     // eslint-disable-next-line
   }, [])
 
-  return Context.useConsumer(() => isRender ? (
+  return Context.useConsumer(() => store.current.isRender ? (
     store.user.login ?
       <SwitchRoute router_map={[
         { path: "/account", component: Account },

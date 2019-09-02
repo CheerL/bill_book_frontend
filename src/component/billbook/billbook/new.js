@@ -9,7 +9,6 @@ import { useBillbookAction } from '../../../action'
 
 const NewBillbook = () => {
   // const router = useRouter()
-  // const { billbook_store } = Context.useStore()
   const { getFieldDecorator, validateFields, setFieldsValue } = useForm();
   const { add } = useBillbookAction()
   const handleSubmit = e => {

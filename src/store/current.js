@@ -3,6 +3,7 @@ const Current = {
   account: undefined,
   bill: undefined,
   billbook: undefined,
+  isRender: false,
 
   get isDefaultBillbook() {
     if (this.billbook !== undefined && this.billbook.default) {

@@ -10,12 +10,19 @@ const useCatAction = () => {
     api.cat.get()
       .then(res => {
         const cats = res._items
-        cats.forEach(cat => {
-          cat.text = cat.name
-          cat_store.addCat(cat)
-        });
+        cats.forEach(cat => cat_store.addCat(cat));
       })
       .catch(console.log)
+  }
+
+  const getCatByBillbook = billbook => {
+    api.cat.get(undefined, {billbook: billbook})
+    .then(res => {
+      const cats = res._items
+      cats.forEach(cat => {
+        cat_store.addCat(cat)
+      })
+    })
   }
 
   const add = form => {
@@ -23,8 +30,7 @@ const useCatAction = () => {
     form.billbook = billbook.id
     form.labels = []
     api.cat.add(form)
-      .then(res => {
-        form.text = form.name
+      .then(() => {
         cat_store.addCat(form)
         router.history.goBack()
       })
@@ -33,6 +39,7 @@ const useCatAction = () => {
 
   return {
     getCats,
+    getCatByBillbook,
     add
   }
 }

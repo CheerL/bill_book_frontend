@@ -6,14 +6,16 @@ import useAccountAction from './account'
 import useBillAction from './bill'
 import useBillbookAction from './billbook'
 import useTransferAction from './transfer'
+import useCatAction from './cat'
 
 const useUserAction = () => {
-  const { user } = Context.useStore()
+  const { user, current } = Context.useStore()
   const router = useRouter()
   const { getAccounts } = useAccountAction()
   const { getBills } = useBillAction()
   const { getBillbooks } = useBillbookAction()
   const { getTransfer } = useTransferAction()
+  const { getCats } = useCatAction()
 
   const afterLogin = res => {
     user.loginFunc(res)
@@ -21,6 +23,8 @@ const useUserAction = () => {
     getAccounts()
     getBillbooks()
     getBills()
+    getCats()
+    current.isRender = true
   }
 
   const login = ({ username, password }) => {
@@ -31,15 +35,14 @@ const useUserAction = () => {
       .catch(console.log)
   }
 
-  const login_jwt = func => {
+  const login_jwt = () => {
     api.user.login_jwt()
       .then(res => {
         afterLogin(res)
-        func()
       })
       .catch(() => {
         localStorage.removeItem('jwt')
-        func()
+        current.isRender = true
       })
   }
 
@@ -64,18 +67,18 @@ const useUserAction = () => {
   }
   const remove = () => {
     api.user.delete()
-    .then(() => {
-      user.logoutFunc()
-    })
-    .catch(console.log)
+      .then(() => {
+        user.logoutFunc()
+      })
+      .catch(console.log)
   }
   const change = form => {
     api.user.change(form, user.id)
-    .then(() => {
-      user.nickname = form.nickname
-      router.history.goBack()
-    })
-    .catch(console.log)
+      .then(() => {
+        user.nickname = form.nickname
+        router.history.goBack()
+      })
+      .catch(console.log)
   }
 
   return {

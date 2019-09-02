@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Layout } from '../layout'
 import Context from '../../store'
 import { List, WhiteSpace } from 'antd-mobile'
-import { AvatarHead, UserAvatar, Remarked } from '../../common'
+import { AvatarHead, UserAvatar, Remarked, colorSpan } from '../../common'
 import { SwitchRoute, useRouter, useLink } from '../../router'
 import './index.css'
 
@@ -35,12 +35,17 @@ const MineUserHead = () => {
 
 const MineIndex = () => {
   const router = useRouter()
+  const { user } = Context.useStore()
   return Context.useConsumer(() => (
     <Layout>
       <List>
         <MineUserHead />
         <WhiteSpace style={{ backgroundColor: '#f5f5f9' }} />
         <List.Item arrow='horizontal' onClick={() => router.history.push('/mine/setting')}>设置</List.Item>
+        <WhiteSpace style={{ backgroundColor: '#f5f5f9' }} />
+        <List.Item arrow='horizontal' onClick={() => user.logoutFunc()}>
+          {colorSpan('退出登录', 'red')}
+          </List.Item>
       </List>
     </Layout>
   ))

@@ -4,6 +4,7 @@ import useBillbookAction from './billbook'
 import useAccountAction from './account'
 import useTransferAction from './transfer'
 import useCatAction from './cat'
+import useRelationAction from './relation'
 
 export {
   useUserAction,
@@ -11,5 +12,6 @@ export {
   useBillbookAction,
   useAccountAction,
   useTransferAction,
-  useCatAction
+  useCatAction,
+  useRelationAction
 }

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { Grid, InputItem } from 'antd-mobile'
+import { Grid, List } from 'antd-mobile'
 import { MyIcon as Icon } from '../../../common'
 import Context from '../../../store'
 import { useRouter } from '../../../router'
-import './cat_select.css'
+import './select.css'
 
 const CatSelect = ({ value, onChange, children, data, noAdd = false, columnNum = 4, isCarousel = false, carouselMaxRow = 2 }) => {
   if (!onChange) {
@@ -12,9 +12,9 @@ const CatSelect = ({ value, onChange, children, data, noAdd = false, columnNum =
     }
   }
   const router = useRouter()
-  const { cat_store } = Context.useStore()
+  const { cat_store, current } = Context.useStore()
   const [visible, setVisible] = useState(false)
-  const catData = data === undefined ? cat_store.cats : data
+  const catData = data === undefined ? cat_store.filterByBillbook(current.billbook) : data
   const new_cat = noAdd ? [] : [{ icon: 'add', text: '新建分类' }]
   const itemClick = obj => {
     if (obj.text !== '新建分类') {
@@ -35,18 +35,15 @@ const CatSelect = ({ value, onChange, children, data, noAdd = false, columnNum =
 
   return Context.useConsumer(() => (
     <>
-      <InputItem
-        value={value}
+      <List.Item
+        // value={value}
         arrow='horizontal'
-        onFocus={() => setVisible(true)}
-        onBlur={() => {
-          window.catSelectBlurTimeout = setTimeout(() => setVisible(false), 100)
-        }}
-        editable={false}
-        extra={<div className="am-list-arrow am-list-arrow-horizontal" aria-hidden="true" />}
+        onClick={() => setVisible(!visible)}
+        // extra={<div className="am-list-arrow am-list-arrow-horizontal" aria-hidden="true" />}
+        extra={value}
       >
         {children}
-      </InputItem>
+      </List.Item>
       {visible ?
         <Grid
           data={catData.concat(new_cat).map(item => ({

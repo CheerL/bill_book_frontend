@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Icon } from 'antd'
 import { WingBlank } from 'antd-mobile'
 import { Redirect } from 'react-router-dom'
@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom'
 import Context from '../../../store'
 import { useRouter, useLink } from '../../../router'
 import { Bar, colorSpan } from '../../../common'
-import { useBillbookAction } from '../../../action'
+import { useBillbookAction, useCatAction, useRelationAction } from '../../../action'
 import { Layout } from '../../layout'
 
 import BillbookSwitch from './switch'
@@ -63,6 +63,8 @@ const BillbookDetail = ({ match }) => {
 const BillbookDetailView = ({ billbook }) => {
   const { current } = Context.useStore()
   const { changeDefault, remove } = useBillbookAction()
+  const { getCatByBillbook } = useCatAction()
+  const { getRelation } = useRelationAction()
   const router = useRouter()
   current.billbook = billbook
 
@@ -70,18 +72,28 @@ const BillbookDetailView = ({ billbook }) => {
     null :
     [{
       value: 'change', content: '修改账本',
-      onSelect: () => {
-        router.history.push(`/billbook/change/${billbook.id}`)
-      }
+      onSelect: () => router.history.push(`/billbook/change/${billbook.id}`)
+    },{
+      value: 'info', content: '账本资料',
+      onSelect: () => router.history.push(`/billbook/info/${billbook.id}`)
     }].concat(billbook.default ?
       [] :
       [{
         value: 'default', content: '设为默认',
-        onSelect: () => { changeDefault(billbook.id) }
+        onSelect: () => changeDefault(billbook.id)
       }, {
         value: 'delete', content: colorSpan('删除账本', 'red'),
-        onSelect: () => { remove(billbook.id) }
+        onSelect: () => remove(billbook.id)
       }])
+
+  useEffect(() => {
+    const id = billbook.id
+    if (id && id !== 'default') {
+      getCatByBillbook(id)
+      getRelation(undefined, id)
+    }
+    // eslint-disable-next-line
+  }, [billbook])
 
   return (
     <>

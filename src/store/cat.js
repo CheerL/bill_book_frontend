@@ -1,15 +1,4 @@
-const initCat = [
-  { icon: 'food', text: '餐饮', labels: ['早餐', '中餐', '晚餐'] },
-  { icon: 'salary', text: '工资', labels: [] },
-  { icon: 'shopping', text: '购物', labels: [] },
-  { icon: 'bus', text: '交通', labels: [] },
-  { icon: 'sing', text: '娱乐', labels: [] },
-  { icon: 'coin', text: '消费', labels: [] },
-  { icon: 'loan', text: '信贷', labels: [] },
-  { icon: 'house-rent', text: '住房', labels: [] },
-  { icon: 'transfer', text: '转账', labels: [] },
-  { icon: 'travel', text: '旅行', labels: [] }
-]
+const initCat = []
 
 const CatStoreCreater = initValue => {
   const store = {
@@ -21,25 +10,25 @@ const CatStoreCreater = initValue => {
     })),
 
     addCat({ icon, text, billbook, labels = [] }) {
-      this.cats.forEach(cat => {
-        if (cat.text === text && cat.billbook === billbook) {
-          cat.icon = icon
-          cat.labels = labels
-          return
-        }
-      });
-      this.cats.push({ icon, text, billbook, labels })
+      const cat = this.getCat(text, billbook)
+      if (cat) {
+        cat.icon = icon
+        cat.labels = labels
+      } else {
+        this.cats.push({ icon, text, billbook, labels })
+      }
     },
-    removeCat({ billbook, text }) {
-      this.cats.forEach(cat => {
-        if (cat.text === text && cat.billbook === billbook) {
-          this.cats.remove({ cat })
-          return
-        }
-      })
+    removeCat({ text, billbook }) {
+      const cat = this.getCat(text, billbook)
+      if (cat) {
+        this.cats.remove(cat)
+      }
     },
-    getCat(text, billbook = undefined) {
-      return this.cats.find(cat => cat.text === text)
+    filterByBillbook(billbook) {
+      return this.cats.filter(cat => cat.billbook === billbook)
+    },
+    getCat(text, billbook) {
+      return this.cats.find(cat => cat.text === text && cat.billbook === billbook)
     },
     addCatLabel(text, billbook, label) {
       const cat = this.getCat(text, billbook)

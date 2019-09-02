@@ -1,7 +1,10 @@
 import axios from 'axios'
 // import Qs from 'qs'
-import baseurl from './base'
-// import Context from '../store'
+
+const baseurl = {
+  dev: 'http://192.168.10.100:5000/api/v1',
+  local: 'http://localhost:5000/api/v1'
+}
 
 const handleError = (status, other) => {
   // 状态码判断

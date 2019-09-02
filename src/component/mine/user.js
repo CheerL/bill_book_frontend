@@ -1,18 +1,14 @@
 import React from 'react'
-import { Bar, BottomButton, colorSpan } from '../../common'
-import Context from '../../store'
+import { Bar, colorSpan } from '../../common'
+// import Context from '../../store'
 import { useRouter } from '../../router'
 import { useUserAction } from '../../action'
 
 
 const UserDetail = () => {
-  const { user } = Context.useStore()
+  // const { user } = Context.useStore()
   const { remove } = useUserAction()
   const router = useRouter()
-  const handleLogout = e => {
-    e.preventDefault()
-    user.logoutFunc()
-  }
   const rightContent = [
     {
       value: 'change', content: '修改用户',
@@ -29,7 +25,6 @@ const UserDetail = () => {
   return (
     <>
       <Bar title='用户详情' rightContent={rightContent} />
-      <BottomButton type='warning' onClick={handleLogout}>退出登录</BottomButton>
     </>
   )
 }
