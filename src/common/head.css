@@ -43,15 +43,15 @@
     margin-right: 0.5rem;
 }
 
-
-
 .detail-head-amount {
     font-size: 24px;
     font-weight: bold;
 }
-.account-box {
-    /* background-color: white; */
+
+.cat-head-name {
+    font-size: 24px;
 }
+
 .account-head-text {
     font-size: 18px;
     padding: 1rem;

@@ -71,11 +71,11 @@ const BillbookDetailView = ({ billbook }) => {
   const rightContent = billbook.id === 'default' ?
     null :
     [{
-      value: 'change', content: '修改账本',
-      onSelect: () => router.history.push(`/billbook/change/${billbook.id}`)
-    },{
       value: 'info', content: '账本资料',
       onSelect: () => router.history.push(`/billbook/info/${billbook.id}`)
+    }, {
+      value: 'change', content: '修改账本',
+      onSelect: () => router.history.push(`/billbook/change/${billbook.id}`)
     }].concat(billbook.default ?
       [] :
       [{

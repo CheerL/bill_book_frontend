@@ -34,7 +34,15 @@ const GroupBillCardList = ({ bills, groupTitle }) => {
 }
 
 export const DayBillCardList = ({ bills, day }) => {
-  return <GroupBillCardList bills={bills} groupTitle={date.num2str(day)} />
+  const dayAmount = bills.reduce((amount, bill) => bill.amount.add(amount), 0)
+  return <GroupBillCardList
+    bills={bills}
+    groupTitle={<>
+      <span>{date.num2str(day)}</span>
+      <span style={{ float: 'right', color: 'dimgray' }}>日消费:&nbsp;
+      <span style={{ color: 'black', fontWeight: 'bold' }}>{dayAmount.toString()}</span>
+      </span>
+    </>} />
 }
 
 export const MonthBillCardList = ({ bills, month }) => {

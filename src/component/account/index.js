@@ -3,17 +3,15 @@ import React, { useEffect } from 'react'
 import { SwitchRoute } from '../../router'
 import { AccountDetail, NewAccount, ChangeAccount, AccountList } from './account'
 import { TransferDetail, NewTransfer, ChangeTransfer } from './transfer'
-import { useAccountAction, useTransferAction } from '../../action'
+import { useAccountAction } from '../../action'
 
 import "./index.css";
 
 export const Account = () => {
   const { getAccounts } = useAccountAction()
-  const { getTransfer } = useTransferAction()
 
   useEffect(() => {
     getAccounts()
-    getTransfer()
     // eslint-disable-next-line
   }, [])
 

@@ -7,7 +7,7 @@ export const AccountHead = ({ text, amount }) => {
     <div className='head-box-wrap'>
       <div>
         <div className='account-head-text'>{text}</div>
-        <div className='account-head-amount'>{amount}</div>
+        <div className='account-head-amount'>{amount.toString()}</div>
       </div>
     </div>
   );
@@ -31,9 +31,14 @@ const BasicHead = ({ title, extra, icon, className, titlaClassName, extraClassNa
 
 export const DetailHead = ({ text, amount, icon, onClick }) => {
   const detialIcon = icon ? <Icon type={icon} className='detail-head-icon' /> : null
-  return BasicHead({ title: text, icon: detialIcon, extra: amount, extraClassName: 'detail-head-amount', onClick })
+  return BasicHead({ title: text, icon: detialIcon, extra: amount.toString(), extraClassName: 'detail-head-amount', onClick })
 }
 
 export const AvatarHead = ({ title, avatar, extra, className, extraClassName, onClick }) => {
   return BasicHead({ title, icon: avatar, extra, className, extraClassName, onClick })
+}
+
+export const CatHead = ({ text, name, icon, onClick }) => {
+  const detialIcon = icon ? <Icon type={icon} className='detail-head-icon' /> : null
+  return BasicHead({ title: text, icon: detialIcon, extra: name, extraClassName: 'cat-head-name', onClick })
 }

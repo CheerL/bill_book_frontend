@@ -24,6 +24,7 @@ const NewTransfer = () => {
   useEffect(() => {
     setFieldsValue({
       time: date.now_date(),
+      amount: '0',
     })
     // eslint-disable-next-line
   }, [])

@@ -74,6 +74,14 @@ const Context = ContextCreater({
       return []
     }
     return obj_groupby(this.bill_store.bills, 'time_month', bill => bill.billbook === billbook.id)
+  },
+  logout() {
+    account_store.accounts = {}
+    bill_store.bills = {}
+    billbook_store.billbooks = {}
+    cat_store.cats = []
+    relation_store.relation = []
+    user.logoutFunc()
   }
 })
 

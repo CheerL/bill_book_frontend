@@ -6,23 +6,28 @@ const useCatAction = () => {
   const { cat_store, current } = Context.useStore()
   const router = useRouter()
 
+  const afterGetCats = res => {
+    const cats = res._items
+    cats.forEach(cat => cat_store.addCat(cat));
+    api.continueGet(afterGetCats, res)
+  }
+
   const getCats = () => {
+    // current.loaded.cat = false
     api.cat.get()
-      .then(res => {
-        const cats = res._items
-        cats.forEach(cat => cat_store.addCat(cat));
-      })
+      .then(afterGetCats)
       .catch(console.log)
+      .finally(() => current.loaded.cat = true)
   }
 
   const getCatByBillbook = billbook => {
-    api.cat.get(undefined, {billbook: billbook})
-    .then(res => {
-      const cats = res._items
-      cats.forEach(cat => {
-        cat_store.addCat(cat)
+    api.cat.get(undefined, { billbook: billbook })
+      .then(res => {
+        const cats = res._items
+        cats.forEach(cat => {
+          cat_store.addCat(cat)
+        })
       })
-    })
   }
 
   const add = form => {

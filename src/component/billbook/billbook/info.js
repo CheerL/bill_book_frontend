@@ -9,7 +9,7 @@ import { Bar, unSetText, UserAvatar } from '../../../common'
 
 
 const BillbookInfo = ({ match }) => {
-  const { billbook_store, relation_store, current, user } = Context.useStore()
+  const { billbook_store, relation_store, current } = Context.useStore()
   const router = useRouter()
   const id = match.params.id
   const billbook = billbook_store.getBillbook(id)

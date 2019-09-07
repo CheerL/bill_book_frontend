@@ -7,32 +7,38 @@ import useBillAction from './bill'
 import useBillbookAction from './billbook'
 import useTransferAction from './transfer'
 import useCatAction from './cat'
+import useRelationAction from './relation'
 
 const useUserAction = () => {
-  const { user, current } = Context.useStore()
+  const { user, current, logout } = Context.useStore()
   const router = useRouter()
   const { getAccounts } = useAccountAction()
   const { getBills } = useBillAction()
   const { getBillbooks } = useBillbookAction()
-  const { getTransfer } = useTransferAction()
+  const { getTransferbook } = useTransferAction()
   const { getCats } = useCatAction()
+  const { getRelation } = useRelationAction()
 
   const afterLogin = res => {
     user.loginFunc(res)
-    getTransfer()
+    getTransferbook()
     getAccounts()
     getBillbooks()
     getBills()
     getCats()
-    current.isRender = true
+    getRelation()
   }
 
   const login = ({ username, password }) => {
+    current.loadAll(false)
     api.user.login(username, password)
       .then(res => {
         afterLogin(res)
       })
-      .catch(console.log)
+      .catch(res => {
+        console.log(res)
+        current.loadAll(true)
+      })
   }
 
   const login_jwt = () => {
@@ -42,7 +48,7 @@ const useUserAction = () => {
       })
       .catch(() => {
         localStorage.removeItem('jwt')
-        current.isRender = true
+        current.loadAll(true)
       })
   }
 
@@ -67,9 +73,7 @@ const useUserAction = () => {
   }
   const remove = () => {
     api.user.delete()
-      .then(() => {
-        user.logoutFunc()
-      })
+      .then(logout)
       .catch(console.log)
   }
   const change = form => {

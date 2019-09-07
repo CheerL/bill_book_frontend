@@ -23,7 +23,7 @@ export const AccountNew = () => {
   return (
     <Card
       handleClick={handleClick}
-      context={<Iconed text='新建账本' icon='plus' />}
+      context={<Iconed text='新建账户' icon='plus' />}
       position='center'
       space
     />
@@ -46,7 +46,7 @@ const BillCard = ({ bill, space = false }) => {
   ))
 }
 
-const TransferCard = ({bill, space=false}) => {
+const TransferCard = ({ bill, space = false }) => {
   const handleClick = useLink(`/account/transfer/detail/${bill.id}`)
   const { account_store, current } = Context.useStore()
   bill.setAccount(current.account)
@@ -54,17 +54,17 @@ const TransferCard = ({bill, space=false}) => {
 
   return Context.useConsumer(() => (
     <Card
-    handleClick={handleClick}
-    text='转账'
-    remark={bill.transfer_remark}
-    amount={bill.transfer_amount}
-    space={space}
+      handleClick={handleClick}
+      text='转账'
+      remark={bill.transfer_remark}
+      amount={bill.transfer_amount}
+      space={space}
     />
   ))
 }
 
-export const AccountDetailCard = ({bill, space=false}) => {
+export const AccountDetailCard = ({ bill, space = false }) => {
   return bill.billbook === 'transfer' ?
-  <TransferCard bill={bill} space={space} /> :
-  <BillCard bill={bill} space={space} />
+    <TransferCard bill={bill} space={space} /> :
+    <BillCard bill={bill} space={space} />
 }

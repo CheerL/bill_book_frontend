@@ -2,7 +2,8 @@ import axios from 'axios'
 // import Qs from 'qs'
 
 const baseurl = {
-  dev: 'http://192.168.10.100:5000/api/v1',
+  dev: 'http://bill.cheerl.site:8051/api/v1',
+  product: 'http://bill.cheerl.site/api/v1',
   local: 'http://localhost:5000/api/v1'
 }
 
@@ -23,13 +24,12 @@ const handleError = (status, other) => {
     case 404:
       break;
     default:
-      console.log(other);
   }
 }
 
 const Axios = axios.create({
   timeout: 1000 * 30,
-  baseURL: baseurl.dev,
+  baseURL: process.env.NODE_ENV === 'development' ? baseurl.dev : baseurl.product,
   responseType: 'json',
   withCredentials: true,
   headers: {

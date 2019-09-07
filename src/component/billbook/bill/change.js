@@ -38,7 +38,7 @@ const ChangeBill = ({ match }) => {
       payer: bill.payer,
       consumer: bill.consumer,
       remark: bill.remark,
-      amount: String(Math.abs(bill.amount)),
+      amount: bill.amount.abs().toString(),
       time: bill.time_date,
     })
     // eslint-disable-next-line

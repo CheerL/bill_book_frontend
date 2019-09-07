@@ -7,12 +7,14 @@ import { Bar, Select, BottomButton, UnmodifiedItem, MoneyInput } from "../../../
 import { useTransferAction } from '../../../action'
 
 const ChangeTransfer = ({ match }) => {
-  const { change } =  useTransferAction()
+  const { change } = useTransferAction()
   const { account_store, bill_store, current } = Context.useStore()
   const id = match.params.id
   const bill = bill_store.getBill(id)
-  const payer = account_store.getAccount(bill.payer)
-  const consumer = account_store.getAccount(bill.consumer)
+  const payerId = account_store.getNormalAccount(bill.payer)
+  const consumerId = account_store.getNormalAccount(bill.consumer)
+  const payer = account_store.getAccount(payerId)
+  const consumer = account_store.getAccount(consumerId)
   current.bill = bill
 
   const { getFieldDecorator, validateFields, setFieldsValue } = useForm();
@@ -22,8 +24,8 @@ const ChangeTransfer = ({ match }) => {
     validateFields()
       .then(form => {
         if (changed) {
-          form.payer = consumer.id
-          form.consumer = payer.id
+          form.payer = bill.consumer
+          form.consumer = bill.payer
         }
         change(form)
       })
@@ -33,7 +35,7 @@ const ChangeTransfer = ({ match }) => {
   useEffect(() => {
     setFieldsValue({
       remark: bill.remark,
-      amount: bill.amount,
+      amount: bill.amount.abs().toString(),
       time: bill.time_date,
     })
     // eslint-disable-next-line

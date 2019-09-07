@@ -1,34 +1,44 @@
 import api from './api'
 import Context from '../store'
+import Decimal from 'decimal.js'
 import { useRouter } from '../router'
+import Money from '../common/money'
+
+window.Decimal = Decimal
 
 const useAccountAction = () => {
   const { account_store, current } = Context.useStore()
   const router = useRouter()
 
-  const getAccounts = () => {
-    api.account.get()
+  const afterGetAccounts = res => {
+    const accounts = res._items
+    account_store.update(accounts)
+    api.continueGet(afterGetAccounts, res)
+  }
+
+  const getAccounts = id => {
+    // current.loaded.account = false
+    api.account.get(id)
       .then(res => {
-        const accounts = res._items
-        account_store.update(accounts)
+        if (id) {
+          const account = account_store.getAccount(id)
+          if (account) {
+            account.update(res)
+          } else {
+            account_store.addAccount(res)
+          }
+          // api.bill.get(undefined, {})
+        } else {
+          afterGetAccounts(res)
+        }
       })
       .catch(console.log)
+      .finally(() => current.loaded.account = true)
   }
-  const getAccount = id => {
-    const account = account_store.getAccount(id)
-    api.account.get(id)
-    .then(res => {
-      if (account) {
-        account.update(res)
-      } else {
-        account_store.addAccount(res)
-      }
-    })
-    .catch(console.log)
-  }
+
   const add = form => {
     form.remark = form.remark ? form.remark : ''
-    form.amount = form.amount ? Number(form.amount) : 0
+    form.amount = Money(form.amount).toNumber()
     form.default = (
       account_store.defaultAccount === undefined ?
         true : false
@@ -60,42 +70,41 @@ const useAccountAction = () => {
   }
   const changeDefault = id => {
     const account = account_store.getAccount(id)
-    const form = {'default': true}
+    const form = { 'default': true }
     if (!account.default) {
       api.account.change(form, id)
-      .then(res => {
-        updateDefault()
-        form._updated = res._updated
-        account.update(form)
-      })
-      .catch(console.log)
+        .then(res => {
+          updateDefault()
+          form._updated = res._updated
+          account.update(form)
+        })
+        .catch(console.log)
     }
   }
   const updateDefault = () => {
     const account = account_store.defaultAccount
     if (account !== undefined) {
       api.account.get(account.id)
-      .then(res => {
-        res._id = account.id
-        account.update(res)
-      })
-      .catch(console.log)
+        .then(res => {
+          res._id = account.id
+          account.update(res)
+        })
+        .catch(console.log)
     }
   }
   const remove = id => {
     const account = account_store.getAccount(id)
     if (!account.default) {
       api.account.remove(id)
-      .then(() => {
-        account_store.removeAccount(account)
-        router.history.goBack()
-      })
-      .catch(console.log)
+        .then(() => {
+          account_store.removeAccount(account)
+          router.history.goBack()
+        })
+        .catch(console.log)
     }
   }
   return {
     getAccounts,
-    getAccount,
     add,
     change,
     changeDefault,

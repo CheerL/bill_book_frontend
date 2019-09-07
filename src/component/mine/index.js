@@ -3,7 +3,7 @@ import { Layout } from '../layout'
 import Context from '../../store'
 import { List, WhiteSpace } from 'antd-mobile'
 import { AvatarHead, UserAvatar, Remarked, colorSpan } from '../../common'
-import { SwitchRoute, useRouter, useLink } from '../../router'
+import { SwitchRoute, useLink } from '../../router'
 import './index.css'
 
 import UserDetail from './user'
@@ -34,18 +34,21 @@ const MineUserHead = () => {
 }
 
 const MineIndex = () => {
-  const router = useRouter()
-  const { user } = Context.useStore()
+  // const router = useRouter()
+  const { logout } = Context.useStore()
   return Context.useConsumer(() => (
     <Layout>
       <List>
         <MineUserHead />
         <WhiteSpace style={{ backgroundColor: '#f5f5f9' }} />
-        <List.Item arrow='horizontal' onClick={() => router.history.push('/mine/setting')}>设置</List.Item>
+        <List.Item
+          arrow='horizontal'
+          // onClick={() => router.history.push('/mine/setting')}
+        >设置</List.Item>
         <WhiteSpace style={{ backgroundColor: '#f5f5f9' }} />
-        <List.Item arrow='horizontal' onClick={() => user.logoutFunc()}>
+        <List.Item arrow='horizontal' onClick={logout}>
           {colorSpan('退出登录', 'red')}
-          </List.Item>
+        </List.Item>
       </List>
     </Layout>
   ))

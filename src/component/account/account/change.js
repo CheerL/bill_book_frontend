@@ -25,7 +25,6 @@ const ChangeAccount = ({ match }) => {
     setFieldsValue({
       name: account.name,
       remark: account.remark,
-      amount: String(account.amount),
       default: account.default
     })
     // eslint-disable-next-line
@@ -40,7 +39,7 @@ const ChangeAccount = ({ match }) => {
             账户名称
           </InputItem>
         )}
-        <UnmodifiedItem extra={account.amount} text='账户余额' />
+        <UnmodifiedItem extra={account.amount.toString()} text='账户余额' />
         <List.Item extra={getFieldDecorator('default', { valuePropName: 'checked' })(
           <Switch disabled={account.default} />
         )}>

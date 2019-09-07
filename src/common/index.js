@@ -9,7 +9,7 @@ import MoneyInput from './money_input'
 import { colorSpan, unSetText, unModifiedColor, UnmodifiedItem } from './color'
 import BottomButton from './bottom_button'
 import UserAvatar from './user_avatar'
-import { AccountHead, DetailHead, AvatarHead } from './head';
+import { AccountHead, DetailHead, AvatarHead, CatHead } from './head';
 import date from './date'
 
 export {
@@ -28,6 +28,7 @@ export {
     AccountHead,
     AvatarHead,
     DetailHead,
+    CatHead,
     UserAvatar,
     BottomButton,
     UnmodifiedItem

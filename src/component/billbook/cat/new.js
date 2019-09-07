@@ -3,7 +3,7 @@ import useForm from "rc-form-hooks";
 import { List, InputItem } from "antd-mobile";
 
 import Context from '../../../store'
-import { Bar, BottomButton, DetailHead } from "../../../common";
+import { Bar, BottomButton, CatHead } from "../../../common";
 import { useCatAction } from '../../../action'
 import iconDict from '../../../common/icon/type'
 
@@ -26,10 +26,10 @@ const NewCat = () => {
   return Context.useConsumer(() => (
     <>
       <Bar title='新建分类' />
-      <DetailHead
+      <CatHead
         text=''
         icon={getFieldValue('icon')}
-        amount={getFieldValue('text')}
+        name={getFieldValue('text')}
       />
       <List className='padding-bottom'>
         {getFieldDecorator("text")(<InputItem type="text" placeholder="分类名称">分类名称</InputItem>)}

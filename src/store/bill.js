@@ -1,5 +1,6 @@
 import { date } from '../common'
 import { list2obj, obj2list, object_filter, update } from '../common/object'
+import Money from '../common/money'
 
 const initBills = []
 
@@ -8,7 +9,7 @@ const BillStoreCreater = bill => {
     id: bill._id,
     billbook: bill.billbook,
     time: bill.time,
-    amount: bill.amount,
+    amount: Money(bill.amount),
     remark: bill.remark,
     account: bill.account,
     consumer: bill.consumer,
@@ -28,27 +29,37 @@ const BillStoreCreater = bill => {
     get time_str() {
       return this.time ? date.num2str(this.time) : ''
     },
+
+    get isOwner() {
+      if (this.now_account !== undefined) {
+        return this.now_account.id === this.account
+      }
+      return undefined
+    },
+
     get isOut() {
       if (this.now_account !== undefined) {
-        return this.payer === this.now_account.id
+        return this.now_account.id === this.payer
       }
       return undefined
     },
 
     get transfer_remark() {
-      if (this.isOut !== undefined && this.target !== undefined) {
+      if (this.remark) {
+        return this.remark
+      } else if (this.now_account !== undefined && this.target !== undefined) {
         return this.isOut ? `向${this.target.name}转出` : `从${this.target.name}转入`
       }
       return undefined
     },
     get transfer_amount() {
-      if (this.isOut !== undefined) {
-        return this.isOut ? -this.amount : this.amount
+      if (this.now_account !== undefined) {
+        return this.isOwner ? this.amount : Money(-this.amount)
       }
       return undefined
     },
     setAccount(account) {
-        this.now_account = account
+      this.now_account = account
     },
     setTarget(account_store) {
       if (this.now_account !== undefined) {
@@ -92,7 +103,11 @@ const BillListStoreCreater = initValue => {
     },
 
     filterByAccount(account, list = false) {
-      const result = object_filter(this.bills, bill => bill.account === account)
+      const result = object_filter(this.bills, bill => (
+        bill.account === account ||
+        bill.consumer === `transfer${account}` ||
+        bill.payer === `transfer${account}`
+      ))
       return list ? obj2list(result) : result
     },
     filterByBillbook(billbook, list = false) {

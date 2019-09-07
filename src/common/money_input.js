@@ -9,11 +9,25 @@ const MoneyInput = ({ value, onChange, children, placeholder = '0', moneyKeyboar
   }
 
   const handleChange = newValue => {
-    const newNum = Number(newValue)
-    if (!isNaN(newValue)) {
+    let newNum = Number(newValue)
+    if (newValue === '.') {
+      newValue = 0
+    }
+
+    if (!isNaN(newNum)) {
+      const pointPos = newValue.indexOf('.')
       const newStr = String(newNum)
-      if (newValue.endsWith('.') && newValue.indexOf('.') === newValue.length - 1) {
+
+      if (newValue === '.') {
+        onChange('0.')
+      } else if (pointPos === newValue.length - 1 && newValue) {
         onChange(newStr.concat('.'))
+      } else if (pointPos < newValue.length - 3) {
+        ;
+      } else if (newValue.endsWith('.0')) {
+        onChange(newStr.concat('.0'))
+      } else if (newValue.endsWith('.00')) {
+        onChange(newStr.concat('.00'))
       } else {
         onChange(newStr)
       }

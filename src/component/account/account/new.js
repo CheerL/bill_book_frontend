@@ -24,7 +24,7 @@ const NewAccount = () => {
             账户名称
           </InputItem>
         )}
-        {getFieldDecorator("amount")(
+        {getFieldDecorator("amount", {initialValue: '0'})(
           <MoneyInput>
             余额
           </MoneyInput>

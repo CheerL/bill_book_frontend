@@ -6,15 +6,20 @@ const useBillbookAction = () => {
   const { billbook_store, current } = Context.useStore()
   const router = useRouter()
 
-  const getBillbooks = () => {
-    api.billbook.get()
-      .then(res => {
-        const billbooks = res._items
-        billbook_store.update(billbooks)
-      })
-      .catch(console.log)
+  const afterGetBillbooks = res => {
+    const billbooks = res._items
+    billbook_store.update(billbooks)
+    api.continueGet(afterGetBillbooks, res)
   }
-  
+
+  const getBillbooks = () => {
+    // current.loaded.billbook = false
+    api.billbook.get()
+      .then(afterGetBillbooks)
+      .catch(console.log)
+      .finally(() => current.loaded.billbook = true)
+  }
+
   const add = form => {
     form.remark = form.remark ? form.remark : ''
     form.status = form.status[0]
@@ -51,37 +56,37 @@ const useBillbookAction = () => {
   }
   const changeDefault = id => {
     const billbook = billbook_store.getBillbook(id)
-    const form = {'default': true}
+    const form = { 'default': true }
     if (!billbook.default) {
       api.billbook.change(form, id)
-      .then(res => {
-        updateDefault()
-        form._updated = res._updated
-        billbook.update(form)
-      })
-      .catch(console.log)
+        .then(res => {
+          updateDefault()
+          form._updated = res._updated
+          billbook.update(form)
+        })
+        .catch(console.log)
     }
   }
   const updateDefault = () => {
     const billbook = billbook_store.defaultBillbook
     if (billbook !== undefined) {
       api.billbook.get(billbook.id)
-      .then(res => {
-        res._id = billbook.id
-        billbook.update(res)
-      })
-      .catch(console.log)
+        .then(res => {
+          res._id = billbook.id
+          billbook.update(res)
+        })
+        .catch(console.log)
     }
   }
   const remove = id => {
     const billbook = billbook_store.getBillbook(id)
     if (!billbook.default) {
       api.billbook.remove(id)
-      .then(() => {
-        billbook_store.removeBillbook(billbook)
-        router.history.push(`/billbook/detail/${billbook_store.defaultBillbook.id}`)
-      })
-      .catch(console.log)
+        .then(() => {
+          billbook_store.removeBillbook(billbook)
+          router.history.push(`/billbook/detail/${billbook_store.defaultBillbook.id}`)
+        })
+        .catch(console.log)
     }
   }
   return {

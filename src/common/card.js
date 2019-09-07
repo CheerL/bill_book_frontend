@@ -9,7 +9,7 @@ const Card = ({ text, remark, amount, handleClick, context, space = false }) => 
         <>
             <Remarked text={text} remark={remark} position='left' />
             <div className="card-amount">
-                {amount}
+                {amount.toString()}
             </div>
         </>
     const card = <div className="card" onClick={handleClick}>{cardContext}</div>

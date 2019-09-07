@@ -1,3 +1,5 @@
+import Money from "./money"
+
 export const groupby = (list, key) => {
   return list.reduce((obj, item) => {
     if (!obj[item[key]]) {
@@ -10,7 +12,7 @@ export const groupby = (list, key) => {
   }, {})
 }
 
-export const obj_groupby = (obj, key, filter = () => true) => {
+export const obj_groupby = (obj, key, filter) => {
   const result = {}
   for (let obj_key in obj) {
     let item = obj[obj_key]
@@ -27,7 +29,7 @@ export const obj_groupby = (obj, key, filter = () => true) => {
   return result
 }
 
-export const object_filter = (obj, filter = () => false) => {
+export const object_filter = (obj, filter) => {
   const result = {}
   for (let key in obj) {
     if (filter(obj[key])) {
@@ -37,14 +39,14 @@ export const object_filter = (obj, filter = () => false) => {
   return result
 }
 
-export const object_map = (obj, map = (value, key, index) => null) => {
+export const object_map = (obj, map) => {
   return Object.keys(obj).map((key, index) => {
     const value = obj[key]
     return map(value, key, index)
   })
 }
 
-export const object_find = (obj, find = (value, key) => false) => {
+export const object_find = (obj, find) => {
   for (let key in obj) {
     if (find(obj[key], key)) {
       return obj[key]
@@ -61,7 +63,7 @@ export const obj2list = (obj) => {
   return result
 }
 
-export const list2obj = (list, initFunc = init => init) => {
+export const list2obj = (list, initFunc) => {
   return list.reduce((obj, item) => {
     if (!obj[item._id]) {
       obj[item._id] = initFunc(item)
@@ -75,6 +77,10 @@ export const list2obj = (list, initFunc = init => init) => {
 export const update = (store, newStore, keys) => {
   if (newStore._updated) {
     const tempStore = { ...newStore, _updated: Date.parse(newStore._updated) }
+    if (tempStore.hasOwnProperty('amount')) {
+      // console.log(tempStore.amount)
+      tempStore.amount = Money(tempStore.amount)
+    }
     if (!store._updated || tempStore._updated > store._updated) {
       keys.forEach(key => {
         store[key] = tempStore[key] === undefined ? store[key] : tempStore[key]

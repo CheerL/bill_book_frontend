@@ -15,7 +15,7 @@ const RelationStoreCreater = initValue => {
     },
 
     addRelation(relation) {
-      const r = this.getRelation(relation.billbook, relation.nickname)
+      const r = this.getRelation(relation.billbook, relation.user.nickname)
       if (r) {
         r.status = relation.status
         r.avater = relation.avater
@@ -30,7 +30,7 @@ const RelationStoreCreater = initValue => {
     },
 
     removeRelation(relation) {
-      const r = this.getRelation(relation.billbook, relation.nickname)
+      const r = this.getRelation(relation.billbook, relation.user.nickname)
       if (r) {
         this.relation.remove(r)
       }

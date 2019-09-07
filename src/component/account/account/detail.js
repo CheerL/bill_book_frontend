@@ -13,15 +13,15 @@ const AccountDetail = ({ match }) => {
   const id = match.params.id
   const { account_store, bill_store, current } = Context.useStore()
   const account = account_store.getAccount(id)
-  const { changeDefault, remove, getAccount } = useAccountAction()
+  const { changeDefault, remove, getAccounts } = useAccountAction()
   useEffect(() => {
     if (id) {
-      getAccount(id)
+      getAccounts(id)
     }
     // eslint-disable-next-line
   }, [])
   if (account === undefined) {
-    return <Redirect to={`/account/detail/${current.account.id}`} />
+    return <Redirect to={`/account/detail/${account_store.defaultAccount.id}`} />
   } else {
     current.account = account
   }
