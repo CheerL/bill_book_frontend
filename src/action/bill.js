@@ -9,9 +9,7 @@ const useBillAction = () => {
   const router = useRouter()
 
   const afterGetBills = res => {
-    const bills = res._items
-    bill_store.update(bills)
-
+    bill_store.update(res._items)
     api.continueGet(afterGetBills, res)
   }
 

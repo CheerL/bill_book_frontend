@@ -4,6 +4,7 @@ import Context from '../../store'
 import { List, WhiteSpace } from 'antd-mobile'
 import { AvatarHead, UserAvatar, Remarked, colorSpan } from '../../common'
 import { SwitchRoute, useLink } from '../../router'
+import { useUserAction } from '../../action'
 import './index.css'
 
 import UserDetail from './user'
@@ -35,7 +36,7 @@ const MineUserHead = () => {
 
 const MineIndex = () => {
   // const router = useRouter()
-  const { logout } = Context.useStore()
+  const { logoutFunc } = useUserAction()
   return Context.useConsumer(() => (
     <Layout>
       <List>
@@ -46,7 +47,7 @@ const MineIndex = () => {
           // onClick={() => router.history.push('/mine/setting')}
         >设置</List.Item>
         <WhiteSpace style={{ backgroundColor: '#f5f5f9' }} />
-        <List.Item arrow='horizontal' onClick={logout}>
+        <List.Item arrow='horizontal' onClick={logoutFunc}>
           {colorSpan('退出登录', 'red')}
         </List.Item>
       </List>

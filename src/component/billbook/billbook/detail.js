@@ -63,7 +63,7 @@ const BillbookDetail = ({ match }) => {
 const BillbookDetailView = ({ billbook }) => {
   const { current } = Context.useStore()
   const { changeDefault, remove } = useBillbookAction()
-  const { getCatByBillbook } = useCatAction()
+  const { getCats } = useCatAction()
   const { getRelation } = useRelationAction()
   const router = useRouter()
   current.billbook = billbook
@@ -89,7 +89,7 @@ const BillbookDetailView = ({ billbook }) => {
   useEffect(() => {
     const id = billbook.id
     if (id && id !== 'default') {
-      getCatByBillbook(id)
+      getCats(id)
       getRelation(undefined, id)
     }
     // eslint-disable-next-line

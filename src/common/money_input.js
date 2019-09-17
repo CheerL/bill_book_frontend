@@ -11,7 +11,7 @@ const MoneyInput = ({ value, onChange, children, placeholder = '0', moneyKeyboar
   const handleChange = newValue => {
     let newNum = Number(newValue)
     if (newValue === '.') {
-      newValue = 0
+      newNum = 0
     }
 
     if (!isNaN(newNum)) {
@@ -22,7 +22,7 @@ const MoneyInput = ({ value, onChange, children, placeholder = '0', moneyKeyboar
         onChange('0.')
       } else if (pointPos === newValue.length - 1 && newValue) {
         onChange(newStr.concat('.'))
-      } else if (pointPos < newValue.length - 3) {
+      } else if (pointPos !== -1 && pointPos < newValue.length - 3) {
         ;
       } else if (newValue.endsWith('.0')) {
         onChange(newStr.concat('.0'))

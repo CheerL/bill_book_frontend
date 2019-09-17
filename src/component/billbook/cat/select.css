@@ -6,6 +6,10 @@
     position: static !important;
 }
 
-i.anticon+div.am-grid-text {
-    margin-top: 4px !important;
+.cat-grid-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }

@@ -1,19 +1,20 @@
 import api from './api'
 import Context from '../store'
-import Decimal from 'decimal.js'
 import { useRouter } from '../router'
 import Money from '../common/money'
 
-window.Decimal = Decimal
-
 const useAccountAction = () => {
-  const { account_store, current } = Context.useStore()
+  const { account_store, bill_store, current } = Context.useStore()
   const router = useRouter()
 
   const afterGetAccounts = res => {
-    const accounts = res._items
-    account_store.update(accounts)
+    account_store.update(res._items)
     api.continueGet(afterGetAccounts, res)
+  }
+
+  const afterGetAccountBills = res => {
+    bill_store.update(res._items)
+    api.continueGet(afterGetAccountBills, res)
   }
 
   const getAccounts = id => {
@@ -22,12 +23,22 @@ const useAccountAction = () => {
       .then(res => {
         if (id) {
           const account = account_store.getAccount(id)
+          const transAccount = account_store.getTransAccount(id)
+          const search_params = {
+            '$or': [
+              { account: id },
+              { payer: transAccount },
+              { consumer: transAccount }
+            ]
+          }
           if (account) {
             account.update(res)
           } else {
             account_store.addAccount(res)
           }
-          // api.bill.get(undefined, {})
+          api.bill.get(undefined, search_params)
+            .then(afterGetAccountBills)
+            .catch(console.log)
         } else {
           afterGetAccounts(res)
         }

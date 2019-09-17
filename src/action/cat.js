@@ -12,22 +12,12 @@ const useCatAction = () => {
     api.continueGet(afterGetCats, res)
   }
 
-  const getCats = () => {
+  const getCats = billbook => {
     // current.loaded.cat = false
-    api.cat.get()
+    api.cat.get(undefined, billbook ? { billbook: billbook } : undefined)
       .then(afterGetCats)
       .catch(console.log)
       .finally(() => current.loaded.cat = true)
-  }
-
-  const getCatByBillbook = billbook => {
-    api.cat.get(undefined, { billbook: billbook })
-      .then(res => {
-        const cats = res._items
-        cats.forEach(cat => {
-          cat_store.addCat(cat)
-        })
-      })
   }
 
   const add = form => {
@@ -41,11 +31,34 @@ const useCatAction = () => {
       })
       .catch(console.log)
   }
+  const change = form => {
+    const id = form.id
+    const cat = cat_store.getCat(undefined, undefined, id)
+    delete form.id
+    api.cat.change(form, id)
+      .then(() => {
+        cat.icon = form.icon
+        router.history.goBack()
+      })
+      .catch(console.log)
+  }
+
+  const remove = (id, cat) => {
+    if (!cat) {
+      cat = cat_store.getCat(undefined, undefined, id)
+    }
+    if (cat) {
+      api.cat.remove(cat.id)
+        .then(() => cat_store.removeCat(undefined, undefined, cat))
+        .catch(console.log)
+    }
+  }
 
   return {
     getCats,
-    getCatByBillbook,
-    add
+    add,
+    change,
+    remove
   }
 }
 

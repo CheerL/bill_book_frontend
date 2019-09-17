@@ -57,7 +57,6 @@ const useTransferAction = () => {
   }
   const change = form => {
     const transfer = current.bill
-    console.log(form, transfer, account_store.getTransAccount(transfer.account))
     if (account_store.getTransAccount(transfer.account) === (form.payer !== undefined ? form.payer : transfer.payer)) {
       form.amount = -form.amount
     }

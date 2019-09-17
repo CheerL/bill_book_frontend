@@ -11,6 +11,8 @@ import BottomButton from './bottom_button'
 import UserAvatar from './user_avatar'
 import { AccountHead, DetailHead, AvatarHead, CatHead } from './head';
 import date from './date'
+import useLongPress from './long_press'
+import useErrorHandle from './error'
 
 export {
     date,
@@ -31,5 +33,7 @@ export {
     CatHead,
     UserAvatar,
     BottomButton,
-    UnmodifiedItem
+    UnmodifiedItem,
+    useLongPress,
+    useErrorHandle
 }

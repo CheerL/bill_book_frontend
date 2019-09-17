@@ -1,6 +1,7 @@
 import api from './api'
 import Context from '../store'
 import { useRouter } from '../router'
+import { Toast } from 'antd-mobile'
 
 import useAccountAction from './account'
 import useBillAction from './bill'
@@ -30,14 +31,14 @@ const useUserAction = () => {
   }
 
   const login = ({ username, password }) => {
-    current.loadAll(false)
     api.user.login(username, password)
       .then(res => {
+        current.loadAll(false)
         afterLogin(res)
+        Toast.success(res.message)
       })
       .catch(res => {
-        console.log(res)
-        current.loadAll(true)
+        Toast.fail(res.message)
       })
   }
 
@@ -55,10 +56,13 @@ const useUserAction = () => {
   const register = ({ username, password, nickname, check_password }) => {
     if (password === check_password) {
       api.user.register(username, password, nickname)
-        .then(() => {
+        .then(res => {
+          Toast.success(res.message)
           router.history.goBack()
         })
-        .catch(console.log)
+        .catch(res => {
+          Toast.fail(res.message)
+        })
     }
   }
 
@@ -73,7 +77,10 @@ const useUserAction = () => {
   }
   const remove = () => {
     api.user.delete()
-      .then(logout)
+      .then(res => {
+        logout()
+        Toast.success(res.message)
+      })
       .catch(console.log)
   }
   const change = form => {
@@ -85,13 +92,19 @@ const useUserAction = () => {
       .catch(console.log)
   }
 
+  const logoutFunc = () => {
+    logout()
+    Toast.success('退出成功')
+  }
+
   return {
     login,
     login_jwt,
     register,
     forget,
     remove,
-    change
+    change,
+    logoutFunc
   }
 }
 

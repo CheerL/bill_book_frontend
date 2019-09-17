@@ -1,6 +1,14 @@
 import { list2obj, update, object_find } from '../common/object'
 import Money from '../common/money'
 
+export const getTransAccount = account => account ? `transfer${account}` : ''
+export const getNormalAccount = transAccount => {
+  if (transAccount.length === 32 && transAccount.startsWith('transfer')) {
+    return transAccount.slice(8)
+  }
+  return transAccount
+}
+
 const initAccounts = []
 
 const accountStoreCreater = (account) => {
@@ -36,15 +44,8 @@ const accountListStoreCreater = initValue => {
       return object_find(this.accounts, account => account.default)
     },
 
-    getTransAccount(account) {
-      return account ? `transfer${account}` : ''
-    },
-    getNormalAccount(transAccount) {
-      if (transAccount.length === 32 && transAccount.startsWith('transfer')) {
-        return transAccount.slice(8)
-      }
-      return transAccount
-    },
+    getTransAccount: getTransAccount,
+    getNormalAccount: getNormalAccount,
     getAccount(id) {
       if (!id) {
         return {

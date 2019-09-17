@@ -1,6 +1,7 @@
 import { date } from '../common'
 import { list2obj, obj2list, object_filter, update } from '../common/object'
 import Money from '../common/money'
+import { getNormalAccount } from './account'
 
 const initBills = []
 
@@ -39,7 +40,7 @@ const BillStoreCreater = bill => {
 
     get isOut() {
       if (this.now_account !== undefined) {
-        return this.now_account.id === this.payer
+        return this.now_account.id === getNormalAccount(this.payer)
       }
       return undefined
     },
@@ -62,13 +63,11 @@ const BillStoreCreater = bill => {
       this.now_account = account
     },
     setTarget(account_store) {
-      if (this.now_account !== undefined) {
-        const targetId = this.isOut ? this.consumer : this.payer
-        if (targetId) {
-          this.target = account_store.getAccount(targetId)
-        } else {
-          this.target = { name: '外部' }
-        }
+      const targetId = this.isOut ? this.consumer : this.payer
+      if (targetId) {
+        this.target = account_store.getAccount(getNormalAccount(targetId))
+      } else {
+        this.target = { name: '外部' }
       }
     },
     update(bill) {

@@ -3,23 +3,31 @@ const initCat = []
 const CatStoreCreater = initValue => {
   const store = {
     cats: initValue.map(cat => ({
+      id: cat._id,
       icon: cat.icon,
       text: cat.text,
       billbook: cat.billbook,
       labels: cat.labels
     })),
 
-    addCat({ icon, text, billbook, labels = [] }) {
-      const cat = this.getCat(text, billbook)
-      if (cat) {
-        cat.icon = icon
-        cat.labels = labels
+    addCat(cat) {
+      cat.id = cat._id
+      cat.labels = cat.labels ? cat.labels : []
+      delete cat._id
+
+      const catStore = this.getCat(cat.text, cat.billbook)
+      if (catStore) {
+        catStore.icon = cat.icon
+        catStore.labels = cat.labels
       } else {
-        this.cats.push({ icon, text, billbook, labels })
+        this.cats.push(cat)
       }
     },
-    removeCat({ text, billbook }) {
-      const cat = this.getCat(text, billbook)
+    removeCat(text, billbook, cat) {
+      if (!cat) {
+        cat = this.getCat(text, billbook)
+      }
+
       if (cat) {
         this.cats.remove(cat)
       }
@@ -27,7 +35,10 @@ const CatStoreCreater = initValue => {
     filterByBillbook(billbook) {
       return this.cats.filter(cat => cat.billbook === billbook)
     },
-    getCat(text, billbook) {
+    getCat(text, billbook, id) {
+      if (id) {
+        return this.cats.find(cat => cat.id === id)
+      }
       return this.cats.find(cat => cat.text === text && cat.billbook === billbook)
     },
     addCatLabel(text, billbook, label) {

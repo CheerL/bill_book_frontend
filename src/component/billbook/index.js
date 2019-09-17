@@ -4,7 +4,7 @@ import { SwitchRoute } from '../../router'
 import { BillbookDetail, NewBillbook, ChangeBillbook, BillbookInfo } from './billbook'
 import { BillDetail, NewBill, ChangeBill } from './bill'
 import { useBillbookAction, useBillAction, useCatAction } from '../../action'
-import { NewCat } from './cat'
+import { NewCat, ChangeCat } from './cat'
 
 import './index.css'
 
@@ -28,7 +28,8 @@ export const Billbook = () => {
     { path: '/billbook/bill/detail/:id', component: BillDetail },
     { path: '/billbook/bill/change/:id', component: ChangeBill },
     { path: '/billbook/bill/new', component: NewBill },
-    { path: '/billbook/bill/cat/new', component: NewCat },
+    { path: '/billbook/cat/new', component: NewCat },
+    { path: '/billbook/cat/change/:billbook/:text', component: ChangeCat },
     { path: '/billbook/detail/default' }
   ]} />
 }
