@@ -4,14 +4,17 @@ import { Card, date, Title } from '../../../common'
 import { useLink } from '../../../router'
 import Context from '../../../store'
 
-const BillCard = ({ bill, space = false }) => {
+export const BillCard = ({ bill, space = false }) => {
   const handleClick = useLink(`/billbook/bill/detail/${bill.id}`)
+  const { cat_store } = Context.useStore()
+  const icon = cat_store.getCat(bill.cat_0, bill.billbook)
 
   return Context.useConsumer(() => (
     <Card
       handleClick={handleClick}
       text={bill.cat_0}
-      remark={bill.remark}
+      icon={icon ? icon.icon : null}
+      remark={bill.remark ? bill.remark : bill.cat_1}
       amount={bill.amount}
       space={space}
       key={bill.id}

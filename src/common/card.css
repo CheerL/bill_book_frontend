@@ -1,6 +1,6 @@
 .card {
     font-size: 18px;
-    padding: 0.5rem 1.5rem;
+    padding: 0.5rem 1rem;
     background-color: white;
     box-sizing: border-box;
     border-radius: 5px;
@@ -20,4 +20,11 @@
     flex: 1 1;
     text-align: center;
     padding: 10px;
+}
+
+.card-icon {
+    font-size: 36px;
+    width: 1em;
+    height: 1em;
+    margin-right: 0.25em;
 }

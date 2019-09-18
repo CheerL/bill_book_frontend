@@ -1,5 +1,5 @@
 import React from "react";
-import { MyIcon as Icon } from '.'
+import Icon from './icon'
 import './head.css'
 
 export const AccountHead = ({ text, amount }) => {

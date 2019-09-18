@@ -12,6 +12,8 @@ import { Layout } from '../../layout'
 import BillbookSwitch from './switch'
 import { DayBillCardList } from './card'
 
+// import BillList from './listview'
+
 const AddBillButton = () => {
   const handleClick = useLink('/billbook/bill/new')
   return (
@@ -114,9 +116,24 @@ const BillList = () => {
       .sort((a, b) => b - a)
       .map(day => (
         <DayBillCardList
-          bills={store.billsGroupbyDay[String(day)]}
+          bills={store.billsGroupbyDay[day]}
           day={day} key={day}
         />
       ))))
 }
+
+// const BillList = () => {
+//   const store = Context.useStore()
+//   return Context.useConsumer(() => (
+//     <ListView
+//       dataSource={store.billsGroupByDay}
+//       useBodyScroll
+//       renderSectionWrapper={
+//         a => <div>{a}</div>
+//       }
+//     />
+//   ))
+// }
+
+
 export default BillbookDetail

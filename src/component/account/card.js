@@ -32,12 +32,14 @@ export const AccountNew = () => {
 
 const BillCard = ({ bill, space = false }) => {
   const handleClick = useLink(`/billbook/bill/detail/${bill.id}`)
-  const { billbook_store } = Context.useStore()
+  const { billbook_store, cat_store } = Context.useStore()
+  const icon = cat_store.getCat(bill.cat_0, bill.billbook)
   const billbook = billbook_store.getBillbook(bill.billbook)
 
   return Context.useConsumer(() => (
     <Card
       handleClick={handleClick}
+      icon={icon ? icon.icon : null}
       text={bill.cat_0}
       remark={billbook.name}
       amount={bill.amount}
@@ -55,6 +57,7 @@ const TransferCard = ({ bill, space = false }) => {
   return Context.useConsumer(() => (
     <Card
       handleClick={handleClick}
+      icon='transfer'
       text='转账'
       remark={bill.transfer_remark}
       amount={bill.transfer_amount}
