@@ -13,10 +13,12 @@ import { AccountHead, DetailHead, AvatarHead, CatHead } from './head';
 import date from './date'
 import useLongPress from './long_press'
 import useErrorHandle from './error'
+import { debounce } from './debounce'
 
 export {
     date,
     Remarked,
+    debounce,
     Card,
     Title,
     Bar,

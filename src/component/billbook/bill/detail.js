@@ -40,7 +40,9 @@ const BillDetail = ({ match }) => {
   return (
     <>
       <Bar title={bill.cat_0} rightContent={rightContent} />
-      <DetailHead text={bill.cat_0} icon={cat_store.getCat(bill.cat_0, billbook.id).icon} amount={bill.amount} />
+      {bill.cat_0 ?
+        <DetailHead text={bill.cat_0} icon={cat_store.getCat(bill.cat_0, billbook.id).icon} amount={bill.amount} /> :
+        null}
       <List>
         <List.Item extra={time}>时间</List.Item>
         <List.Item extra={label}>子分类</List.Item>

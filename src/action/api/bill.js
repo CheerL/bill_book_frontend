@@ -1,9 +1,13 @@
 import baseApiGenerater from './base'
 
-const url_prefix = '/bills'
+const Api = baseApiGenerater('/bills')
 
 const billApi = {
-  ...baseApiGenerater(url_prefix)
+  ...Api,
+  get: (id, search, other = {}) => {
+    other['sort'] = '[("time",-1)]'
+    return Api.get(id, search, other)
+  }
 }
 
 export default billApi

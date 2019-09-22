@@ -10,9 +10,7 @@ import { useBillbookAction, useCatAction, useRelationAction } from '../../../act
 import { Layout } from '../../layout'
 
 import BillbookSwitch from './switch'
-import { DayBillCardList } from './card'
-
-// import BillList from './listview'
+import BillList from './listview'
 
 const AddBillButton = () => {
   const handleClick = useLink('/billbook/bill/new')
@@ -101,39 +99,27 @@ const BillbookDetailView = ({ billbook }) => {
     <>
       <Bar title={<BillbookSwitch />} left={false} rightContent={rightContent} />
       <WingBlank>
-        <BillList />
+        <BillList style={{
+          height: document.documentElement.clientHeight - 100,
+        }} />
       </WingBlank>
       {billbook.id !== 'default' ? <AddBillButton /> : <></>}
     </>
   )
 }
 
-const BillList = () => {
-  const store = Context.useStore()
-  return Context.useConsumer(() => (
-    Object.keys(store.billsGroupbyDay)
-      .map(Number)
-      .sort((a, b) => b - a)
-      .map(day => (
-        <DayBillCardList
-          bills={store.billsGroupbyDay[day]}
-          day={day} key={day}
-        />
-      ))))
-}
-
 // const BillList = () => {
 //   const store = Context.useStore()
 //   return Context.useConsumer(() => (
-//     <ListView
-//       dataSource={store.billsGroupByDay}
-//       useBodyScroll
-//       renderSectionWrapper={
-//         a => <div>{a}</div>
-//       }
-//     />
-//   ))
+//     Object.keys(store.billsGroupbyDay)
+//       .map(Number)
+//       .sort((a, b) => b - a)
+//       .map(day => (
+//         <DayBillCardList
+//           bills={store.billsGroupbyDay[day]}
+//           day={day} key={day}
+//         />
+//       ))))
 // }
-
 
 export default BillbookDetail

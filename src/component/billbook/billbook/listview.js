@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
+import { useObserver } from 'mobx-react-lite'
 import Context from '../../../store'
+// import { StickyContainer, Sticky } from 'react-sticky'
 
-import { Title, date } from '../../../common'
+import { Title, date, debounce } from '../../../common'
 import { BillCard } from './card'
 import { ListView, WhiteSpace } from 'antd-mobile'
 
@@ -9,11 +11,10 @@ import './listview.css'
 
 const NUM_SECTIONS = 5;
 
-const BillList = () => {
+const BillList = ({style}) => {
   const store = Context.useStore()
   const getSectionHeaderData = (dataBlob, sectionID) => dataBlob[sectionID];
   const getRowData = (dataBlob, _, rowID) => dataBlob[rowID];
-
   const [data, setData] = useState(new ListView.DataSource({
     getRowData,
     getSectionHeaderData,
@@ -21,115 +22,118 @@ const BillList = () => {
     sectionHeaderHasChanged: (s1, s2) => s1 !== s2
   }))
   const [isLoading, setIsLoading] = useState(true)
-
-  const [page, setPage] = useState(0);
-  const [dataBlobs, setDataBlobs] = useState({});
+  const [dataBlobs, setDataBlobs] = useState({ page: 0 });
   const [sectionIDs, setSectionIDs] = useState([]);
   const [rowIDs, setRowIDs] = useState([]);
 
-  const initBlobs = () => {
-    setPage(0)
-    setSectionIDs([])
-    setRowIDs([])
-    // setDataBlobs({})
-  }
 
-  const genData = () => {
-    const bills = store.billsGroupbyDay
-    const days = Object.keys(bills).map(Number).sort((a, b) => b - a)
-    let i
-    for (i = 0; i < NUM_SECTIONS; i++) {
-      const sectionNum = page + i
-      if (sectionNum >= days.length) {
-        break
-      }
-      const sectionID = days[sectionNum]
-      sectionIDs.push(sectionID);
-      dataBlobs[sectionID] = 0;
-      rowIDs[sectionNum] = [];
-
-      bills[sectionID].forEach(bill => {
-        const rowID = bill.id
-        rowIDs[sectionNum].push(rowID)
-        dataBlobs[sectionID] = bill.amount.add(dataBlobs[sectionID])
-        dataBlobs[rowID] = bill
-      });
-    }
-    console.log(sectionIDs, rowIDs, page, i)
-    setPage(page + i)
-  }
-
-  useEffect(() => {
-    genData();
-    setData(data.cloneWithRowsAndSections(dataBlobs, sectionIDs, rowIDs))
-    setIsLoading(false)
-  }, [])
-
-  useEffect(() => {
-    initBlobs()
-    genData()
-    setData(data.cloneWithRowsAndSections(dataBlobs, sectionIDs, rowIDs))
-  }, [store.current.billbook])
-
-
-  window.dd = data
-  // If you use redux, the data maybe at props, you need use `componentWillReceiveProps`
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.dataSource !== this.props.dataSource) {
-  //     this.setState({
-  //       dataSource: this.state.dataSource.cloneWithRowsAndSections(nextProps.dataSource),
-  //     });
-  //   }
-  // }
-
-  const onEndReached = (event) => {
-    // load new data
-    // hasMore: from backend data, indicates whether it is the last page, here is false
+  const onEndReached = () => {
     if (isLoading) {
       return;
     }
-    // setIsLoading(true)
-    // setTimeout(() => {
+    setIsLoading(true)
     genData();
-    setData(data.cloneWithRowsAndSections(dataBlobs, sectionIDs, rowIDs))
-    // setIsLoading(false)
-    // }, 1000);
   }
+  const genData = (init = false) => {
+    const _sectionIDs = init ? [] : [...sectionIDs]
+    const _rowIDs = init ? [] : [...rowIDs]
+    const _dataBlobs = init ? { page: 0 } : { ...dataBlobs }
 
+    let sectionNum
+    const page = _dataBlobs.page
+    const bills = store.billsGroupbyDay
+    const days = Object.keys(bills).map(Number).sort((a, b) => b - a)
 
-  const sectionHeader = (sectionData, sectionID) => {
-    return <Title title={<>
-      <span>{date.num2str(sectionID)}</span>
-      <span style={{ float: 'right', color: 'dimgray' }}>日消费:&nbsp;
-        <span style={{ color: 'black', fontWeight: 'bold' }}>{sectionData.toString()}</span>
-      </span>
-    </>} />
+    for (sectionNum = page; sectionNum < page + NUM_SECTIONS && sectionNum < days.length; sectionNum++) {
+      const sectionID = days[sectionNum]
+      _sectionIDs.push(sectionID);
+      _dataBlobs[sectionID] = 0;
+      _rowIDs[sectionNum] = [];
+
+      // eslint-disable-next-line
+      bills[sectionID].forEach(bill => {
+        _rowIDs[sectionNum].push(bill.id)
+        _dataBlobs[sectionID] = bill.amount.add(_dataBlobs[sectionID])
+        _dataBlobs[bill.id] = bill
+      });
+    }
+
+    _dataBlobs.page = sectionNum
+    setDataBlobs(_dataBlobs)
+    setRowIDs(_rowIDs)
+    setSectionIDs(_sectionIDs)
+    setIsLoading(false)
+  }
+  const genDataDebounce = useMemo((init = false) => {
+    return debounce(() => {
+      genData(init)
+    }, 100)
+    // eslint-disable-next-line
+  }, [])
+
+  const sectionHeader = (dayMoney, day) => {
+    // const dayBillIds =
+    return (
+      // <Sticky>
+      //   {({ style }) => (
+      //     <div style={style}>
+            <Title title={<>
+              <span>{date.num2str(day)}</span>
+              <span style={{ float: 'right', color: 'dimgray' }}>日消费:&nbsp;
+              <span style={{ color: 'black', fontWeight: 'bold' }}>
+                  {dayMoney ? dayMoney.toString() : ''}
+                </span>
+              </span>
+            </>} />
+      //       </div>
+      //   )}
+      // </Sticky>
+    )
   };
-  const row = (bill, sectionID, rowID) => {
-    console.log(bill, sectionID, rowID)
-    return (<BillCard bill={bill} key={rowID} />);
+  // const sectionWrapper = sectionID => (
+  //   <StickyContainer key={`sw_${sectionID}_c`} />
+  // )
+  const row = (_, __, billId) => {
+    const bill = store.bill_store.getBill(billId)
+    return <BillCard bill={bill} key={billId} />;
   };
   const separator = (sectionID, rowID) => <WhiteSpace sizs='sm' key={sectionID + rowID} />
+
+  useEffect(() => {
+    setIsLoading(true)
+    genDataDebounce(true)
+    // eslint-disable-next-line
+  }, [store.bill_store.billNum])
+
+  useEffect(() => {
+    setIsLoading(true)
+    genData(true)
+    // eslint-disable-next-line
+  }, [store.current.billbook])
+
+  useEffect(() => {
+    if (rowIDs.length === sectionIDs.length) {
+      setData(data.cloneWithRowsAndSections(dataBlobs, sectionIDs, rowIDs))
+    }
+    // eslint-disable-next-line
+  }, [rowIDs, sectionIDs])
+
+  useObserver(() => store.bill_store.billNum)
 
   return Context.useConsumer(() => (
     <ListView
       dataSource={data}
       initialListSize={100}
       renderSectionHeader={sectionHeader}
+      // renderSectionWrapper={sectionWrapper}
       renderRow={row}
       renderSeparator={separator}
-      style={{
-        height: document.documentElement.clientHeight - 100,
-        overflow: 'auto',
-      }}
+      style={style}
       pageSize={5}
       scrollRenderAheadDistance={500}
       onEndReached={onEndReached}
       onEndReachedThreshold={100}
       scrollEventThrottle={200}
-      contentContainerStyle={{
-        backgroundColor: 'red'
-      }}
       renderBodyComponent={() => <div className='list-view-wrapper' />}
     />
   ))

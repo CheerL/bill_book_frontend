@@ -1,6 +1,6 @@
 import React from 'react'
 import './title.css'
 
-const Title = ({ title }) => <p className="title">{title}</p>
+const Title = ({ title, style }) => <p className="title" style={style}>{title}</p>
 
 export default Title

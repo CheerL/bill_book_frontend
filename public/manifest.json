@@ -1,6 +1,6 @@
 {
-  "short_name": "Bill Book",
-  "name": "Keep track of every expense to Bill Book",
+  "short_name": "随手账本",
+  "name": "记录你的每一笔收支",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,8 +8,8 @@
       "type": "image/x-icon"
     }
   ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "start_url": "index.html",
+  "display": "fullscreen",
+  "theme_color": "#f5f5f9",
+  "background_color": "#108ee9"
 }

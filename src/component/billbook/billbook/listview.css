@@ -6,6 +6,9 @@
     background-color: inherit;
     min-height: initial;
     padding-left: 0;
+    top: 0;
+    position: -webkit-sticky;
+    position: sticky;
 }
 
 .list-view-wrapper .am-list-item-middle .am-list-line {
@@ -17,4 +20,8 @@
 }
 .list-view-wrapper .am-list-item:not(:last-child) .am-list-line::after {
     height: 0 !important;
+}
+
+.am-list-view-scrollview::-webkit-scrollbar {
+    display: none;
 }

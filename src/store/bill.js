@@ -87,6 +87,10 @@ const BillListStoreCreater = initValue => {
   const store = {
     bills: list2obj(initValue, BillStoreCreater),
 
+    get billNum() {
+      return Object.keys(this.bills).length
+    },
+
     getBill(id) {
       return this.bills[id]
     },
