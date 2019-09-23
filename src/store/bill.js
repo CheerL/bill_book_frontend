@@ -32,15 +32,15 @@ const BillStoreCreater = bill => {
     },
 
     get isOwner() {
-      if (this.now_account !== undefined) {
-        return this.now_account.id === this.account
+      if (this.nowAccount !== undefined) {
+        return this.nowAccount.id === this.account
       }
       return undefined
     },
 
     get isOut() {
-      if (this.now_account !== undefined) {
-        return this.now_account.id === getNormalAccount(this.payer)
+      if (this.nowAccount !== undefined) {
+        return this.nowAccount.id === getNormalAccount(this.payer)
       }
       return undefined
     },
@@ -48,19 +48,19 @@ const BillStoreCreater = bill => {
     get transfer_remark() {
       if (this.remark) {
         return this.remark
-      } else if (this.now_account !== undefined && this.target !== undefined) {
+      } else if (this.nowAccount !== undefined && this.target !== undefined) {
         return this.isOut ? `向${this.target.name}转出` : `从${this.target.name}转入`
       }
       return undefined
     },
     get transfer_amount() {
-      if (this.now_account !== undefined) {
+      if (this.nowAccount !== undefined) {
         return this.isOwner ? this.amount : Money(-this.amount)
       }
       return undefined
     },
     setAccount(account) {
-      this.now_account = account
+      this.nowAccount = account
     },
     setTarget(account_store) {
       const targetId = this.isOut ? this.consumer : this.payer

@@ -67,11 +67,22 @@ const useBillAction = () => {
       .catch(console.log)
   }
   const remove = id => {
+    removePure(id, () => router.history.goBack())
+  }
+  const removePure = (id, callback) => {
     const bill = bill_store.getBill(id)
     api.bill.remove(id)
       .then(() => {
+        if (bill.nowAccount !== undefined) {
+          const account = bill.nowAccount
+          api.account.get(account.id)
+            .then(res => account.update(res))
+            .catch(console.log)
+        }
         bill_store.removeBill(bill)
-        router.history.goBack()
+        if(callback && typeof(callback) === 'function') {
+          callback()
+        }
       })
       .catch(console.log)
   }
@@ -79,7 +90,8 @@ const useBillAction = () => {
     getBills,
     add,
     change,
-    remove
+    remove,
+    removePure
   }
 }
 

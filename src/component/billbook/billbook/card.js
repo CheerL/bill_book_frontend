@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Card, date, Title } from '../../../common'
+import { Card, date, Title, useBillLongPress } from '../../../common'
 import { useLink } from '../../../router'
 import Context from '../../../store'
 
@@ -8,11 +8,13 @@ export const BillCard = ({ bill, space = false }) => {
   const handleClick = useLink(`/billbook/bill/detail/${bill.id}`)
   const { cat_store } = Context.useStore()
   const icon = cat_store.getCat(bill.cat_0, bill.billbook)
+  const onLongPress = useBillLongPress(bill)
 
   return Context.useConsumer(() => (
     <Card
       handleClick={handleClick}
       text={bill.cat_0}
+      onLongPress={onLongPress}
       icon={icon ? icon.icon : null}
       remark={bill.remark ? bill.remark : bill.cat_1}
       amount={bill.amount}

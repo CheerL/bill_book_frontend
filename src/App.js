@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-// import { Toast } from 'antd-mobile'
 import { SwitchRoute } from "./router";
 import Context from './store'
 import { useUserAction } from './action'
@@ -9,10 +8,11 @@ import { Account } from './component/account'
 import { Billbook } from './component/billbook'
 import { Mine } from './component/mine'
 
+import './App.css'
+
 const App = () => {
   const store = Context.useStore()
   const { login_jwt } = useUserAction()
-  // Toast.config({ duration: 1 })
   window.store = store
 
   useEffect(() => {
