@@ -2,8 +2,8 @@ import axios from 'axios'
 // import Qs from 'qs'
 
 const baseurl = {
-  dev: 'http://bill.cheerl.site:8051/api/v1',
-  product: 'http://bill.cheerl.site/api/v1',
+  dev: 'https://home.cheerl.online:9080/billbook/apidev/v1',
+  product: 'https://home.cheerl.online:9080/billbook/api/v1',
   local: 'http://localhost:5000/api/v1'
 }
 
