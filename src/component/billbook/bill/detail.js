@@ -27,7 +27,7 @@ const BillDetail = ({ match }) => {
   const rightContent = [
     {
       value: 'change', content: '修改账单', onSelect: () => {
-        router.history.push(`/billbook/bill/change/${id}`)
+        router.push(`/billbook/bill/change/${id}`)
       }
     },
     {

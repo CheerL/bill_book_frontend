@@ -6,7 +6,8 @@ import "./index.css";
 
 export const Layout = ({ children }) => {
   const router = useRouter();
-  const location = router.location.pathname.split('/')[1]
+  const location = router.location.pathname.split('/')[2]
+  console.log(location)
   const tabs = [
     { title: "账户", key: "account", icon: "wallet"},
     { title: "账本", key: "billbook", icon: "account-book" },
@@ -14,8 +15,9 @@ export const Layout = ({ children }) => {
   ];
 
   const handleTabPress = key => () => {
+    console.log(key)
     setSelected(key);
-    router.history.push(`/${key}`);
+    router.push(`/${key}`);
   };
   const [selected, setSelected] = useState(location)
 

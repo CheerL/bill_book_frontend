@@ -33,7 +33,7 @@ const useBillbookAction = () => {
         form._id = res._id
         form._updated = res._updated
         billbook_store.addBillbook(form)
-        router.history.push(`/billbook/detail/${form._id}`)
+        router.push(`/billbook/detail/${form._id}`)
       })
       .catch(console.log)
   }
@@ -50,7 +50,7 @@ const useBillbookAction = () => {
           updateDefault()
         }
         billbook.update(form)
-        router.history.push(`/billbook/detail/${id}`)
+        router.push(`/billbook/detail/${id}`)
       })
       .catch(console.log)
   }
@@ -84,7 +84,7 @@ const useBillbookAction = () => {
       api.billbook.remove(id)
         .then(() => {
           billbook_store.removeBillbook(billbook)
-          router.history.push(`/billbook/detail/${billbook_store.defaultBillbook.id}`)
+          router.push(`/billbook/detail/${billbook_store.defaultBillbook.id}`)
         })
         .catch(console.log)
     }

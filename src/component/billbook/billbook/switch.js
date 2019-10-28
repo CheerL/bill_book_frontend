@@ -17,9 +17,9 @@ const BillbookSwitch = () => {
   const handleSelect = opt => {
     const id = opt.props.value
     if (id === '+') {
-      router.history.push('/billbook/new')
+      router.push('/billbook/new')
     } else {
-      router.history.push(`/billbook/detail/${id}`)
+      router.push(`/billbook/detail/${id}`)
     }
     setVisible(false)
   }

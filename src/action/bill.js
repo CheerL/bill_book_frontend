@@ -38,7 +38,7 @@ const useBillAction = () => {
         form._updated = res._updated
         form.create_name = user.nickname
         bill_store.addBill(form)
-        router.history.push(`/billbook/detail/${form.billbook}`)
+        router.push(`/billbook/detail/${form.billbook}`)
       })
       .catch(console.log)
   }

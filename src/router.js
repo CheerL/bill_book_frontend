@@ -1,12 +1,16 @@
 import React from 'react'
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
+import { BrowserRouter, Route, Switch, Redirect as DomRedirect } from 'react-router-dom'
 
+
+const prefix = '/billbook'
 const RouterContext = React.createContext()
+
+export const Redirect = ({key, to}) => <DomRedirect key={key} to={prefix + to} />
 
 export const SwitchRoute = ({router_map}) => {
   return <Switch>
     {router_map.map((route, index) => route.component ?
-      <Route key={index} path={route.path} component={route.component} exact={route.exact} /> :
+      <Route key={index} path={prefix + route.path} component={route.component} exact={route.exact} /> :
       <Redirect key={index} to={route.path} />
     )}
   </Switch>
@@ -15,24 +19,26 @@ export const SwitchRoute = ({router_map}) => {
 export const Router = ({ children }) => (
   <BrowserRouter>
     <Route>
-      {(props) => (
-        <RouterContext.Provider value={props}>
+      {(router) => {
+        router.push = path => router.history.push(prefix + path)
+        return <RouterContext.Provider value={router}>
           {children}
         </RouterContext.Provider>
-      )}
+      }}
     </Route>
   </BrowserRouter>
 )
 
 export const useRouter = () => {
-  return React.useContext(RouterContext)
+  const router = React.useContext(RouterContext)
+  return router
 }
 
 export const useLink = path => {
   const router = useRouter()
   const handleLink = () => {
     if (path) {
-      router.history.push(path)
+      router.push(path)
     } else {
       router.history.goBack()
     }

@@ -35,7 +35,7 @@ const CatSelect = ({ value, onChange, children, data, onLongPress, noAdd = false
     onLongPress = dataItem => () => Modal.operation([
       {
         text: '修改分类', onPress: () => {
-          router.history.push(
+          router.push(
             `/billbook/cat/change/${billbook}/${dataItem.text}`
           )
         }
@@ -54,7 +54,7 @@ const CatSelect = ({ value, onChange, children, data, onLongPress, noAdd = false
     if (obj.text !== '新建分类') {
       onChange(obj.text)
     } else {
-      router.history.push('/billbook/cat/new')
+      router.push('/billbook/cat/new')
     }
   }
 

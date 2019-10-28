@@ -44,7 +44,7 @@ const MineIndex = () => {
         <WhiteSpace style={{ backgroundColor: '#f5f5f9' }} />
         <List.Item
           arrow='horizontal'
-          // onClick={() => router.history.push('/mine/setting')}
+          // onClick={() => router.push('/mine/setting')}
         >设置</List.Item>
         <WhiteSpace style={{ backgroundColor: '#f5f5f9' }} />
         <List.Item arrow='horizontal' onClick={logoutFunc}>

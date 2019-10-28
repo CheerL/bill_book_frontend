@@ -59,7 +59,7 @@ const useAccountAction = () => {
         form._id = res._id
         form._updated = res._updated
         account_store.addAccount(form)
-        router.history.push(`/account`)
+        router.push(`/account`)
       })
       .catch(console.log)
   }

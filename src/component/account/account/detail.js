@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react'
 import { WingBlank } from 'antd-mobile'
-import { Redirect } from 'react-router-dom'
 
 import Context from '../../../store'
-import { useRouter } from '../../../router'
+import { useRouter, Redirect } from '../../../router'
 import { Bar, Remarked, Title, AccountHead, colorSpan, BottomButton, Iconed } from '../../../common'
 import { useAccountAction } from '../../../action'
 import { AccountDetailCard } from '../card'
@@ -29,7 +28,7 @@ const AccountDetail = ({ match }) => {
 
   const rightContent = [{
     value: 'change', content: '修改账户', onSelect: () => {
-      router.history.push(`/account/change/${id}`)
+      router.push(`/account/change/${id}`)
     }
   }]
   const undefaultContent = [{
@@ -59,7 +58,7 @@ const AccountDetail = ({ match }) => {
           bill => <AccountDetailCard bill={bill} key={bill.id} space />
         )}
       </WingBlank>
-      <BottomButton onClick={() => router.history.push('/account/transfer/new')} >
+      <BottomButton onClick={() => router.push('/account/transfer/new')} >
         发起转账
       </BottomButton>
     </>

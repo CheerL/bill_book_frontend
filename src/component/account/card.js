@@ -4,7 +4,7 @@ import { useLink } from '../../router'
 import Context from '../../store'
 
 export const AccountCard = ({ account, space = false }) => {
-  const handleClick = useLink(`account/detail/${account.id}`)
+  const handleClick = useLink(`/account/detail/${account.id}`)
   const onLongPress = useAccountLongPress(account)
 
   return Context.useConsumer(() => (

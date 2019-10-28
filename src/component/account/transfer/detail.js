@@ -23,7 +23,7 @@ const TransferDetail = ({ match }) => {
   const rightContent = [
     {
       value: 'change', content: '修改转账', onSelect: () => {
-        router.history.push(`/account/transfer/change/${id}`)
+        router.push(`/account/transfer/change/${id}`)
       }
     },
     {

@@ -20,7 +20,7 @@ export const UserBox = ({ children, links, title }) => {
             key={index}
             size='small'
             className='user-link'
-            onClick={() => router.history.push(path)}>{text}</Button>
+            onClick={() => router.push(path)}>{text}</Button>
         ))}
       </Flex>
     </Flex>

@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react'
 import { Icon } from 'antd'
 import { WingBlank } from 'antd-mobile'
-import { Redirect } from 'react-router-dom'
 
 import Context from '../../../store'
-import { useRouter, useLink } from '../../../router'
+import { useRouter, useLink, Redirect } from '../../../router'
 import { Bar, colorSpan } from '../../../common'
 import { useBillbookAction, useCatAction, useRelationAction } from '../../../action'
 import { Layout } from '../../layout'
@@ -72,10 +71,10 @@ const BillbookDetailView = ({ billbook }) => {
     null :
     [{
       value: 'info', content: '账本资料',
-      onSelect: () => router.history.push(`/billbook/info/${billbook.id}`)
+      onSelect: () => router.push(`/billbook/info/${billbook.id}`)
     }, {
       value: 'change', content: '修改账本',
-      onSelect: () => router.history.push(`/billbook/change/${billbook.id}`)
+      onSelect: () => router.push(`/billbook/change/${billbook.id}`)
     }].concat(billbook.default ?
       [] :
       [{

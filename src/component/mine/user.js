@@ -13,7 +13,7 @@ const UserDetail = () => {
     {
       value: 'change', content: '修改用户',
       onSelect: () => {
-        router.history.push('/mine/change')
+        router.push('/mine/change')
       }
     },
     {
