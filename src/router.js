@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 
+const prefix = '/billbook'
 const RouterContext = React.createContext()
 
 export const SwitchRoute = ({router_map}) => {
@@ -13,7 +14,7 @@ export const SwitchRoute = ({router_map}) => {
 }
 
 export const Router = ({ children }) => (
-  <BrowserRouter>
+  <BrowserRouter basename={prefix}>
     <Route>
       {(props) => (
         <RouterContext.Provider value={props}>
