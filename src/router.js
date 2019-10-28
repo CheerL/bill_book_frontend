@@ -16,8 +16,8 @@ export const SwitchRoute = ({router_map}) => {
 export const Router = ({ children }) => (
   <BrowserRouter basename={prefix}>
     <Route>
-      {(props) => (
-        <RouterContext.Provider value={props}>
+      {(router) => (
+        <RouterContext.Provider value={router}>
           {children}
         </RouterContext.Provider>
       )}
