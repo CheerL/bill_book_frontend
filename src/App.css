@@ -1,4 +1,8 @@
 body {
     font-family: 'Microsoft YaHei';
     font-weight: normal;
+    overscroll-behavior-y:contain;
+}
+*:not(input):not(textarea) {
+    user-select: none;
 }
