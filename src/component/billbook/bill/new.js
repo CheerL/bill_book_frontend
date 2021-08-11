@@ -29,12 +29,7 @@ const NewBill = () => {
 
   useEffect(() => {
     setFieldsValue({
-      amount: '0',
-      account: [account.id],
-      billbook: [billbook.id],
-      payer: username,
-      consumer: username,
-      time: date.now_date(),
+      cat_0: cat_store.filterByBillbook(billbook.id)[0]?.text,
     })
     // eslint-disable-next-line
   }, [])
@@ -51,15 +46,15 @@ const NewBill = () => {
         null
       }
       <List className='padding-bottom'>
-        {getFieldDecorator('direction')(
+        {getFieldDecorator('direction', {initialValue: false})(
           <Select data={[{ value: false, label: '支出' }, { value: true, label: '收入' }]} />
         )}
-        {getFieldDecorator('time')(
+        {getFieldDecorator('time', {initialValue: date.now_date()})(
           <DatePicker mode='date' title='选择日期' >
             <List.Item arrow="horizontal">时间</List.Item>
           </DatePicker>
         )}
-        {getFieldDecorator("amount")(
+        {getFieldDecorator("amount", {initialValue: '0'})(
           <MoneyInput>金额</MoneyInput>
         )}
         {getFieldDecorator("cat_0")(
@@ -71,17 +66,17 @@ const NewBill = () => {
           </InputItem>
         )}
 
-        {getFieldDecorator("payer")(
+        {getFieldDecorator("payer", {initialValue: username})(
           <InputItem type="text" placeholder="付款者" defaultValue=''>
             付款者
           </InputItem>
         )}
-        {getFieldDecorator("consumer")(
+        {getFieldDecorator("consumer", {initialValue: username})(
           <InputItem type="text" placeholder="消费者" defaultValue=''>
             消费者
           </InputItem>
         )}
-        {getFieldDecorator('billbook')(
+        {getFieldDecorator('billbook', {initialValue: [billbook.id]})(
           <Picker
             cols={1}
             data={object_map(
@@ -91,7 +86,7 @@ const NewBill = () => {
             <List.Item arrow="horizontal">所属账本</List.Item>
           </Picker>
         )}
-        {getFieldDecorator('account')(
+        {getFieldDecorator('account', {initialValue: [account.id]})(
           <Picker
             cols={1}
             data={object_map(account_store.accounts,

@@ -6,13 +6,15 @@ import cat from './cat'
 import relation from './relation'
 import Axios from './axios'
 
-const continueGet = (func, res) => {
+const continueGet = (func, res, callback, args) => {
   if (res._items.length === res._meta.max_results) {
       const next = res._links.next.href
       Axios.get(`/${next}`)
         .then(func)
         .catch(console.log)
-    }
+  } else if (callback) {
+    callback(args ? args : null)
+  }
 }
 
 export default {

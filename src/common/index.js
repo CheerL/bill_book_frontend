@@ -14,6 +14,7 @@ import date from './date'
 import useLongPress, { useBillLongPress, useTransferLongPress, useAccountLongPress } from './long_press'
 import useErrorHandle from './error'
 import { debounce } from './debounce'
+import { isString, longStringCut } from './string'
 
 export {
     date,
@@ -40,5 +41,7 @@ export {
     useBillLongPress,
     useTransferLongPress,
     useAccountLongPress,
-    useErrorHandle
+    useErrorHandle,
+    isString,
+    longStringCut
 }

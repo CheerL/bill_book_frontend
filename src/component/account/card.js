@@ -43,7 +43,7 @@ const BillCard = ({ bill, space = false }) => {
     <Card
       onLongPress={onLongPress}
       handleClick={handleClick}
-      icon={icon ? icon.icon : null}
+      icon={icon ? icon.icon : 'wenhao'}
       text={bill.cat_0}
       remark={billbook.name}
       amount={bill.amount}

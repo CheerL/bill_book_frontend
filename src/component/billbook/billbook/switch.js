@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { Icon } from 'antd'
+import { CaretDownOutlined } from '@ant-design/icons'
 import { Popover } from 'antd-mobile'
 
 import Context from '../../../store'
 import { useRouter } from '../../../router'
-import { Remarked, Iconed } from '../../../common'
+import { Remarked, Iconed, longStringCut } from '../../../common'
 import { object_map } from '../../../common/object'
 
 import './switch.css'
@@ -19,9 +19,25 @@ const BillbookSwitch = () => {
     if (id === '+') {
       router.history.push('/billbook/new')
     } else {
-      router.history.push(`/billbook/detail/${id}`)
+      const billbook = store.billbook_store.getBillbook(id)
+      if (billbook) {
+        router.history.push(`/billbook/detail/${id}`)
+        store.current.billbook = billbook
+      }
     }
     setVisible(false)
+  }
+  const textCreater = () => {
+    const currentBillbook = store.current.billbook
+    return currentBillbook ? (
+      store.current.isDefaultBillbook ?
+        <Iconed icon='star' theme='filled' text={currentBillbook.name} />:
+        currentBillbook.name) :
+      ''
+  }
+  const remarkCreater = () => {
+    const currentBillbook = store.current.billbook
+    return currentBillbook ? longStringCut(currentBillbook.remark, 6) : ''
   }
 
   return Context.useConsumer(() => (
@@ -50,18 +66,15 @@ const BillbookSwitch = () => {
     >
       <div className={`billbook-switch-title${visible ? ' active' : ''}`} onClick={() => setVisible(true)} >
         <Remarked
-          text={store.current.isDefaultBillbook ?
-            <Iconed icon='star' theme='filled' text={store.current.billbook.name} />:
-            store.current.billbook.name
-          }
-          remark={
-            (store.current.billbook.remark && store.current.billbook.remark.length >= 7) ?
-              store.current.billbook.remark.slice(0, 6) + '...' :
-              store.current.billbook.remark
-          }
+          // text={store.current.isDefaultBillbook ?
+          //   <Iconed icon='star' theme='filled' text={store.current.billbook?.name} />:
+          //   store.current.billbook?.name
+          // }
+          text={textCreater()}
+          remark={remarkCreater()}
           position='center'
         />
-        <Icon type="caret-down" className='billbook-switch-downicon' />
+        <CaretDownOutlined className='billbook-switch-downicon'/>
       </div>
     </Popover>
   ))

@@ -50,7 +50,7 @@ const AccountDetail = ({ match }) => {
           remark={account.remark}
           position='center'
         />}
-        rightContent={rightContent.concat(account.default ? [] : undefaultContent)}
+        rightContent={account.default ? rightContent.concat(undefaultContent) : rightContent}
       />
       <AccountHead text='账户余额' amount={account.amount} />
       <WingBlank className='padding-bottom'>

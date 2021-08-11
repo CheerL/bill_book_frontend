@@ -14,7 +14,7 @@ const NewCat = () => {
   const data = Object.keys(iconDict).map(icon => ({
     icon: icon,
     text: icon
-  }))
+  })).filter(icon => icon.icon !== 'wenhao' && icon.icon !== 'add')
   const handleSubmit = e => {
     e.preventDefault();
     validateFields()

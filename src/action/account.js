@@ -80,6 +80,7 @@ const useAccountAction = () => {
       .catch(console.log)
   }
   const changeDefault = id => {
+    console.log(id)
     const account = account_store.getAccount(id)
     const form = { 'default': true }
     if (!account.default) {

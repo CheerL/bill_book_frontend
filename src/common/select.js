@@ -2,14 +2,6 @@ import React from 'react'
 import { Button } from 'antd-mobile'
 
 const Select = ({ data, value, onChange }) => {
-  if (!onChange) {
-    onChange = newValue => {
-      value = newValue
-    }
-  }
-  if (value === undefined || value === null) {
-    onChange(data[0].value)
-  }
   return <div className='am-list-item am-list-item-middle'>
     <div className='am-list-line' style={{paddingRight: '16px'}}>
       {data.map((item, index) =>
@@ -18,7 +10,7 @@ const Select = ({ data, value, onChange }) => {
           size='small'
           style={{flex: '1 1', maxWidth: '120px', margin: 'auto'}}
           key={index}
-          type={item.value === value ? 'primary' : 'ghost'}
+          type={(item.value === value) ? 'primary' : 'ghost'}
           onClick={e => {
             e.preventDefault()
             onChange(item.value)

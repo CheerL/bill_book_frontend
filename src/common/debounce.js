@@ -1,7 +1,8 @@
 export const debounce = (func, wait=500) => {
-    let timeout;  // 定时器变量
+    let timer
     return args => {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func(args), wait);
+        if (timer) clearTimeout(timer)
+        timer = setTimeout(() => func(args), wait)
+        // return timer
     };
 }

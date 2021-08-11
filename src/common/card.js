@@ -11,7 +11,7 @@ const Card = ({ text, remark, amount, handleClick, onLongPress, context, icon, s
   const cardContext = context ?
     <div className='card-center'>{context}</div> :
     <>
-      {icon ? <Icon type={icon} className='card-icon' /> : null}
+      {icon ? <Icon type={ icon} className='card-icon' /> : null}
       <Remarked text={text} remark={remark} position='left' />
       <div className="card-amount">
         {amount.toString()}

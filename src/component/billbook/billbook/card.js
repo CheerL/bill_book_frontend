@@ -15,7 +15,7 @@ export const BillCard = ({ bill, space = false }) => {
       handleClick={handleClick}
       text={bill.cat_0}
       onLongPress={onLongPress}
-      icon={icon ? icon.icon : null}
+      icon={icon ? icon.icon : 'wenhao'}
       remark={bill.remark ? bill.remark : bill.cat_1}
       amount={bill.amount}
       space={space}

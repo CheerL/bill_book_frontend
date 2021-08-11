@@ -9,12 +9,19 @@ const useBillAction = () => {
   const router = useRouter()
 
   const afterGetBills = res => {
+    if (!current.loading.bill) {
+      current.loading.bill = true
+    }
     bill_store.update(res._items)
-    api.continueGet(afterGetBills, res)
+    api.continueGet(afterGetBills, res, () => {
+      current.loading.bill = false
+    })
   }
 
   const getBills = () => {
-    // current.loaded.bill = false
+    if (!current.loading.bill) {
+      current.loading.bill = true
+    }
     api.bill.get()
       .then(afterGetBills)
       .catch(console.log)

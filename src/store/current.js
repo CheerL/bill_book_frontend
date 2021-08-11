@@ -10,6 +10,9 @@ const Current = {
     cat: false,
     relation: false,
   },
+  loading: {
+    bill: false
+  },
 
   get isRender() {
     for (let key in this.loaded) {

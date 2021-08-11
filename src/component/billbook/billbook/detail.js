@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Icon } from 'antd'
+import { PlusOutlined } from '@ant-design/icons'
 import { WingBlank } from 'antd-mobile'
 import { Redirect } from 'react-router-dom'
 
@@ -10,7 +10,7 @@ import { useBillbookAction, useCatAction, useRelationAction } from '../../../act
 import { Layout } from '../../layout'
 
 import BillbookSwitch from './switch'
-import BillList from './listview'
+import { BillList } from './listview'
 
 const AddBillButton = () => {
   const handleClick = useLink('/billbook/bill/new')
@@ -19,7 +19,7 @@ const AddBillButton = () => {
       e.preventDefault()
       handleClick()
     }}>
-      <Icon type='plus' className='billbook-add-button-icon' />
+      <PlusOutlined  className='billbook-add-button-icon'/>
     </div>
   )
 }
@@ -66,7 +66,7 @@ const BillbookDetailView = ({ billbook }) => {
   const { getCats } = useCatAction()
   const { getRelation } = useRelationAction()
   const router = useRouter()
-  current.billbook = billbook
+  
 
   const rightContent = billbook.id === 'default' ?
     null :
@@ -87,6 +87,12 @@ const BillbookDetailView = ({ billbook }) => {
       }])
 
   useEffect(() => {
+    if (current.billbook !== billbook) {
+      current.billbook = billbook
+    }
+  }, [billbook])
+
+  useEffect(() => {
     const id = billbook.id
     if (id && id !== 'default') {
       getCats(id)
@@ -99,27 +105,11 @@ const BillbookDetailView = ({ billbook }) => {
     <>
       <Bar title={<BillbookSwitch />} left={false} rightContent={rightContent} />
       <WingBlank>
-        <BillList style={{
-          height: document.documentElement.clientHeight - 100,
-        }} />
+        <BillList/>
       </WingBlank>
       {billbook.id !== 'default' ? <AddBillButton /> : <></>}
     </>
   )
 }
-
-// const BillList = () => {
-//   const store = Context.useStore()
-//   return Context.useConsumer(() => (
-//     Object.keys(store.billsGroupbyDay)
-//       .map(Number)
-//       .sort((a, b) => b - a)
-//       .map(day => (
-//         <DayBillCardList
-//           bills={store.billsGroupbyDay[day]}
-//           day={day} key={day}
-//         />
-//       ))))
-// }
 
 export default BillbookDetail

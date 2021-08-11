@@ -30,7 +30,7 @@ const BasicHead = ({ title, extra, icon, className, titlaClassName, extraClassNa
 }
 
 export const DetailHead = ({ text, amount, icon, onClick }) => {
-  const detialIcon = icon ? <Icon type={icon} className='detail-head-icon' /> : null
+  const detialIcon = <Icon type={icon ? icon : 'wenhao'} className='detail-head-icon' />
   return BasicHead({ title: text, icon: detialIcon, extra: amount.toString(), extraClassName: 'detail-head-amount', onClick })
 }
 

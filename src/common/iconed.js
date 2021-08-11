@@ -1,10 +1,17 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { PlusOutlined, StarFilled, StarOutlined } from '@ant-design/icons'
 import './iconed.css'
+
+const iconMap = {
+    'plus': PlusOutlined,
+    'star': StarOutlined,
+    'starfilled': StarFilled
+}
 
 const Iconed = ({ icon, theme, text, className, iconClassName, textClassName, right = false, position = 'center' }) => {
     const withSpace = text => text ? ` ${text}` : ''
-    const iconElement = <Icon key='icon' type={icon} theme={theme} className={`iconed-icon${withSpace(iconClassName)}`} />
+    const IconType = iconMap[icon + (theme ? theme : '')]
+    const iconElement = IconType ? <IconType key='icon' className={`iconed-icon${withSpace(iconClassName)}`} /> : null
     const textElement = <span key='text' className={`iconed-text${withSpace(textClassName)}`}>{text}</span>
     return (
         <div className={`iconed-box${withSpace(className)}`} style={{justifyContent: position}}>

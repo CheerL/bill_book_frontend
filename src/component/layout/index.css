@@ -15,6 +15,9 @@
 .layout-icon-selected {
   color: #108ee9
 }
+.layout-icon-selected#icon-billbook{
+  display: none;
+}
 
 .am-tab-bar {
   height: auto;

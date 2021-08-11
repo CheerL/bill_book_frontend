@@ -2,8 +2,8 @@ import axios from 'axios'
 // import Qs from 'qs'
 
 const baseurl = {
-  dev: 'https://home.cheerl.online:9080/billbook/apidev/v1',
-  product: 'https://home.cheerl.online:9080/billbook/api/v1',
+  dev: 'https://home.cheerl.space:9080/billbook/apidev/v1',
+  product: 'https://home.cheerl.space:9080/billbook/api/v1',
   local: 'http://localhost:5000/api/v1'
 }
 
@@ -29,7 +29,7 @@ const handleError = (status, other) => {
 
 const Axios = axios.create({
   timeout: 1000 * 30,
-  baseURL: process.env.NODE_ENV === 'development' ? baseurl.dev : baseurl.product,
+  baseURL: process.env.NODE_ENV !== 'development' ? baseurl.dev : baseurl.product,
   responseType: 'json',
   withCredentials: true,
   headers: {

@@ -1,11 +1,11 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { createFromIconfontCN } from '@ant-design/icons'
 import typeDict from './type'
 
 
-const url = '//at.alicdn.com/t/font_1379033_565jofmkv0b.js'
+const url = '//at.alicdn.com/t/font_1379033_xhlfwfv9von.js'
 
-const MyBaseIcon = Icon.createFromIconfontCN({
+const MyBaseIcon = createFromIconfontCN({
     scriptUrl: url
 })
 

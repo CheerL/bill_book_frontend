@@ -54,7 +54,8 @@ const typeDict = {
     'transfer': 'icon-zhuanzhang',
     'ballon': 'icon-lvhang',
     'ship': 'icon-chuan',
-    'add': 'icon-add'
+    'add': 'icon-add',
+    'wenhao': 'icon-wenhao'
 }
 
 export default typeDict

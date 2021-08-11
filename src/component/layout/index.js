@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { TabBar } from "antd-mobile";
-import { Icon } from 'antd'
+import { WalletOutlined, AccountBookOutlined, UserOutlined } from '@ant-design/icons'
 import { useRouter } from "../../router";
 import "./index.css";
 
@@ -8,9 +8,9 @@ export const Layout = ({ children }) => {
   const router = useRouter();
   const location = router.location.pathname.split('/')[1]
   const tabs = [
-    { title: "账户", key: "account", icon: "wallet"},
-    { title: "账本", key: "billbook", icon: "account-book" },
-    { title: "我的", key: "mine", icon: "user" }
+    { title: "账户", key: "account", icon: WalletOutlined},
+    { title: "账本", key: "billbook", icon: AccountBookOutlined },
+    { title: "我的", key: "mine", icon: UserOutlined }
   ];
 
   const handleTabPress = key => () => {
@@ -25,8 +25,8 @@ export const Layout = ({ children }) => {
         <TabBar.Item
           title={tab.title}
           key={tab.key}
-          icon={<Icon type={tab.icon} className='layout-icon'/>}
-          selectedIcon={<Icon type={tab.icon} className='layout-icon layout-icon-selected'/>}
+          icon={<tab.icon className='layout-icon'/>}
+          selectedIcon={<tab.icon id={`icon-${tab.key}`} className='layout-icon layout-icon-selected'/>}
           onPress={handleTabPress(tab.key)}
           selected={selected === tab.key}
         >

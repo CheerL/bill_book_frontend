@@ -73,10 +73,10 @@ export const useAccountLongPress = account => {
   }]
   const undefaultContent = [{
     text: '设为默认',
-    onSelect: () => changeDefault(account.id)
+    onPress: () => changeDefault(account.id)
   }, {
     text: colorSpan('删除账户', 'red'),
-    onSelect: () => remove(account.id)
+    onPress: () => remove(account.id)
   }]
 
   const onLongPress = () => Modal.operation(account.default ? content : content.concat(undefaultContent))
