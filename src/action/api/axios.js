@@ -29,7 +29,7 @@ const handleError = (status, other) => {
 
 const Axios = axios.create({
   timeout: 1000 * 30,
-  baseURL: process.env.NODE_ENV !== 'development' ? baseurl.dev : baseurl.product,
+  baseURL: process.env.NODE_ENV === 'development' ? baseurl.dev : baseurl.product,
   responseType: 'json',
   withCredentials: true,
   headers: {
