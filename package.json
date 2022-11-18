@@ -22,7 +22,7 @@
     "react-loading": "^2.0.3",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "^3.4.1",
+    "react-scripts": "^5.0.1",
     "react-sticky": "^6.0.3",
     "react-virtualized": "^9.21.2",
     "react-virtualized-auto-sizer": "^1.0.2",
